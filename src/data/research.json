@@ -1,0 +1,9 @@
+{
+    "flint_knapping": {
+        "time": 10,
+        "stamina": 10,
+        "items": {
+            "flint": 4
+        }
+    }
+}

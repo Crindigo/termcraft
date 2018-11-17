@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body, input {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+}
+
+.wrap {
+    position: absolute;
+    height: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+.left {
+    width: 256px;
+    margin-right: 12px;
+    float: left;
+    height: 100%;
+}
+
+.left nav {
+    margin-bottom: 2px;
+}
+
+.left #filter {
+    margin-top: 5px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    width: 254px;
+}
+
+.left h1 {
+    font-size: 20px;
+    line-height: 20px;
+    margin: 0 0 10px 0;
+}
+
+.left .leftcontent {
+    overflow-y: scroll;
+    padding: 3px;
+    height: 400px;
+}
+
+.leftcontent ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.leftcontent ul li {
+    line-height: 18px;
+    padding: 0 2px;
+}
+.leftcontent ul li:hover {
+    background: #d8f6ff !important;
+}
+.leftcontent ul li span.meta {
+    float: right;
+}
+.leftcontent ul li:nth-child(2n) {
+    background: #f4f4f4;
+}
+
+span.item.bold {
+    font-weight: bold;
+}
+
+span.progress, span.crafting {
+    display: block;
+    white-space: pre-wrap;
+}
+
+.leftcontent .nano-content {
+    padding-right: 12px;
+}
+
+.right {
+    float: left;
+    width: 736px;
+    height: 100%;
+}
+
+.console {
+    border: 1px solid #bbb;
+    width: 720px;
+    border-bottom: none;
+    overflow-y: scroll;
+}
+
+.console .line {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+.console .line.user {
+    font-weight: bold;
+    background: #e4f0ff;
+}
+.console .line.story {
+    font-style: italic;
+}
+.console .line.tip {
+    font-weight: bold;
+    background: #e4fff0;
+}
+.console .line.error {
+    background: #ffe4e4;
+    color: #800;
+}
+
+.console .nano-content {
+    padding: 3px 12px 3px 3px;
+}
+
+#command {
+padding: 3px;
+width: 730px;
+font-size: 12px;
+border: 1px solid #bbb;
+border-top: none;
+background: #eee;
+}

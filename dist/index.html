@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<title>termfactory</title>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div class="wrap">
+
+<div class="left" id="left-app">
+<h1>termfactory v0.1.0</h1>
+<nav>
+<a href="#">Status</a> | <a href="#">Inventory</a> | <a href="#">Devices</a>
+<input type="text" id="filter" placeholder="Filter" v-model="invFilter">
+</nav>
+
+<!--
+width: 34 total
+22 + space + 7 for qty + space + 3 char
+-->
+<div class="leftcontent nano">
+<div class="nano-content">
+<ul>
+    <li v-for="item in filteredInventory">
+        <span class="item">{{ item.name }}</span><span class="meta" :title="item.qty | fmtqty">{{item.qty | shortnum}}</span>
+    </li>
+    <!--
+    <li><span class="item bold">propane grill</span><span class="meta">fuel: 90</span>
+        <span class="crafting">&gt; hamburger patty</span>
+        <span class="progress">[===============76%======-       ]</span></li>
+    <li><span class="item bold">pebble bed reactor</span><span class="meta"><a href="#">turn off</a></span>
+        <span class="crafting">&gt; -4.3 water/s</span>
+        <span class="crafting">&gt; -0.03 triso pellet/s</span>
+        <span class="crafting">&gt; +21.5 power/s</span></li>
+    <li><span class="item bold">water pump</span>
+        <span class="crafting">&gt; -0.2 power/s</span>
+        <span class="crafting">&gt; +10 water/s</span></li>
+    <li><span class="item bold">x-class shipyard</span>
+        <span class="crafting">&gt; world ship "avalon"</span>
+        <span class="progress">[===========-  33%               ]</span></li>
+    <li><span class="item bold">dyson sphere</span>
+        <span class="crafting">&gt; Constructing</span>
+        <span class="progress">[========-     26%               ]</span></li>
+    -->
+</ul>
+</div>
+</div>
+
+</div>
+
+<div class="right">
+    <div class="console nano">
+    <div class="nano-content">
+<div class="line story">&gt; You arise suddenly, unnaturally, your heart racing as you struggle to process the visions before
+&gt; your own eyes. A vast, empty landscape lies before you, on a world seemingly untouched by any
+&gt; intelligent life. It has to be a dream, but the growing feeling of hunger is all too real...</div>
+<div class="line tip">Tip: Use "?" or "help"</div>
+    </div>
+    </div>
+    <div class="input">
+        <input type="text" id="command" placeholder="[user@termcraft]$" maxlength="100">
+    </div>
+</div>
+
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
