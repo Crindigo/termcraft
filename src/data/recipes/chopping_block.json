@@ -1,0 +1,14 @@
+{
+    "small_plank": {
+        "device": "tag:chopping_block",
+        "time": 5,
+        "stamina": 2,
+        "input": {
+            "wood": 1,
+            "tag:axe[1,)": 1
+        },
+        "output": {
+            "small_plank": 2
+        }
+    }
+}

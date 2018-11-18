@@ -1,0 +1,32 @@
+{
+    "//": "Support items increase the stamina regeneration rate by improving morale.",
+    "//": "Duplicates are allowed, but the effectiveness is 1 + log(count) so it diminishes.",
+    "//": "They do not use land, and are activated once crafted.",
+
+    "thatch_bed": {
+        "name": "thatch bed",
+        "support": true,
+        "regen": 0.1
+    },
+    "mud_hut": {
+        "name": "mud hut",
+        "support": true,
+        "regen": 1.0
+    },
+    "adobe_hut": {
+        "name": "adobe hut",
+        "support": true,
+        "regen": 3.0
+    },
+
+    "christmas_tree": {
+        "name": "christmas tree",
+        "support": true,
+        "regen": 5.0
+    },
+    "christmas_ornament": {
+        "name": "christmas ornament",
+        "support": true,
+        "regen": 0.5
+    }
+}

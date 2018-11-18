@@ -2,7 +2,6 @@
     "flint_handaxe": {
         "device": "hand",
         "time": 5,
-        "research": ["flint_knapping"],
         "stamina": 5,
         "input": {
             "flint": 2
@@ -12,14 +11,25 @@
         }
     },
 
+    "wood_chopping_block": {
+        "device": "hand",
+        "time": 15,
+        "stamina": 10,
+        "input": {
+            "wood": 10
+        },
+        "output": {
+            "wood_chopping_block": 1
+        }
+    },
+
     "brick_former": {
         "device": "hand",
         "time": 30,
-        "research": ["construction_1"],
         "stamina": 20,
         "input": {
             "stone": 20,
-            "small plank": 10
+            "small_plank": 10
         },
         "output": {
             "brick_former": 1

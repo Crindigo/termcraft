@@ -22,7 +22,8 @@ width: 34 total
 <div class="nano-content">
 <ul>
     <li v-for="item in filteredInventory">
-        <span class="item">{{ item.name }}</span><span class="meta" :title="item.qty | fmtqty">{{item.qty | shortnum}}</span>
+        <span class="item clickable" @click="itemClick(item)">{{ item.name }}</span>
+        <span class="meta" :title="item.qty | fmtqty">{{item.qty | shortnum}}</span>
     </li>
     <!--
     <li><span class="item bold">propane grill</span><span class="meta">fuel: 90</span>
@@ -58,7 +59,8 @@ width: 34 total
     </div>
     </div>
     <div class="input">
-        <input type="text" id="command" placeholder="[user@termcraft]$" maxlength="100">
+        <div id="ps1">home$</div>
+        <input type="text" id="command">
     </div>
 </div>
 

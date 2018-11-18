@@ -1,0 +1,23 @@
+{
+    "flint_handaxe": {
+        "name": "flint handaxe",
+        "tool": true,
+        "breakChance": 0.05,
+        "tags": ["chisel"],
+        "level": 1
+    },
+    "flint_spade": {
+        "name": "flint spade",
+        "tool": true,
+        "breakChance": 0.05,
+        "tags": ["shovel"],
+        "level": 1
+    },
+    "flint_hatchet": {
+        "name": "flint hatchet",
+        "tool": true,
+        "breakChance": 0.05,
+        "tags": ["axe"],
+        "level": 1
+    }
+}

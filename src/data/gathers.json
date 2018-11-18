@@ -1,0 +1,61 @@
+{
+    "//": "HAND ITEMS",
+
+    "flint": {
+        "tools": {
+            "hand": 20,
+            "tag:pick[1,)": 40
+        }
+    },
+    "stick": {
+        "tools": {
+            "hand": 20,
+            "tag:axe[1,)": 40
+        }
+    },
+    "plant_fiber": {
+        "tools": {
+            "hand": 10,
+            "tag:axe[1,)": 20
+        }
+    },
+    "wild_berry": {
+        "tools": {
+            "hand": 10
+        }
+    },
+
+    "//": "SHOVEL ITEMS",
+
+    "dirt": {
+        "tools": {
+            "tag:shovel[1,2)": 30,
+            "tag:shovel[2,)": 40
+        }
+    },
+    "sand": {
+        "tools": {
+            "tag:shovel[1,)": 20
+        }
+    },
+    "gravel": {
+        "tools": {
+            "tag:shovel[1,)": 20
+        }
+    },
+    "clay": {
+        "tools": {
+            "tag:shovel[1,)": 10
+        }
+    },
+
+    "//": "AXE ITEMS",
+
+    "wood": {
+        "tools": {
+            "tag:axe[1,)": 25
+        }
+    },
+
+    "//": "PICK ITEMS"
+}

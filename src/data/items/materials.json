@@ -1,0 +1,27 @@
+{
+    "flint": {
+        "name": "flint"
+    },
+    "stick": {
+        "name": "stick"
+    },
+    "plant_fiber": {
+        "name": "plant fiber",
+        "tags": ["binding"]
+    },
+    "dirt": {
+        "name": "dirt"
+    },
+    "sand": {
+        "name": "sand"
+    },
+    "gravel": {
+        "name": "gravel"
+    },
+    "clay": {
+        "name": "clay"
+    },
+    "wood": {
+        "name": "wood"
+    }
+}

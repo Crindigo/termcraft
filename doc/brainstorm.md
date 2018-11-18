@@ -4,7 +4,9 @@ You have one base. Infinite inventory. Many types of resources. One type of
 power. Actions are limited by stamina. It slowly recovers over time, but
 eating food makes it recover faster. Sleeping also recovers while locking the
 console, and can be improved with better conditions (bed, house, etc.). As you
-eat and sleep, the stamina cap increases.
+eat and sleep, the stamina cap increases. Maybe instead of sleep, just building
+certain structures improves stamina regeneration. Food can give instant stamina
+and slightly raise the cap.
 
 # Commands
 
@@ -33,6 +35,10 @@ A device is something that can take input and give output after a period of
 time. Like a simple furnace could take 1 charcoal + 1 raw beef and give 1 
 cooked beef after 30 seconds. An electric furnace would only need raw beef, but 
 require a constant 5 power/second to operate.
+
+When crafting a device, land is checked and allocated at the start of crafting.
+When crafting is finished, the device is added to the base. Dismantling the
+device optionally gives back some raw materials.
 
 Current system involves put/take, but I wonder if instead we do something
 like the following:
@@ -128,7 +134,7 @@ $ recipes brick dryer
   - plant fiber
 
 - concrete brick (20 minutes)
-  - slaked lime
+  - slaked lime (note: cook chalk for quicklime, add water for slaked lime)
   - sand
   - gravel
 

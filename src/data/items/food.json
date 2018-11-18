@@ -1,0 +1,27 @@
+{
+    "wild_berry": {
+        "name": "wild berry",
+        "tags": ["berry", "fruit"],
+        "edible": true,
+        "time": 1,
+        "stamina": 5,
+        "staminaCap": 0.05
+    },
+
+    "flatbread": {
+        "name": "flatbread",
+        "tags": ["pastry"],
+        "edible": true,
+        "time": 4,
+        "stamina": 10,
+        "staminaCap": 0.1
+    },
+
+    "steak_dinner": {
+        "name": "steak dinner",
+        "edible": true,
+        "time": 120,
+        "stamina": 500,
+        "staminaCap": 10
+    }
+}

@@ -1,46 +1,57 @@
 import $ from 'jquery';
 import Vue from 'vue';
 import './assets/style.css';
-import 'nanoscroller/bin/css/nanoscroller.css';
+import { format as d3Format } from 'd3-format';
 
-const d3Format = require('d3-format');
+import { TFConsole } from './console';
 
 window.jQuery = $;
 window.$ = $;
-require('nanoscroller');
 
-class TermCraft
+class TermFactory
 {
-    
+    constructor()
+    {
+        this.vue = null;
+
+        //this.crafting = new Crafting();
+        //this.player = new Player();
+        this.console = new TFConsole(this);
+
+        //this.items = new Items(this);
+        //this.items.initTcItems();
+
+        //this.crafts = new Crafts(this);
+        //this.crafts.initTcCrafts();
+
+        //this.gathering = new Gathers(this);
+        //this.gathering.initTcGathers();
+    }
 }
 
-new TermCraft();
-
-const consoleElement = $('.console');
-const commandElement = $('#command');
+const tf = window.tf = new TermFactory();
 
 function updateHeights() {
     $('.leftcontent').height($('.left').height() - $('.left h1').height() - $('.left nav').height() - 22);
-    consoleElement.height($('.right').height() - $('.right .input').height() - 4);
+    tf.console.el().height($('.right').height() - $('.right .input').height() - 6);
 }
 
 $(window).on('resize', () => updateHeights());
 updateHeights();
 
-$('.nano').nanoScroller();
-setTimeout(() => consoleElement.scrollToEnd(true), 200);
+setTimeout(() => tf.console.scrollToEnd(true), 200);
 
-commandElement.focus();
+tf.console.focus();
 
 // Number formatters
-const shortNumFormatter = d3Format.format('.3~s');
-const smallNumFormatter = d3Format.format('.3~f');
-const fullNumFormatter = d3Format.format(',');
+const shortNumFormatter = d3Format('.3~s');
+const smallNumFormatter = d3Format('.3~f');
+const fullNumFormatter = d3Format(',');
 
 Vue.filter('fmtqty', (value) => 'Quantity: ' + fullNumFormatter(value));
 Vue.filter('shortnum', (value) => value < 1 ? smallNumFormatter(value) : shortNumFormatter(value))
 
-window.leftVue = new Vue({
+window.leftVue = tf.vue = new Vue({
     el: '#left-app',
     data: {
         invFilter: '',
@@ -48,6 +59,11 @@ window.leftVue = new Vue({
         status: {
             stamina: 85,
             maxStamina: 100
+        }
+    },
+    methods: {
+        itemClick(item) {
+            $('#command').val($('#command').val() + item.name);
         }
     },
     computed: {

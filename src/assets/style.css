@@ -16,8 +16,8 @@ body, input {
 }
 
 .left {
-    width: 256px;
-    margin-right: 12px;
+    width: 264px;
+    margin-right: 4px;
     float: left;
     height: 100%;
 }
@@ -54,9 +54,9 @@ body, input {
     line-height: 18px;
     padding: 0 2px;
 }
-.leftcontent ul li:hover {
+/*.leftcontent ul li:hover {
     background: #d8f6ff !important;
-}
+}*/
 .leftcontent ul li span.meta {
     float: right;
 }
@@ -66,6 +66,13 @@ body, input {
 
 span.item.bold {
     font-weight: bold;
+}
+
+.clickable {
+    cursor: pointer;
+}
+.clickable:hover {
+    text-decoration: underline;
 }
 
 span.progress, span.crafting {
@@ -85,7 +92,7 @@ span.progress, span.crafting {
 
 .console {
     border: 1px solid #bbb;
-    width: 720px;
+    width: 736px;
     border-bottom: none;
     overflow-y: scroll;
 }
@@ -114,11 +121,31 @@ span.progress, span.crafting {
     padding: 3px 12px 3px 3px;
 }
 
+div.input {
+    background: #eee;
+    border: 1px solid #bbb;
+    border-top: none;
+    width: 100%;
+    padding: 3px 0;
+    font-size: 0;
+}
+
 #command {
-padding: 3px;
-width: 730px;
-font-size: 12px;
-border: 1px solid #bbb;
-border-top: none;
-background: #eee;
+    padding: 0 3px 0 10px;
+    width: 680px;
+    font-size: 12px;
+    border: none;
+    background: transparent;
+    font-size: 12px;
+}
+
+#command:focus {
+    outline: none;
+}
+
+#ps1 {
+    display: inline-block;
+    padding: 0 0 0 3px;
+    font-size: 12px;
+    color: #777;
 }
