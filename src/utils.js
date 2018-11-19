@@ -5,12 +5,53 @@ const shortNumFormatter = d3Format('.3~s');
 const smallNumFormatter = d3Format('.3~f');
 const fullNumFormatter = d3Format(',');
 
+export const tagRegexp = /^tag:(?<tag>[a-z0-9_]+)(\s*(\[(?<low>\d+),(?<high>\d+)?(?<close>\]|\))))?$/;
+
 export function numberFormatAbbr(value) {
     return Math.abs(value) < 1 ? smallNumFormatter(value) : shortNumFormatter(value);
 }
 
 export function numberFormatFull(value) {
     return fullNumFormatter(value);
+}
+
+const tagSpecMatchCache = {};
+
+/**
+ * @param {Item} item 
+ * @param {Object} matchGroups
+ * @param {string} originalSpec
+ */
+export function itemMatchesTagSpec(item, matchGroups, originalSpec) {
+    // not sure if necessary or would even make it faster
+    //const cacheKey = originalSpec + '|' + item.id;
+    //if ( tagSpecMatchCache[cacheKey] !== undefined ) {
+    //    return tagSpecMatchCache[cacheKey];
+    //}
+
+    const tags = item.tags || [];
+    const level = item.level || 0;
+
+    let tagMatches = tags.includes(matchGroups.tag);
+    if ( !tagMatches ) {
+        //tagSpecMatchCache[cacheKey] = false;
+        return false;
+    }
+
+    let levelMatches = true;
+    if ( matchGroups.low ) {
+        levelMatches = levelMatches && level >= parseInt(matchGroups.low);
+        if ( matchGroups.high ) {
+            if ( matchGroups.close === ']' ) {
+                levelMatches = levelMatches && level <= parseInt(matchGroups.high);
+            } else if ( matchGroups.close === ')' ) {
+                levelMatches = levelMatches && level < parseInt(matchGroups.high);
+            }
+        }
+    }
+
+    //tagSpecMatchCache[cacheKey] = levelMatches;
+    return levelMatches;
 }
 
 export function weightedRandom(items) {

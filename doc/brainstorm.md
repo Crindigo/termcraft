@@ -80,6 +80,12 @@ start of its tick. If not enough is available, the device will not proceed.
 There is no "partial tick" where the device will run slower if only half the
 required power is available.
 
+A note on recipes with multiple outputs. By default, anything using the "make"
+command will only have one output, so it's easy to do "make X item name".
+Devices that have multiple outputs will have special commands for controlling
+them, to put them in a certain "mode" which consumes one set of items and
+produces another set.
+
 
 - place {item name}: Places down the item as a device from the inventory, if it
   is a device. Will fail if there is not enough land available. Consumes
@@ -217,3 +223,9 @@ mass driver [12 hours]
 - copper wire (2M)
 - electromagnet (1M)
 - circuit board mk5 (250K)
+
+# Saving/Loading
+
+For upgrades, store the save file version in the JSON data. Then an upgrade can migrate the save data to a new
+version, auto unlocking new research, etc. If this happens, store the un-migrated JSON in a backup key in
+local storage so if something went wrong it could be recovered and attempted again.

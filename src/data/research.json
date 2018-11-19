@@ -1,7 +1,20 @@
 {
     "_default_": {
         "unlocks": {
-            "commands": ["help", "gather", "research", "make", "eat"]
+            "commands": ["help", "gather", "research", "make", "eat", "recipe", "recipes"],
+            "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade"]
+        }
+    },
+    "weaving": {
+        "name": "Weaving",
+        "time": 10,
+        "stamina": 10,
+        "items": {
+            "stick": 8,
+            "plant_fiber": 8
+        },
+        "unlocks": {
+            "recipes": ["thatch_bed"]
         }
     },
     "flint_knapping": {
@@ -12,7 +25,7 @@
             "flint": 4
         },
         "unlocks": {
-            "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spear"]
+            "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spears"]
         }
     },
     "construction_1": {

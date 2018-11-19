@@ -3,6 +3,7 @@ import { HelpCommand } from './commands/help';
 import { GatherCommand } from './commands/gather';
 import { CommandHistory, CommandRegistry, CommandProcessor } from './commands/base';
 import { EatCommand } from './commands/eat';
+import { RecipeCommand } from './commands/recipe';
 
 export class TFConsole
 {
@@ -25,6 +26,7 @@ export class TFConsole
         this.registry.add(new HelpCommand());
         this.registry.add(new EatCommand());
         this.registry.add(new GatherCommand());
+        this.registry.add(new RecipeCommand());
 
         this.registry.alias('help', ['?', 'h']);
         this.registry.alias('test', 't');

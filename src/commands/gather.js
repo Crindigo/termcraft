@@ -1,5 +1,5 @@
 import { BaseCommand } from './base';
-import { pickRandomKeys, numberFormatAbbr } from '../utils';
+import { pickRandomKeys, numberFormatAbbr, tagRegexp, itemMatchesTagSpec } from '../utils';
 import an from 'indefinite';
 import GatherData from '../data/gathers.json';
 
@@ -103,44 +103,20 @@ export class GatherCommand extends BaseCommand
     }
 
     cacheGatherItems() {
-        let toolTags = [];
-        let toolLevel = 0;
-        if ( this.tool ) {
-            toolTags = this.tool.item.tags;
-            toolLevel = this.tool.item.level;
-        }
-
         this.gatherItems = {};
         if ( !this.tool ) {
             this.gatherItems = this.gatherData["hand"];
         } else {
-            for ( toolSpec in this.gatherData ) {
+            for ( let toolSpec in this.gatherData ) {
                 // toolSpec = "hand" or "item_id" or "tag:item_tag" or "tag:item_tag[1,)"
                 if ( toolSpec === 'hand' ) {
                     continue;
                 }
 
                 // try a full match with tag + level bounds
-                let m = toolSpec.match(/^tag:(?<tag>[a-z0-9_]+)(\s*(\[(?<low>\d+),(?<high>\d+)?(?<close>\]|\))))?$/);
+                let m = toolSpec.match(tagRegexp);
                 if ( m ) {
-                    let tagMatches = toolTags.includes(m.groups.tag);
-                    if ( !tagMatches ) {
-                        continue;
-                    }
-
-                    let levelMatches = true;
-                    if ( m.groups.low ) {
-                        levelMatches = levelMatches && toolLevel >= parseInt(m.groups.low);
-                        if ( m.groups.high ) {
-                            if ( m.groups.close === ']' ) {
-                                levelMatches = levelMatches && toolLevel <= parseInt(m.groups.high);
-                            } else if ( m.groups.close === ')' ) {
-                                levelMatches = levelMatches && toolLevel < parseInt(m.groups.high);
-                            }
-                        }
-                    }
-
-                    if ( !levelMatches ) {
+                    if ( !itemMatchesTagSpec(this.tool.item, m.groups, toolSpec) ) {
                         continue;
                     }
                 } else if ( toolSpec !== this.tool.item.id ) {
@@ -150,7 +126,7 @@ export class GatherCommand extends BaseCommand
                 // go through the list of items and add it to gatherItems.
                 // if it already exists in gatherItems, use the highest value.
                 let itemList = this.gatherData[toolSpec];
-                for ( itemId in itemList ) {
+                for ( let itemId in itemList ) {
                     if ( itemId === '//' ) {
                         continue;
                     }
@@ -234,7 +210,7 @@ export class GatherCommand extends BaseCommand
         // there exists the potential for the tool to run out due to usage in a device, so check the qty here.
         // this also handles the case where qty is <= 0 after it breaks above.
         if ( this.tool && this.tool.qty <= 0 ) {
-            tf.console.appendLine('No more tools found, stopped gathering items.', 'tip');
+            tf.console.appendLine('Tool broke and no more tools found, stopped gathering items.', 'tip');
             return false;
         }
 

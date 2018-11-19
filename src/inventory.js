@@ -63,6 +63,7 @@ export class Inventory
 {
     constructor() {
         this.items = [];
+        this.indexed = {};
     }
 
     add(stack) {
@@ -79,10 +80,13 @@ export class Inventory
         } else {
             this.items.push(stack);
             this.items.sort((a, b) => a.item.name.localeCompare(b.item.name));
+            this.indexed[stack.item.id] = stack;
         }
     }
 
     findStack(item) {
+        return this.indexed[item.id] || null;
+        /*
         let foundStack = null;
         this.items.some(s => {
             if ( s.item.id == item.id ) {
@@ -92,12 +96,14 @@ export class Inventory
         });
 
         return foundStack;
+        */
     }
 
     remove(stack) {
         let index = this.items.indexOf(stack);
         if ( index !== -1 ) {
             this.items.splice(index, 1);
+            delete this.indexed[stack.item.id];
         }
     }
 
@@ -117,18 +123,5 @@ export class Inventory
 
     accepts(stack) {
         return true;
-    }
-
-    getIndexedQuantities() {
-        let items = this.items;
-        let indexed = {};
-        items.forEach(s => {
-            if ( indexed[s.item.id] === undefined ) {
-                indexed[s.item.id] = 0;
-            }
-            indexed[s.item.id] += s.qty;
-        });
-
-        return indexed;
     }
 }

@@ -11,6 +11,33 @@
         }
     },
 
+    "flint_spade": {
+        "device": "hand",
+        "time": 5,
+        "stamina": 5,
+        "input": {
+            "flint": 1,
+            "stick": 1
+        },
+        "output": {
+            "item:flint_spade": 1
+        }
+    },
+
+    "flint_hatchet": {
+        "device": "hand",
+        "time": 5,
+        "stamina": 5,
+        "input": {
+            "flint": 2,
+            "stick": 1,
+            "tag:binding": 1
+        },
+        "output": {
+            "item:flint_hatchet": 1
+        }
+    },
+
     "flint_spears": {
         "device": "hand",
         "time": 10,
@@ -18,10 +45,23 @@
         "input": {
             "flint": 4,
             "stick": 8,
-            "tag:binding": 4
+            "tag:binding": 8
         },
         "output": {
             "support:flint_spears": 1
+        }
+    },
+
+    "thatch_bed": {
+        "device": "hand",
+        "time": 60,
+        "stamina": 30,
+        "input": {
+            "plant_fiber": 50,
+            "stick": 25
+        },
+        "output": {
+            "support:thatch_bed": 1
         }
     },
 

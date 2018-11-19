@@ -6,6 +6,7 @@ import { numberFormatFull, numberFormatAbbr, progressBar } from './utils';
 import { TFConsole } from './console';
 import { Player } from './player';
 import { Items } from './items';
+import { Crafting } from './crafting';
 import { Research } from './research';
 
 window.jQuery = $;
@@ -20,10 +21,10 @@ class TermFactory
         this.player = new Player();
         this.console = new TFConsole(this);
         this.items = new Items(this);
-        this.research = new Research(this);
+        this.crafting = new Crafting(this);
 
-        //this.crafts = new Crafts(this);
-        //this.crafts.initTcCrafts();
+        // research needs to come after console and crafting as it can unlock commands/recipes
+        this.research = new Research(this);
 
         this.ticker = setInterval(() => this.tick(), 1000);
 
