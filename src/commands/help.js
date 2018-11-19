@@ -28,8 +28,10 @@ export class HelpCommand extends BaseCommand
             let cmds = Object.values(tf.console.registry.commands);
             cmds.sort((a, b) => a.name.localeCompare(b.name));
             cmds.forEach(cmd => {
-                let aliases = tf.console.registry.aliasList[cmd.name] || [];
-                lines.push("- " + cmd.name + (aliases ? (' (aliases: ' + aliases.join(', ') + ')') : ''));
+                if ( cmd ) {
+                    let aliases = tf.console.registry.aliasList[cmd.name] || [];
+                    lines.push("- " + cmd.name + (aliases.length ? (' (aliases: ' + aliases.join(', ') + ')') : ''));
+                }
             });
             return [true, lines];
         }

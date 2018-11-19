@@ -7,7 +7,21 @@
             "flint": 2
         },
         "output": {
-            "flint_handaxe": 1
+            "item:flint_handaxe": 1
+        }
+    },
+
+    "flint_spears": {
+        "device": "hand",
+        "time": 10,
+        "stamina": 10,
+        "input": {
+            "flint": 4,
+            "stick": 8,
+            "tag:binding": 4
+        },
+        "output": {
+            "support:flint_spears": 1
         }
     },
 
@@ -19,7 +33,7 @@
             "wood": 10
         },
         "output": {
-            "wood_chopping_block": 1
+            "device:wood_chopping_block": 1
         }
     },
 
@@ -32,7 +46,7 @@
             "small_plank": 10
         },
         "output": {
-            "brick_former": 1
+            "device:brick_former": 1
         }
     }
 }

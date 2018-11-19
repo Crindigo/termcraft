@@ -16,8 +16,7 @@ body, input {
 }
 
 .left {
-    width: 264px;
-    margin-right: 4px;
+    width: 268px;
     float: left;
     height: 100%;
 }
@@ -26,11 +25,21 @@ body, input {
     margin-bottom: 2px;
 }
 
+.left nav a.active {
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 .left #filter {
     margin-top: 5px;
     padding: 3px;
     border: 1px solid #ccc;
     width: 254px;
+}
+
+.left #filter:disabled {
+    background: #ddd;
 }
 
 .left h1 {
@@ -60,7 +69,7 @@ body, input {
 .leftcontent ul li span.meta {
     float: right;
 }
-.leftcontent ul li:nth-child(2n) {
+.leftcontent ul.inventory-contents li:nth-child(2n) {
     background: #f4f4f4;
 }
 
@@ -107,6 +116,7 @@ span.progress, span.crafting {
 }
 .console .line.story {
     font-style: italic;
+    background: #ffffee;
 }
 .console .line.tip {
     font-weight: bold;
@@ -115,6 +125,10 @@ span.progress, span.crafting {
 .console .line.error {
     background: #ffe4e4;
     color: #800;
+}
+
+.console .line span.b {
+    font-weight: bold;
 }
 
 .console .nano-content {

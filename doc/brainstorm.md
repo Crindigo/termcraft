@@ -8,6 +8,20 @@ eat and sleep, the stamina cap increases. Maybe instead of sleep, just building
 certain structures improves stamina regeneration. Food can give instant stamina
 and slightly raise the cap.
 
+Exploration expands the story and increases the amount of usable land area. 
+To explore, you need combat strength (making weapons, armor, tanks, etc.), and
+good stamina regeneration.
+
+You start with 100 land, 100 stamina (0.1/s regen), and 0 combat strength.
+Expeditions will expand the land to current * 1.10520985, so after 99
+expansions it will be at 2 million.
+
+Each expedition uses 1.1 * current land stamina, draining 1% per second for
+100 seconds, and requires 0.1 * current land combat to even begin. So your 
+first expedition will use 1.1 stamina/second for 100 seconds during which you
+can't run any other commands besides stop, which aborts the expedition.
+As for time, I may make it equal to the # of land gained. 
+
 # Commands
 
 - help [command]: Shows a command list or help for a single command.
@@ -58,6 +72,13 @@ if items not in inventory.)
 brick_dryer_1$ leave/stop/exit/quit
 $
 ```
+
+For power, every device that generates power would have its own internal power
+storage. There could also be devices that only serve to increase power storage.
+When consuming power, the device will try pulling it out of storage at the
+start of its tick. If not enough is available, the device will not proceed.
+There is no "partial tick" where the device will run slower if only half the
+required power is available.
 
 
 - place {item name}: Places down the item as a device from the inventory, if it

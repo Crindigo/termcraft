@@ -1,7 +1,7 @@
 /**
  * Structure for an item.
  */
-class Item
+export class Item
 {
     constructor(id, info) {
         // base
@@ -11,7 +11,7 @@ class Item
 
         // tools
         this.tool = info.tool || false;
-        this.breakChance = info.breakChance || false;
+        this.breakChance = info.breakChance || 0;
         this.level = info.level || 0;
 
         // food
@@ -19,6 +19,10 @@ class Item
         this.time = info.time || 1;
         this.stamina = info.stamina || 0;
         this.staminaCap = info.staminaCap || 0;
+
+        // support
+        this.support = info.support || false;
+        this.regen = info.regen || 0;
     }
 
     stack(qty) {
@@ -55,7 +59,7 @@ class Stack
 /**
  * Class to manage a list of item stacks.
  */
-class Inventory
+export class Inventory
 {
     constructor() {
         this.items = [];
@@ -92,12 +96,12 @@ class Inventory
 
     remove(stack) {
         let index = this.items.indexOf(stack);
-        if ( index != -1 ) {
+        if ( index !== -1 ) {
             this.items.splice(index, 1);
         }
     }
 
-    remove(stack, amount = 1, simulate = false) {
+    reduce(stack, amount = 1, simulate = false) {
         if ( stack.qty < amount ) {
             return false;
         }

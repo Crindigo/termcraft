@@ -1,6 +1,8 @@
 import { TestCommand } from './commands/test';
 import { HelpCommand } from './commands/help';
+import { GatherCommand } from './commands/gather';
 import { CommandHistory, CommandRegistry, CommandProcessor } from './commands/base';
+import { EatCommand } from './commands/eat';
 
 export class TFConsole
 {
@@ -19,12 +21,14 @@ export class TFConsole
         this.rootProcessor = new CommandProcessor(this.tf, this.registry);
         this.processor = this.rootProcessor;
 
-        this.registry.add(new TestCommand(), true);
-        this.registry.add(new HelpCommand(), true);
+        this.registry.add(new TestCommand());
+        this.registry.add(new HelpCommand());
+        this.registry.add(new EatCommand());
+        this.registry.add(new GatherCommand());
+
         this.registry.alias('help', ['?', 'h']);
         this.registry.alias('test', 't');
         //this.registry.add(new CraftCommand());
-        //this.registry.add(new GatherCommand());
         //this.registry.add(new InvCommand());
         //this.registry.alias('t', 'test');
 
@@ -36,7 +40,7 @@ export class TFConsole
 
         this.commandEl.on('keydown', (e) => this.commandKeyDown(e));
 
-        this.locked = false;
+        this.lockHolder = null;
     }
 
     scrollToEnd(force = false) {
@@ -82,11 +86,17 @@ export class TFConsole
     }
 
     commandKeyDown(e) {
-        var value = this.commandEl.val();
+        var value = this.commandEl.val().trim();
 
         if (e.keyCode == 13) {
-            if ( this.locked ) {
-                this.appendLine('> busy', 'error');
+            if ( this.lockHolder ) {
+                if ( value === 'stop' ) {
+                    this.lockHolder.stop(this.tf);
+                    this.lockHolder = null;
+                } else {
+                    this.appendLine('> Busy. Type {!b}stop{/} to end current task.', 'error');
+                }
+                this.commandEl.val('');
                 return;
             }
 
@@ -108,7 +118,7 @@ export class TFConsole
             } else if ( ret[1] ) {
                 if ( typeof ret[1] == 'string' ) {
                     this.appendLine(ret[1]);
-                } else if ( ret[1] instanceof Array ) {
+                } else if ( Array.isArray(ret[1]) ) {
                     ret[1].forEach((l) => (typeof l == 'string') ? this.appendLine(l) : this.appendLine(l.line, l.classes));
                 }
             }
@@ -125,12 +135,12 @@ export class TFConsole
         }
     }
 
-    lock() {
-        this.locked = true;
+    lock(holder) {
+        this.lockHolder = holder;
     }
 
     unlock() {
-        this.locked = false;
+        this.lockHolder = null;
     }
 
     escapeHtml(str) {

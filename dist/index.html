@@ -10,8 +10,11 @@
 <div class="left" id="left-app">
 <h1>termfactory v0.1.0</h1>
 <nav>
-<a href="#">Status</a> | <a href="#">Inventory</a> | <a href="#">Devices</a>
-<input type="text" id="filter" placeholder="Filter" v-model="invFilter">
+<a href="#" @click.prevent="changeTab('status')" :class="{active: tab === 'status'}">Status</a> | 
+<a href="#" @click.prevent="changeTab('inventory')" :class="{active: tab === 'inventory'}">Inventory</a> | 
+<a href="#" @click.prevent="changeTab('devices')" :class="{active: tab === 'devices'}">Devices</a>
+
+<input type="text" id="filter" placeholder="Filter" v-model="invFilter" :disabled="tab === 'status'">
 </nav>
 
 <!--
@@ -20,11 +23,29 @@ width: 34 total
 -->
 <div class="leftcontent nano">
 <div class="nano-content">
-<ul>
+
+<ul class="status-contents" v-if="tab === 'status'">
+    <li>
+        <span class="stat">Stamina: {{ stamina.current | shortnum }}/{{ stamina.maximum | shortnum }} ({{ staminaMod() }}/s)</span>
+    </li>
+    <li><span class="progress">{{ staminaProgress() }}</span></li>
+    <li v-if="power.maximum > 0">&nbsp;</li>
+    <li v-if="power.maximum > 0">
+        <span class="stat">Power: {{ power.current | shortnum }}/{{ power.maximum | shortnum }} ({{ powerMod() }}/s)</span>
+    </li>
+    <li v-if="power.maximum > 0"><span class="progress">{{ powerProgress() }}</span></li>
+    <li>&nbsp;</li>
+    <li><span class="stat">Combat Strength: {{ combat | shortnum }}</span></li>
+</ul>
+
+<ul class="inventory-contents" v-if="tab === 'inventory'">
     <li v-for="item in filteredInventory">
         <span class="item clickable" @click="itemClick(item)">{{ item.name }}</span>
         <span class="meta" :title="item.qty | fmtqty">{{item.qty | shortnum}}</span>
     </li>
+</ul>
+
+<ul class="devices-contents" v-if="tab === 'devices'">
     <!--
     <li><span class="item bold">propane grill</span><span class="meta">fuel: 90</span>
         <span class="crafting">&gt; hamburger patty</span>
@@ -44,6 +65,7 @@ width: 34 total
         <span class="progress">[========-     26%               ]</span></li>
     -->
 </ul>
+
 </div>
 </div>
 
@@ -52,10 +74,10 @@ width: 34 total
 <div class="right">
     <div class="console nano">
     <div class="nano-content">
-<div class="line story">&gt; You arise suddenly, unnaturally, your heart racing as you struggle to process the visions before
-&gt; your own eyes. A vast, empty landscape lies before you, on a world seemingly untouched by any
-&gt; intelligent life. It has to be a dream, but the growing feeling of hunger is all too real...</div>
-<div class="line tip">Tip: Use "?" or "help"</div>
+<div class="line story">&gt; You arise suddenly, unnaturally, your heart racing as you struggle to process the visions before</div>
+<div class="line story">&gt; your own eyes. A vast, empty landscape lies before you, on a world seemingly untouched by any</div>
+<div class="line story">&gt; intelligent life. It has to be a dream, but the growing feeling of hunger is all too real...</div>
+<div class="line tip">Tip: Type "?" or "help"</div>
     </div>
     </div>
     <div class="input">

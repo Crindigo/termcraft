@@ -1,27 +1,29 @@
 {
-    "": {
+    "_default_": {
         "unlocks": {
-            "commands": ["help", "gather", "research", "make"]
+            "commands": ["help", "gather", "research", "make", "eat"]
         }
     },
     "flint_knapping": {
+        "name": "Flint Knapping",
         "time": 10,
         "stamina": 10,
         "items": {
             "flint": 4
         },
         "unlocks": {
-            "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spear"],
-            "research": ["construction_1"]
+            "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spear"]
         }
     },
     "construction_1": {
+        "name": "Construction Level 1",
         "time": 30,
         "stamina": 20,
         "items": {
             "stone": 10,
             "wood": 10
         },
+        "requires": ["flint_knapping"],
         "unlocks": {
             "recipes": ["brick_former", "chopping_block", "small_plank"]
         }
