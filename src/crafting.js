@@ -1,4 +1,5 @@
 import { tagRegexp, itemMatchesTagSpec } from './utils';
+import { Inventory } from './inventory';
 
 /**
  * Manages recipes that have multiple inputs and one unique output.
@@ -9,6 +10,7 @@ export class Crafting
         this.tf = tf;
 
         this.sets = {};
+        this.allRecipes = {};
         const context = require.context('./data/recipes', true, /\.json$/);
         context.keys().forEach(key => this.addRecipes(key, context(key)));
     }
@@ -29,22 +31,31 @@ export class Crafting
         const device = recipe.device;
 
         if ( this.sets[device] === undefined ) {
-            this.sets[device] = new RecipeSet();
+            this.sets[device] = new RecipeSet(device);
         }
         this.sets[device].addRecipe(recipe);
+        this.allRecipes[id] = recipe;
     }
 
     findRecipe(device, id) {
         return this.sets[device] ? this.sets[device].find(id) : null;
     }
 
+    unlock(id) {
+        let device = this.allRecipes[id].device;
+        this.sets[device].unlock(id);
+    }
+
     findRecipeByName(device, name) {
         const item = this.tf.items.find(name);
-        console.log(item);
         if ( item ) {
             name = item.id;
         }
-        return this.sets[device] ? this.sets[device].findByName(name) : null;
+        return this.findRecipeByOutput(device, name);
+    }
+
+    findRecipeByOutput(device, id) {
+        return this.sets[device] ? this.sets[device].findByOutput(id) : null;
     }
 
     getAvailableRecipes(device, inventory) {
@@ -57,26 +68,34 @@ export class Crafting
  */
 class RecipeSet
 {
-    constructor() {
+    constructor(device) {
+        this.device = device;
+
+        this.fullRegistry = {};
+
         // recipes indexed by id
         this.registry = {};
 
-        // recipes indexed by output item name
-        this.nameRegistry = {};
+        // recipes indexed by output item id
+        this.outputRegistry = {};
     }
 
     addRecipe(recipe) {
+        this.fullRegistry[recipe.id] = recipe;
+    }
+
+    unlock(id) {
+        const recipe = this.fullRegistry[id];
         this.registry[recipe.id] = recipe;
-        this.nameRegistry[recipe.outputName] = recipe;
+        this.outputRegistry[recipe.outputName] = recipe;
     }
 
     find(id) {
         return this.registry[id] || null;
     }
 
-    findByName(name) {
-        console.log(this.nameRegistry, name);
-        return this.nameRegistry[name] || null;
+    findByOutput(id) {
+        return this.outputRegistry[id] || null;
     }
 
     getAvailableRecipes(inventory) {
@@ -109,7 +128,14 @@ class Recipe
         }
     }
 
+    pullFromInventory(inventory, desiredQty = 1) {
+        // if the recipe has an input with tags, get all qualifying stacks and pull from the one with the highest qty.
+    }
+
     canCraft(items, desiredQty = 1) {
+        if ( items instanceof Inventory ) {
+            items = items.indexed;
+        }
         return Object.entries(this.input).every(kv => {
             let key = kv[0];
             let qty = kv[1];

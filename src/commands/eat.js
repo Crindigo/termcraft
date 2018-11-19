@@ -21,7 +21,7 @@ export class EatCommand extends BaseCommand
 
     help() {
         return [
-            'eat [item name]',
+            'eat item name',
             'Eat/drink food and beverages to recover stamina and increase your stamina cap.',
             'Eating will take some time to finish, during which stamina regenerates much faster.',
             'You can stop the eating process at any time, but the food item will be discarded and',
@@ -95,6 +95,13 @@ export class EatCommand extends BaseCommand
         if ( this.eatProgress >= this.food.item.time ) {
             tf.player.maxStamina += this.food.item.staminaCap;
             tf.console.appendLine(`Delicious. Your stamina cap increased by ${numberFormatAbbr(this.food.item.staminaCap)}.`);
+
+            for ( let id in this.food.item.leftovers ) {
+                let qty = this.food.item.leftovers[id];
+                let leftover = tf.items.get(id);
+                tf.player.inventory.add(leftover.stack(qty));
+                tf.console.appendLine(`${leftover.name} (${qty}) was left over.`);
+            }
             return false;
         }
 

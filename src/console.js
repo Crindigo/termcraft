@@ -4,6 +4,7 @@ import { GatherCommand } from './commands/gather';
 import { CommandHistory, CommandRegistry, CommandProcessor } from './commands/base';
 import { EatCommand } from './commands/eat';
 import { RecipeCommand } from './commands/recipe';
+import { MakeCommand } from './commands/make';
 
 export class TFConsole
 {
@@ -23,10 +24,11 @@ export class TFConsole
         this.processor = this.rootProcessor;
 
         this.registry.add(new TestCommand());
-        this.registry.add(new HelpCommand());
+        this.registry.add(new HelpCommand(this.registry));
         this.registry.add(new EatCommand());
         this.registry.add(new GatherCommand());
         this.registry.add(new RecipeCommand());
+        this.registry.add(new MakeCommand());
 
         this.registry.alias('help', ['?', 'h']);
         this.registry.alias('test', 't');

@@ -8,6 +8,11 @@ eat and sleep, the stamina cap increases. Maybe instead of sleep, just building
 certain structures improves stamina regeneration. Food can give instant stamina
 and slightly raise the cap.
 
+Complex food generally gives a bigger bonus to stamina cap but less stamina
+regeneration. While simple food gives very little to the cap but good regen.
+Future: implement nutrition, so a balanced diet gives an extra multiplier to
+regen/cap gained by food. Fruits/veggies, grains, dairy, meat.
+
 Exploration expands the story and increases the amount of usable land area. 
 To explore, you need combat strength (making weapons, armor, tanks, etc.), and
 good stamina regeneration.
@@ -21,6 +26,10 @@ Each expedition uses 1.1 * current land stamina, draining 1% per second for
 first expedition will use 1.1 stamina/second for 100 seconds during which you
 can't run any other commands besides stop, which aborts the expedition.
 As for time, I may make it equal to the # of land gained. 
+
+ending:
+Va gur raq, n tynff oernxvat bireynl nccrnef bire gur pbafbyr, naq cvrprf sentzrag 
+gb gur fvqr gb erirny n pehqryl qenja snpr fnlvat "huu, uv?".
 
 # Commands
 
@@ -85,6 +94,12 @@ command will only have one output, so it's easy to do "make X item name".
 Devices that have multiple outputs will have special commands for controlling
 them, to put them in a certain "mode" which consumes one set of items and
 produces another set.
+
+Before I forget, devices that don't use power will use the standard make
+command which is interactive and probably uses stamina, and will stop when
+ingredients dry up. Devices that DO use power will use a special make command
+that will allow it to start even if requirements aren't met, and then the
+crafting process begins once there's enough power and items available.
 
 
 - place {item name}: Places down the item as a device from the inventory, if it

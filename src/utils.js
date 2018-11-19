@@ -54,6 +54,29 @@ export function itemMatchesTagSpec(item, matchGroups, originalSpec) {
     return levelMatches;
 }
 
+export function formatTagSpec(spec) {
+    let m = spec.match(tagRegexp);
+    if ( m.groups.low ) {
+        if ( m.groups.high ) {
+            let low = parseInt(m.groups.low);
+            let high = parseInt(m.groups.high);
+            if ( m.groups.close === ')' ) {
+                high--;
+            }
+            
+            if ( low === high ) {
+                return `[any ${m.groups.tag}, level ${low}]`;
+            } else {
+                return `[any ${m.groups.tag}, level ${low}-${high}]`;
+            }
+        } else {
+            return `[any ${m.groups.tag}, level ${m.groups.low}+]`;
+        }
+    } else {
+        return `[any ${m.groups.tag}]`;
+    }
+}
+
 export function weightedRandom(items) {
     let sum = 0;
     for ( let k in items ) {

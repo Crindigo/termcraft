@@ -1,7 +1,7 @@
 {
     "wood_chopping_block": {
         "name": "wood chopping block",
-        "tags": ["chopping_block"],
+        "category": "device",
         "land": 1,
         "durability": 50,
         "drops": {
@@ -10,6 +10,11 @@
     },
     "brick_former": {
         "name": "brick former",
-        "land": 1
+        "category": "device",
+        "land": 1,
+        "drops": {
+            "stone": 10,
+            "small_plank": 5
+        }
     }
 }

@@ -8,29 +8,35 @@
 
     "thatch_bed": {
         "name": "thatch bed",
+        "category": "support",
         "staminaRegen": 0.1
     },
     "mud_hut": {
         "name": "mud hut",
+        "category": "support",
         "staminaRegen": 1.0
     },
     "adobe_hut": {
         "name": "adobe hut",
+        "category": "support",
         "staminaRegen": 3.0
     },
 
     "flint_spears": {
         "name": "flint spears",
+        "category": "support",
         "combat": 1
     },
 
     "christmas_tree": {
         "name": "christmas tree",
+        "category": "support",
         "staminaRegen": 5.0,
         "logBase": 10
     },
     "christmas_ornament": {
         "name": "christmas ornament",
+        "category": "support",
         "staminaRegen": 0.5,
         "logBase": 2
     }

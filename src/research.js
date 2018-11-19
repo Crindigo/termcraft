@@ -44,6 +44,7 @@ export class Research
         if ( unlocks.recipes ) {
             unlocks.recipes.forEach(re => {
                 console.log('[Research] Unlocked recipe ' + re);
+                this.tf.crafting.unlock(re);
             });
         }
 

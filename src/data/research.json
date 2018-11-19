@@ -2,7 +2,7 @@
     "_default_": {
         "unlocks": {
             "commands": ["help", "gather", "research", "make", "eat", "recipe", "recipes"],
-            "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade"]
+            "recipes": ["flint_handaxe", "flint_spade", "flint_spears", "flint_hatchet"]
         }
     },
     "weaving": {

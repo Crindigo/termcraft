@@ -1,3 +1,5 @@
+import { tagRegexp, itemMatchesTagSpec } from './utils';
+
 /**
  * Structure for an item.
  */
@@ -8,6 +10,7 @@ export class Item
         this.id = id;
         this.name = info.name;
         this.tags = info.tags || [];
+        this.category = info.category || 'item';
 
         // tools
         this.tool = info.tool || false;
@@ -19,10 +22,12 @@ export class Item
         this.time = info.time || 1;
         this.stamina = info.stamina || 0;
         this.staminaCap = info.staminaCap || 0;
+        this.leftovers = info.leftovers || {};
 
         // support
-        this.support = info.support || false;
-        this.regen = info.regen || 0;
+        this.staminaRegen = info.staminaRegen || 0;
+        this.combat = info.combat || 0;
+        this.logBase = info.logBase || Math.E;
     }
 
     stack(qty) {
@@ -123,5 +128,21 @@ export class Inventory
 
     accepts(stack) {
         return true;
+    }
+
+    /**
+     * Finds all stacks matching the given tag and level range.
+     * 
+     * @param {string} tag 
+     */
+    findMatchingTag(tagSpec) {
+        let m = tagSpec.match(tagRegexp);
+        if ( !m ) {
+            return [];
+        }
+
+        return this.items.filter(st => {
+            return itemMatchesTagSpec(st.item, m.groups, tagSpec);
+        });
     }
 }

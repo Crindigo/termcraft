@@ -1,11 +1,38 @@
 {
     "wild_berry": {
-        "name": "wild berry",
+        "name": "wildberry",
         "tags": ["berry", "fruit"],
         "edible": true,
         "time": 1,
         "stamina": 5,
         "staminaCap": 0.05
+    },
+    "juice_berry": {
+        "name": "juiceberry",
+        "tags": ["berry", "fruit"],
+        "edible": true,
+        "time": 1,
+        "stamina": 5,
+        "staminaCap": 0.05
+    },
+    "sweet_berry": {
+        "name": "sweetberry",
+        "tags": ["berry", "fruit"],
+        "edible": true,
+        "time": 1,
+        "stamina": 5,
+        "staminaCap": 0.05
+    },
+    "berry_delight": {
+        "name": "berry delight",
+        "flavor": "A pleasure for the taste buds. Juicy and packed with a sweet and tangy flavor.",
+        "edible": true,
+        "time": 10,
+        "stamina": 50,
+        "staminaCap": 1,
+        "leftovers": {
+            "wood_bowl": 1
+        }
     },
 
     "flatbread": {

@@ -8,7 +8,7 @@
             "tag:axe[1,)": 1
         },
         "output": {
-            "item:small_plank": 2
+            "small_plank": 2
         }
     }
 }

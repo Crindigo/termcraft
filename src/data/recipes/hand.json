@@ -7,7 +7,7 @@
             "flint": 2
         },
         "output": {
-            "item:flint_handaxe": 1
+            "flint_handaxe": 1
         }
     },
 
@@ -20,7 +20,7 @@
             "stick": 1
         },
         "output": {
-            "item:flint_spade": 1
+            "flint_spade": 1
         }
     },
 
@@ -34,7 +34,7 @@
             "tag:binding": 1
         },
         "output": {
-            "item:flint_hatchet": 1
+            "flint_hatchet": 1
         }
     },
 
@@ -48,7 +48,7 @@
             "tag:binding": 8
         },
         "output": {
-            "support:flint_spears": 1
+            "flint_spears": 1
         }
     },
 
@@ -61,7 +61,7 @@
             "stick": 25
         },
         "output": {
-            "support:thatch_bed": 1
+            "thatch_bed": 1
         }
     },
 
@@ -73,7 +73,7 @@
             "wood": 10
         },
         "output": {
-            "device:wood_chopping_block": 1
+            "wood_chopping_block": 1
         }
     },
 
@@ -86,7 +86,7 @@
             "small_plank": 10
         },
         "output": {
-            "device:brick_former": 1
+            "brick_former": 1
         }
     }
 }
