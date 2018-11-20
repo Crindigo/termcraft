@@ -8,6 +8,7 @@
 
     "thatch_bed": {
         "name": "thatch bed",
+        "flavor": "Better than sleeping on dirt and rocks.",
         "category": "support",
         "staminaRegen": 0.1
     },
@@ -39,5 +40,17 @@
         "category": "support",
         "staminaRegen": 0.5,
         "logBase": 2
+    },
+
+    "research_table": {
+        "name": "research table",
+        "category": "support",
+        "researchBonus": 1.0
+    },
+
+    "quantum_science_lab": {
+        "name": "quantum science lab",
+        "category": "support",
+        "researchBonus": 10.0
     }
 }

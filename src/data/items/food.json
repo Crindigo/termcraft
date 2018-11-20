@@ -28,7 +28,7 @@
         "flavor": "A pleasure for the taste buds. Juicy and packed with a sweet and tangy flavor.",
         "edible": true,
         "time": 10,
-        "stamina": 50,
+        "stamina": 30,
         "staminaCap": 1,
         "leftovers": {
             "wood_bowl": 1

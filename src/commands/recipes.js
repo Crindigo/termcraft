@@ -14,10 +14,10 @@ export class RecipesCommand extends BaseCommand
     run(tf, args) {
         let recipes = tf.crafting.getAvailableRecipes(this.device, tf.player.inventory);
         if ( recipes.length === 0 ) {
-            tf.console.appendLine("Nothing is craftable right now.");
+            tf.console.appendLine("Nothing is craftable right now with the items in your inventory.");
             return;
         }
-        
+
         recipes.forEach(r => {
             let name = r.name || tf.items.get(Object.keys(r.output)[0]).name;
             tf.console.appendLine(' - ' + name);

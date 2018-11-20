@@ -2,7 +2,7 @@
     "_default_": {
         "unlocks": {
             "commands": ["help", "gather", "research", "make", "eat", "recipe", "recipes"],
-            "recipes": ["flint_handaxe", "flint_spade", "flint_spears", "flint_hatchet"]
+            "recipes": []
         }
     },
     "weaving": {
@@ -14,7 +14,7 @@
             "plant_fiber": 8
         },
         "unlocks": {
-            "recipes": ["thatch_bed"]
+            "recipes": ["thatch_bed", "straw_basket"]
         }
     },
     "flint_knapping": {
@@ -25,7 +25,7 @@
             "flint": 4
         },
         "unlocks": {
-            "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spears"]
+            "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spears", "flint_pick"]
         }
     },
     "carving": {
@@ -33,22 +33,23 @@
         "time": 10,
         "stamina": 10,
         "items": {
-            "small_plank": 4,
+            "wood": 4,
             "flint_handaxe": 2
         },
+        "requires": ["flint_knapping"],
         "unlocks": {
-            "recipes": ["wood_bowl"]
+            "recipes": ["wood_bowl", "berry_delight"]
         }
     },
     "construction_1": {
-        "name": "Construction Level 1",
+        "name": "Simple Construction",
         "time": 30,
         "stamina": 20,
         "items": {
             "stone": 10,
             "wood": 10
         },
-        "requires": ["flint_knapping"],
+        "requires": ["flint_knapping", "weaving"],
         "unlocks": {
             "recipes": ["brick_former", "chopping_block", "small_plank"]
         }

@@ -19,5 +19,20 @@
         "breakChance": 0.05,
         "tags": ["axe"],
         "level": 1
+    },
+    "flint_pick": {
+        "name": "flint pick",
+        "tool": true,
+        "breakChance": 0.05,
+        "tags": ["pick"],
+        "level": 1
+    },
+
+    "straw_basket": {
+        "name": "straw basket",
+        "tool": true,
+        "breakChance": 0.01,
+        "tags": ["basket"],
+        "level": 1
     }
 }

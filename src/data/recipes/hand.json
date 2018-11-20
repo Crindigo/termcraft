@@ -38,6 +38,20 @@
         }
     },
 
+    "flint_pick": {
+        "device": "hand",
+        "time": 5,
+        "stamina": 5,
+        "input": {
+            "flint": 3,
+            "stick": 2,
+            "tag:binding": 2
+        },
+        "output": {
+            "flint_pick": 1
+        }
+    },
+
     "flint_spears": {
         "device": "hand",
         "time": 10,
@@ -52,6 +66,19 @@
         }
     },
 
+    "straw_basket": {
+        "device": "hand",
+        "time": 30,
+        "stamina": 10,
+        "input": {
+            "stick": 8,
+            "plant_fiber": 4
+        },
+        "output": {
+            "straw_basket": 1
+        }
+    },
+
     "wood_bowl": {
         "device": "hand",
         "time": 20,
@@ -62,6 +89,21 @@
         },
         "output": {
             "wood_bowl": 1
+        }
+    },
+
+    "berry_delight": {
+        "device": "hand",
+        "time": 10,
+        "stamina": 5,
+        "input": {
+            "wood_bowl": 1,
+            "wild_berry": 2,
+            "sweet_berry": 2,
+            "juice_berry": 2
+        },
+        "output": {
+            "berry_delight": 1
         }
     },
 

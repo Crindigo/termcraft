@@ -14,16 +14,57 @@ export class Research
     }
 
     findByName(name) {
-        for ( let id in this.researchData ) {
-            if ( this.researchData[id].name.toLowerCase() === name ) {
-                return this.researchData[id];
+        let rid = null;
+        this.availableResearch.some(id => {
+            if ( this.researchData[id].name.toLowerCase() === name.toLowerCase() ) {
+                rid = id;
+                return true;
             }
-        }
-        return null;
+            return false;
+        });
+        return this.create(rid);
     }
 
     get(id) {
-        return this.researchData[id] || null;
+        return this.create(id) || null;
+    }
+
+    create(id) {
+        // really should have instances for each research item
+        if ( !id || !this.researchData[id] ) {
+            return null;
+        }
+        let tech = this.researchData[id];
+        tech.id = id;
+        return tech;
+    }
+
+    allAvailable() {
+        let avail = this.availableResearch.map(id => this.researchData[id]);
+        avail.sort((a, b) => a.name.localeCompare(b.name));
+        return avail;
+    }
+
+    canResearch(research) {
+        let items = this.tf.player.inventory.indexed;
+        
+        return Object.entries(research.items).every(kv => {
+            let itemId = kv[0];
+            let qty = kv[1];   
+            return items[itemId] && items[itemId].qty >= qty;
+        });
+    }
+
+    pullItems(research) {
+        let inv = this.tf.player.inventory;
+        
+        return Object.entries(research.items).every(kv => {
+            let itemId = kv[0];
+            let qty = kv[1];   
+            
+            let stack = inv.findStackById(itemId);
+            return stack && inv.reduce(stack, qty);
+        });
     }
 
     complete(id) {
@@ -60,10 +101,12 @@ export class Research
         }
 
         // recalculate available research
-        this.refreshAvailable();
+        return this.refreshAvailable();
     }
 
     refreshAvailable() {
+        let unlocked = [];
+
         // go through all research and unlock everything that has all requirements met, and hasn't already been unlocked
         for ( let id in this.researchData ) {
             if ( !this.availableResearch.includes(id) && !this.completedResearch.includes(id) ) {
@@ -73,8 +116,11 @@ export class Research
                 if ( intersection(requirements, this.completedResearch).length === requirements.length ) {
                     console.log("[Research] Unlocked research " + id);
                     this.availableResearch.push(id);
+                    unlocked.push(id);
                 }
             }
         }
+        
+        return unlocked;
     }
 }

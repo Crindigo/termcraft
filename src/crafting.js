@@ -38,6 +38,9 @@ export class Crafting
     }
 
     findRecipe(device, id) {
+        if ( device === null ) {
+            return this.allRecipes[id] || null;
+        }
         return this.sets[device] ? this.sets[device].find(id) : null;
     }
 
