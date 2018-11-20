@@ -23,5 +23,9 @@
     },
     "wood": {
         "name": "wood"
+    },
+
+    "wood_bowl": {
+        "name": "wood bowl"
     }
 }

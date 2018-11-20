@@ -115,6 +115,7 @@ class Recipe
         this.stamina = recipeData.stamina;
         this.input = recipeData.input;
         this.output = recipeData.output;
+        this.name = recipeData.name || '';
         
         // we should allow giving recipes a name and just falling back to the first output item name.
         // that way we could still use these classes for multi-output recipes.
@@ -130,6 +131,36 @@ class Recipe
 
     pullFromInventory(inventory, desiredQty = 1) {
         // if the recipe has an input with tags, get all qualifying stacks and pull from the one with the highest qty.
+        // if the input item is tool === true, do NOT remove the item here. Finishing the recipe can remove it though
+        // if it's breakable.
+
+        return Object.entries(this.input).map(kv => {
+            let key = kv[0];
+            let qty = kv[1] * desiredQty;
+            let stack = null;
+
+            let m = key.startsWith("tag:") && key.match(tagRegexp);
+            if ( m ) {
+                let stacks = inventory.findMatchingTag(key);
+                if ( stacks.length > 0 ) {
+                    // highest first
+                    stacks.sort((a, b) => b.qty - a.qty);
+                    stack = stacks[0];
+                }
+            } else {
+                // simple item id
+                stack = inventory.findStackById(key);
+            }
+            
+            if ( !stack ) {
+                return null;
+            } else if ( stack.item.tool ) {
+                return stack;
+            } else {
+                inventory.reduce(stack, qty);
+                return stack;
+            }
+        });
     }
 
     canCraft(items, desiredQty = 1) {

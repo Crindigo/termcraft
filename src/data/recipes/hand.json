@@ -52,6 +52,19 @@
         }
     },
 
+    "wood_bowl": {
+        "device": "hand",
+        "time": 20,
+        "stamina": 10,
+        "input": {
+            "wood": 1,
+            "tag:chisel": 1
+        },
+        "output": {
+            "wood_bowl": 1
+        }
+    },
+
     "thatch_bed": {
         "device": "hand",
         "time": 60,

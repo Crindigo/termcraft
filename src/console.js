@@ -5,6 +5,7 @@ import { CommandHistory, CommandRegistry, CommandProcessor } from './commands/ba
 import { EatCommand } from './commands/eat';
 import { RecipeCommand } from './commands/recipe';
 import { MakeCommand } from './commands/make';
+import { RecipesCommand } from './commands/recipes';
 
 export class TFConsole
 {
@@ -28,6 +29,7 @@ export class TFConsole
         this.registry.add(new EatCommand());
         this.registry.add(new GatherCommand());
         this.registry.add(new RecipeCommand());
+        this.registry.add(new RecipesCommand());
         this.registry.add(new MakeCommand());
 
         this.registry.alias('help', ['?', 'h']);

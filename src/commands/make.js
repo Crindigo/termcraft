@@ -26,6 +26,7 @@ export class MakeCommand extends BaseCommand
         this.desiredQty = 1;
         this.craftedQty = 0;
         this.staminaDrain = 0;
+        this.inputStacks = [];
     }
 
     help() {
@@ -68,6 +69,7 @@ export class MakeCommand extends BaseCommand
         this.progress = 0;
         this.craftedQty = 0;
         this.itemProgress = 0;
+        this.inputStacks = [];
         tf.console.lock(this);
 
         // create a progress bar, and update the UI for stamina regen
@@ -118,11 +120,13 @@ export class MakeCommand extends BaseCommand
         if ( this.itemProgress === 0 ) {
             let canCraft = this.recipe.canCraft(tf.player.inventory, 1);
             if ( !canCraft ) {
-                tf.console.appendLine('Stopped crafting because you ran out of ingredients', 'tip');
+                tf.console.appendLine('Stopped crafting because you ran out of ingredients.', 'tip');
                 return false;
             }
 
-            this.recipe.pullFromInventory(tf.player.inventory, 1);
+            // need to store a reference to the input stacks so we can check and break the proper tool
+            // when the recipe is finished.
+            this.inputStacks = this.recipe.pullFromInventory(tf.player.inventory, 1);
         }
 
         this.itemProgress++;
@@ -131,11 +135,27 @@ export class MakeCommand extends BaseCommand
 
         // finished a single item
         if ( this.itemProgress >= this.recipe.time ) {
+            // Need to check if one of the input items was breakable, and if so run the break chance test.
+            // If we've run out of that item it will just catch it above before the next craft.
+            // technically could be simplified by breaking in recipe.pullFromInventory, but it just seems
+            // weird to break the tool before you used it lol.
+            this.inputStacks.forEach(st => {
+                if ( st.item.tool && Math.random() < st.item.breakChance ) {
+                    tf.player.inventory.reduce(st, 1);
+                    tf.console.appendLine(`You broke your ${st.item.name}.`);
+                }
+            });
+
             Object.keys(this.recipe.output).forEach(itemId => {
                 const item = tf.items.get(itemId);
                 const qty = this.recipe.output[itemId];
                 if ( item.category === 'item' ) {
+                    // add to the player inventory
                     tf.player.addItemStack(item.stack(qty));
+                } else if ( item.category === 'support' ) {
+                    // add to the support list
+                } else if ( item.category === 'device' ) {
+                    // add to the device list
                 }
             });
 

@@ -28,6 +28,18 @@
             "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spears"]
         }
     },
+    "carving": {
+        "name": "Carving",
+        "time": 10,
+        "stamina": 10,
+        "items": {
+            "small_plank": 4,
+            "flint_handaxe": 2
+        },
+        "unlocks": {
+            "recipes": ["wood_bowl"]
+        }
+    },
     "construction_1": {
         "name": "Construction Level 1",
         "time": 30,

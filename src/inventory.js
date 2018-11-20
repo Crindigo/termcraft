@@ -16,13 +16,14 @@ export class Item
         this.tool = info.tool || false;
         this.breakChance = info.breakChance || 0;
         this.level = info.level || 0;
+        this.scrap = info.scrap || {}; // items gained after breaking. NYI.
 
         // food
         this.edible = info.edible || false;
         this.time = info.time || 1;
         this.stamina = info.stamina || 0;
         this.staminaCap = info.staminaCap || 0;
-        this.leftovers = info.leftovers || {};
+        this.leftovers = info.leftovers || {}; // items gained after eating.
 
         // support
         this.staminaRegen = info.staminaRegen || 0;
@@ -87,6 +88,10 @@ export class Inventory
             this.items.sort((a, b) => a.item.name.localeCompare(b.item.name));
             this.indexed[stack.item.id] = stack;
         }
+    }
+
+    findStackById(id) {
+        return this.indexed[id] || null;
     }
 
     findStack(item) {
