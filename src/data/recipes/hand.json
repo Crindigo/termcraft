@@ -118,30 +118,5 @@
         "output": {
             "thatch_bed": 1
         }
-    },
-
-    "wood_chopping_block": {
-        "device": "hand",
-        "time": 15,
-        "stamina": 10,
-        "input": {
-            "wood": 10
-        },
-        "output": {
-            "wood_chopping_block": 1
-        }
-    },
-
-    "brick_former": {
-        "device": "hand",
-        "time": 30,
-        "stamina": 20,
-        "input": {
-            "stone": 20,
-            "small_plank": 10
-        },
-        "output": {
-            "brick_former": 1
-        }
     }
 }

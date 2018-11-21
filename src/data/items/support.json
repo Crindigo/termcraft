@@ -42,6 +42,8 @@
         "logBase": 2
     },
 
+    "//": "research bonus, other speed bonus, makes it go X% faster. multiply time by 100/100+bonus.",
+
     "research_table": {
         "name": "research table",
         "category": "support",

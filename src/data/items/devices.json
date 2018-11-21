@@ -3,7 +3,6 @@
         "name": "wood chopping block",
         "category": "device",
         "land": 1,
-        "durability": 50,
         "drops": {
             "wood": 5
         }

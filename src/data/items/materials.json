@@ -27,6 +27,9 @@
     "stone": {
         "name": "stone"
     },
+    "small_plank": {
+        "name": "small_plank"
+    },
 
     "wood_bowl": {
         "name": "wood bowl"

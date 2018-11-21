@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "watch": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack --mode=development",
+    "release": "webpack --mode=production"
   },
   "dependencies": {
     "d3-format": "^1.3.2",

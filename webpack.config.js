@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = {
+let config = {
   mode: 'development',
   entry: './src/index.js',
   output: {
@@ -21,4 +21,14 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' for webpack 1
     }
   }
+};
+
+module.exports = (env, argv) => {
+  config.mode = argv.mode;
+  if ( argv.mode === 'development' ) {
+    config.output.filename = 'main.js';
+  } else {
+    config.output.filename = 'main.min.js';
+  }
+  return config;
 };

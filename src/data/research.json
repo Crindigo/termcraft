@@ -1,7 +1,7 @@
 {
     "_default_": {
         "unlocks": {
-            "commands": ["help", "gather", "research", "make", "eat", "recipe", "recipes"],
+            "commands": ["help", "gather", "research", "make", "eat", "recipe", "recipes", "use"],
             "recipes": []
         }
     },
@@ -51,7 +51,21 @@
         },
         "requires": ["flint_knapping", "weaving"],
         "unlocks": {
-            "recipes": ["brick_former", "chopping_block", "small_plank"]
+            "recipes": ["brick_former", "wood_chopping_block", "small_plank"]
+        }
+    },
+    "mechanics_1": {
+        "name": "Simple Mechanics",
+        "time": 60,
+        "stamina": 30,
+        "items": {
+            "small_plank": 20,
+            "stick": 20,
+            "stone": 20
+        },
+        "requires": ["construction_1", "carving"],
+        "unlocks": {
+
         }
     }
 }
