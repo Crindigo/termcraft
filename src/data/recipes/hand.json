@@ -7,7 +7,7 @@
             "flint": 2
         },
         "output": {
-            "flint_handaxe": 1
+            "flint_handaxe": 20
         }
     },
 
@@ -20,7 +20,7 @@
             "stick": 1
         },
         "output": {
-            "flint_spade": 1
+            "flint_spade": 20
         }
     },
 
@@ -34,7 +34,7 @@
             "tag:binding": 1
         },
         "output": {
-            "flint_hatchet": 1
+            "flint_hatchet": 20
         }
     },
 
@@ -48,21 +48,7 @@
             "tag:binding": 2
         },
         "output": {
-            "flint_pick": 1
-        }
-    },
-
-    "flint_spears": {
-        "device": "hand",
-        "time": 10,
-        "stamina": 10,
-        "input": {
-            "flint": 4,
-            "stick": 8,
-            "tag:binding": 8
-        },
-        "output": {
-            "flint_spears": 1
+            "flint_pick": 20
         }
     },
 
@@ -75,7 +61,7 @@
             "plant_fiber": 4
         },
         "output": {
-            "straw_basket": 1
+            "straw_basket": 100
         }
     },
 
@@ -104,19 +90,6 @@
         },
         "output": {
             "berry_delight": 1
-        }
-    },
-
-    "thatch_bed": {
-        "device": "hand",
-        "time": 60,
-        "stamina": 30,
-        "input": {
-            "plant_fiber": 50,
-            "stick": 25
-        },
-        "output": {
-            "thatch_bed": 1
         }
     }
 }

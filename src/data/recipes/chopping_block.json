@@ -1,6 +1,6 @@
 {
     "small_plank": {
-        "device": "tag:chopping_block",
+        "device": "wood_chopping_block",
         "time": 5,
         "stamina": 2,
         "input": {
@@ -9,6 +9,19 @@
         },
         "output": {
             "small_plank": 2
+        }
+    },
+
+    "TEMP_small_plank": {
+        "device": "sawmill",
+        "time": 5,
+        "power": 5,
+        "input": {
+            "wood": 1,
+            "tag:sawblade[1,)": 1
+        },
+        "output": {
+            "small_plank": 3
         }
     }
 }

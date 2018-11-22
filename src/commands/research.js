@@ -109,19 +109,17 @@ export class ResearchCommand extends BaseCommand
 
         if ( this.progress >= this.tech.time ) {
             tf.console.appendLine(`You've completed your research on ${this.tech.name}!`, 'tip');
-            const unlockedResearch = tf.research.complete(this.tech.id);
+            const unlocks = tf.research.complete(this.tech.id);
             
-            const unlocks = this.tech.unlocks;
-
             // unlocked commands
-            if ( unlocks.commands ) {
+            if ( unlocks.commands.length ) {
                 unlocks.commands.forEach(cmd => {
-                    tf.console.appendLine('Unlocked command ' + cmd + '!', 'tip');
+                    tf.console.appendLine('Unlocked the ' + cmd + ' command!', 'tip');
                 });
             }
     
             // unlocked recipes
-            if ( unlocks.recipes ) {
+            if ( unlocks.recipes.length ) {
                 unlocks.recipes.forEach(re => {
                     let recipe = tf.crafting.findRecipe(null, re);
                     let name = recipe.name || tf.items.get(Object.keys(recipe.output)[0]).name;
@@ -130,8 +128,8 @@ export class ResearchCommand extends BaseCommand
             }
 
             // unlocked research
-            if ( unlockedResearch.length ) {
-                unlockedResearch.forEach(rid => {
+            if ( unlocks.research.length ) {
+                unlocks.research.forEach(rid => {
                     let r = tf.research.get(rid);
                     tf.console.appendLine('Unlocked research on ' + r.name + '!', 'tip');
                 });

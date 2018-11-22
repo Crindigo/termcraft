@@ -7,6 +7,8 @@ import { RecipeCommand } from './commands/recipe';
 import { MakeCommand } from './commands/make';
 import { RecipesCommand } from './commands/recipes';
 import { ResearchCommand } from './commands/research';
+import { BuildCommand } from './commands/build';
+import { SudoCommand } from './commands/sudo';
 
 export class TFConsole
 {
@@ -32,7 +34,9 @@ export class TFConsole
         this.registry.add(new RecipeCommand());
         this.registry.add(new RecipesCommand());
         this.registry.add(new MakeCommand());
+        this.registry.add(new BuildCommand());
         this.registry.add(new ResearchCommand());
+        this.registry.add(new SudoCommand());
 
         this.registry.alias('help', ['?', 'h']);
         this.registry.alias('test', 't');

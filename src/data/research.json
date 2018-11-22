@@ -1,7 +1,7 @@
 {
     "_default_": {
         "unlocks": {
-            "commands": ["help", "gather", "research", "make", "eat", "recipe", "recipes", "use"],
+            "commands": ["help", "gather", "research", "make", "eat", "recipe", "recipes", "use", "sudo"],
             "recipes": []
         }
     },
@@ -14,6 +14,7 @@
             "plant_fiber": 8
         },
         "unlocks": {
+            "commands": ["build"],
             "recipes": ["thatch_bed", "straw_basket"]
         }
     },
@@ -25,6 +26,7 @@
             "flint": 4
         },
         "unlocks": {
+            "commands": ["build"],
             "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spears", "flint_pick"]
         }
     },
@@ -34,7 +36,7 @@
         "stamina": 10,
         "items": {
             "wood": 4,
-            "flint_handaxe": 2
+            "flint_handaxe": 40
         },
         "requires": ["flint_knapping"],
         "unlocks": {

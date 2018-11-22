@@ -4,7 +4,8 @@
     "//": "They do not use land, and are activated once crafted.",
 
     "//": "Technically, support could be used for other bonuses as well besides stamina regen.",
-    "//": "Maybe use this for combat as well, making devices go faster, reducing item break chance, etc.",
+    "//": "Maybe use this for combat as well, making devices go faster, research faster, etc.",
+    "//": "more etc: increase recipe output for tools.",
 
     "thatch_bed": {
         "name": "thatch bed",
@@ -15,12 +16,12 @@
     "mud_hut": {
         "name": "mud hut",
         "category": "support",
-        "staminaRegen": 1.0
+        "staminaRegen": 0.5
     },
     "adobe_hut": {
         "name": "adobe hut",
         "category": "support",
-        "staminaRegen": 3.0
+        "staminaRegen": 2.5
     },
 
     "flint_spears": {

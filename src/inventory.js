@@ -14,9 +14,7 @@ export class Item
 
         // tools
         this.tool = info.tool || false;
-        this.breakChance = info.breakChance || 0;
         this.level = info.level || 0;
-        this.scrap = info.scrap || {}; // items gained after breaking. NYI.
 
         // food
         this.edible = info.edible || false;
@@ -29,6 +27,7 @@ export class Item
         this.staminaRegen = info.staminaRegen || 0;
         this.combat = info.combat || 0;
         this.logBase = info.logBase || Math.E;
+        this.researchBonus = info.researchBonus || 0;
     }
 
     stack(qty) {

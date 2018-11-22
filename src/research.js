@@ -72,12 +72,17 @@ export class Research
         console.log('[Research] Completed ' + id);
 
         const unlocks = research.unlocks;
+        let unlockedCmds = [];
+        let unlockedRecipes = [];
 
         // unlock commands
         if ( unlocks.commands ) {
             unlocks.commands.forEach(cmd => {
-                console.log('[Research] Unlocked command ' + cmd);
-                this.tf.console.registry.unlock(cmd);
+                if ( !this.tf.console.registry.commands[cmd] ) {
+                    console.log('[Research] Unlocked command ' + cmd);
+                    this.tf.console.registry.unlock(cmd);
+                    unlockedCmds.push(cmd);
+                }
             });
         }
 
@@ -86,6 +91,7 @@ export class Research
             unlocks.recipes.forEach(re => {
                 console.log('[Research] Unlocked recipe ' + re);
                 this.tf.crafting.unlock(re);
+                unlockedRecipes.push(re);
             });
         }
 
@@ -101,7 +107,11 @@ export class Research
         }
 
         // recalculate available research
-        return this.refreshAvailable();
+        return {
+            research: this.refreshAvailable(),
+            commands: unlockedCmds,
+            recipes: unlockedRecipes
+        };
     }
 
     refreshAvailable() {

@@ -158,16 +158,15 @@ export class GatherCommand extends BaseCommand
             tf.console.appendLine('Stopped gathering items because you ran out of stamina.', 'tip');
             return false;
         }
-        tf.player.stamina -= 1;
 
         // there exists the potential for the tool to run out due to usage in a device, so check the qty here.
         // we need to have this up here as well because we can't find an item with a missing tool!
         if ( this.tool && this.tool.qty <= 0 ) {
-            tf.console.appendLine('No more tools found, stopped gathering items.', 'tip');
+            tf.console.appendLine('Your tool broke, stopped gathering items.', 'tip');
             return false;
         }
 
-        const breakChance = this.tool ? this.tool.item.breakChance : 0;
+        tf.player.stamina -= 1; // keep this under the tool check since no attempt was made to gather yet.
 
         let foundItems = pickRandomKeys(this.gatherItems);
         if ( foundItems.length === 0 ) {
@@ -193,24 +192,16 @@ export class GatherCommand extends BaseCommand
             }
         });
 
-        // possibly break the item if it's breakable
-        if ( this.tool && breakChance > 0 ) {
-            let broken = Math.random() < breakChance;
-            if ( broken ) {
-                // destroy it by reducing the stack size by 1.
-                tf.player.inventory.reduce(this.tool);
-                if ( this.tool.qty > 0 ) {
-                    tf.console.appendLine('Tool broke, using a replacement.', 'tip');
-                }
-            }
+        // tools are no longer randomly breakable. however, the stack quantity is their durability,
+        // and recipes can make 20, 100, etc. of the tool.
+        if ( this.tool ) {
+            tf.player.inventory.reduce(this.tool);
         }
-
-        //tf.syncInventory();
 
         // there exists the potential for the tool to run out due to usage in a device, so check the qty here.
         // this also handles the case where qty is <= 0 after it breaks above.
         if ( this.tool && this.tool.qty <= 0 ) {
-            tf.console.appendLine('Tool broke and no more tools found, stopped gathering items.', 'tip');
+            tf.console.appendLine('Your tool broke, stopped gathering items.', 'tip');
             return false;
         }
 

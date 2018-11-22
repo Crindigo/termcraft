@@ -3,7 +3,7 @@ import { tagRegexp, formatTagSpec } from '../utils';
 
 export class RecipeCommand extends BaseCommand
 {
-    constructor(device = 'hand') {
+    constructor(device = null) {
         super();
 
         this.name = 'recipe';
@@ -20,8 +20,11 @@ export class RecipeCommand extends BaseCommand
             return [false, 'No recipe found for ' + args.name + '.'];
         }
 
-        // need to handle tags and levels properly eventually
-        tf.console.appendLine(`[Time: ${recipe.time}s] [Stamina: ${recipe.stamina}]`);
+        // Probably need to rethink this at some point. Like going through all devices which have a recipe
+        // that includes this item in the output list. And filtering devices to hide ones that do not have
+        // unlocked recipes (device isn't researched yet).
+        
+        tf.console.appendLine(`[Made with: ${recipe.device}] [Time: ${recipe.time}s] [Stamina: ${recipe.stamina}]`);
         tf.console.appendLine('Input:');
         Object.entries(recipe.input).forEach(kv => {
             // need to get names from id

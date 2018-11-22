@@ -27,6 +27,10 @@ first expedition will use 1.1 stamina/second for 100 seconds during which you
 can't run any other commands besides stop, which aborts the expedition.
 As for time, I may make it equal to the # of land gained. 
 
+TOOLS IDEA: Maybe instead of crafting one tool that has a % chance of breakage
+on each use, the crafting operation makes X "tools" which are just "tool usages"
+instead of quantities. Then gathering, crafting, etc. just takes 1 per use.
+
 ending:
 Va gur raq, n tynff oernxvat bireynl nccrnef bire gur pbafbyr, naq cvrprf sentzrag 
 gb gur fvqr gb erirny n pehqryl qenja snpr fnlvat "huu, uv?".

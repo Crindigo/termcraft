@@ -4,7 +4,7 @@
         "category": "device",
         "land": 1,
         "drops": {
-            "wood": 5
+            "wood": 10
         }
     },
     "brick_former": {

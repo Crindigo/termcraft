@@ -1,8 +1,9 @@
 import { BaseCommand } from './base';
+import padEnd from 'lodash/padEnd';
 
 export class RecipesCommand extends BaseCommand
 {
-    constructor(device = 'hand') {
+    constructor(device = null) {
         super();
 
         this.name = 'recipes';
@@ -14,13 +15,26 @@ export class RecipesCommand extends BaseCommand
     run(tf, args) {
         let recipes = tf.crafting.getAvailableRecipes(this.device, tf.player.inventory);
         if ( recipes.length === 0 ) {
-            tf.console.appendLine("Nothing is craftable right now with the items in your inventory.");
+            tf.console.appendLine("You don't know any recipes.");
             return;
         }
 
+        let line = '';
+        let count = 0;
         recipes.forEach(r => {
             let name = r.name || tf.items.get(Object.keys(r.output)[0]).name;
-            tf.console.appendLine(' - ' + name);
+    
+            line += '{!itemtt}' + padEnd(name, 32) + '{/}';
+            count++;
+            if ( count === 3 ) {
+                tf.console.appendLine(line);
+                line = '';
+                count = 0;
+            }
         });
+
+        if ( line.length ) {
+            tf.console.appendLine(line);
+        }
     }
 }

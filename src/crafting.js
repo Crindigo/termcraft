@@ -11,6 +11,7 @@ export class Crafting
 
         this.sets = {};
         this.allRecipes = {};
+        this.unlockedRecipes = {};
         const context = require.context('./data/recipes', true, /\.json$/);
         context.keys().forEach(key => this.addRecipes(key, context(key)));
     }
@@ -46,6 +47,7 @@ export class Crafting
 
     unlock(id) {
         let device = this.allRecipes[id].device;
+        this.unlockedRecipes[id] = this.allRecipes[id];
         this.sets[device].unlock(id);
     }
 
@@ -58,10 +60,23 @@ export class Crafting
     }
 
     findRecipeByOutput(device, id) {
+        if ( device === null ) {
+            let found = null;
+            Object.values(this.sets).some(set => {
+                found = set.findByOutput(id);
+                return !!found;
+            });
+            return found;
+        }
         return this.sets[device] ? this.sets[device].findByOutput(id) : null;
     }
 
     getAvailableRecipes(device, inventory) {
+        if ( device === null ) {
+            let avail = Object.values(this.unlockedRecipes);
+            avail.sort((a, b) => a.outputName.localeCompare(b.outputName));
+            return avail;
+        }
         return this.sets[device] ? this.sets[device].getAvailableRecipes(inventory) : [];
     }
 }
@@ -102,7 +117,8 @@ class RecipeSet
     }
 
     getAvailableRecipes(inventory) {
-        let avail = Object.values(this.registry).filter(r => r.canCraft(inventory.indexed));
+        //let avail = Object.values(this.registry).filter(r => r.canCraft(inventory.indexed));
+        let avail = Object.values(this.registry);
         avail.sort((a, b) => a.outputName.localeCompare(b.outputName));
         return avail;
     }
@@ -157,8 +173,6 @@ class Recipe
             
             if ( !stack ) {
                 return null;
-            } else if ( stack.item.tool ) {
-                return stack;
             } else {
                 inventory.reduce(stack, qty);
                 return stack;
