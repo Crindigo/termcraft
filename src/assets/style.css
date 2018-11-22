@@ -76,6 +76,9 @@ body, input {
 span.item.bold {
     font-weight: bold;
 }
+span.gray {
+    color: #888;
+}
 
 .clickable {
     cursor: pointer;

@@ -27,6 +27,13 @@ first expedition will use 1.1 stamina/second for 100 seconds during which you
 can't run any other commands besides stop, which aborts the expedition.
 As for time, I may make it equal to the # of land gained. 
 
+ALTERNATIVE: Exploration is a run-forever command that just slowly increases
+land by 0.1%/second, with higher stamina drain as the number grows. It stops
+if combat isn't high enough (formula tbd). At certain land milestones, story
+gets added to the terminal. If nutrition gets added it could boost explore
+speed. Also some support items could boost speed or reduce stamina drain, like
+binoculars, boots, star charts, drones, satellites.
+
 TOOLS IDEA: Maybe instead of crafting one tool that has a % chance of breakage
 on each use, the crafting operation makes X "tools" which are just "tool usages"
 instead of quantities. Then gathering, crafting, etc. just takes 1 per use.
@@ -248,3 +255,12 @@ mass driver [12 hours]
 For upgrades, store the save file version in the JSON data. Then an upgrade can migrate the save data to a new
 version, auto unlocking new research, etc. If this happens, store the un-migrated JSON in a backup key in
 local storage so if something went wrong it could be recovered and attempted again.
+
+# Space
+
+Level 1 devices - require an item (satellite, etc.) combined with a rocket + fuel built on a launchpad.
+Level 2 devices - require an item combined with power built on a space elevator.
+Level 3 devices - require an item combined with power built on a mass driver.
+Technically could use the same item but put it in a different device.
+Perhaps land should be renamed Device Cap? Since it doesn't make sense in space, and I really don't
+want to allow infinite devices. Or change "Land" to "Space" once you do rocketry research?

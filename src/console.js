@@ -9,6 +9,7 @@ import { RecipesCommand } from './commands/recipes';
 import { ResearchCommand } from './commands/research';
 import { BuildCommand } from './commands/build';
 import { SudoCommand } from './commands/sudo';
+import { UseCommand } from './commands/use';
 
 export class TFConsole
 {
@@ -37,6 +38,7 @@ export class TFConsole
         this.registry.add(new BuildCommand());
         this.registry.add(new ResearchCommand());
         this.registry.add(new SudoCommand());
+        this.registry.add(new UseCommand());
 
         this.registry.alias('help', ['?', 'h']);
         this.registry.alias('test', 't');
@@ -106,10 +108,22 @@ export class TFConsole
                     this.lockHolder.stop(this.tf);
                     this.lockHolder = null;
                 } else {
+                    this.history.add(value);
                     this.appendLine('> Busy. Type {!b}stop{/} to end current task.', 'error');
                 }
                 this.commandEl.val('');
                 return;
+            } else {
+                if ( value === 'stop' ) {
+                    // check if there is a current device and it can stop
+                    if ( this.tf.devices.current && this.tf.devices.current.stop ) {
+                        this.tf.devices.current.stop();
+                    } else {
+                        this.appendLine('> Nothing to stop.', 'error');
+                    }
+                    this.commandEl.val('');
+                    return;
+                }
             }
 
             // submit

@@ -131,3 +131,10 @@ export function progressBar(current, max, charWidth) {
 export function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
 }
+
+export function textFormat(line) {
+    line = line.replace(/\{!([a-z0-9 -]+)}/g, '<span class="$1">');
+    line = line.replace(/\{\/}/g, '</span>');
+
+    return line;
+}

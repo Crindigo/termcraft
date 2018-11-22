@@ -27,23 +27,31 @@ width: 34 total
 <ul class="status-contents" v-if="tab === 'status'">
     <li>
         <span class="stat">Stamina: {{ stamina.current | shortnum }}/{{ stamina.maximum | shortnum }} ({{ staminaMod() }}/s)</span>
+        <span class="progress">{{ staminaProgress() }}</span>
     </li>
-    <li><span class="progress">{{ staminaProgress() }}</span></li>
 
     <li v-if="power.maximum > 0" style="margin-top:4px;">
         <span class="stat">Power: {{ power.current | shortnum }}/{{ power.maximum | shortnum }} ({{ powerMod() }}/s)</span>
+        <span class="progress">{{ powerProgress() }}</span>
     </li>
-    <li v-if="power.maximum > 0"><span class="progress">{{ powerProgress() }}</span></li>
     
+    <li style="margin-top:4px;">
+        <span class="stat">Land Used: {{ land | shortnum }}/{{ maxLand }}</span>
+        <span class="progress">{{ landProgress() }}</span>
+    </li>
+
     <li v-if="combat > 0" style="margin-top:4px;">
         <span class="stat">Combat Strength: {{ combat | shortnum }}</span>
     </li>
 
     <li v-if="researchBonus > 0"><span class="stat">Research Bonus: {{ researchBonus | shortnum }}</span></li>
     
-    <li v-if="supports.length > 0">&nbsp;</li>
+    <li v-if="supports.length > 0 || incompleteSupports.length > 0">&nbsp;</li>
     <li v-if="supports.length > 0"><strong>Support Structures</strong></li>
-    <li v-for="support in supports">
+    <li v-for="supportName in filteredIncompleteSupports">
+        <span class="item gray">{{ supportName }}</span>
+    </li>
+    <li v-for="support in filteredSupports">
         <span class="item">{{ support.name }}</span>
         <span class="meta">{{ support.qty | shortnum }}</span>
     </li>
@@ -57,6 +65,10 @@ width: 34 total
 </ul>
 
 <ul class="devices-contents" v-if="tab === 'devices'">
+    <li v-for="deviceName in filteredIncompleteDevices">
+        <span class="item gray">{{ deviceName }}</span>
+    </li>
+    <li v-for="device in filteredDevices" v-html="textfmt(device.renderList())"></li>
     <!--
     <li><span class="item bold">propane grill</span><span class="meta">fuel: 90</span>
         <span class="crafting">&gt; hamburger patty</span>

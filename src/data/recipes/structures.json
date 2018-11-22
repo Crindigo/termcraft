@@ -26,7 +26,7 @@
         }
     },
 
-    "wood_chopping_block": {
+    "chopping_block": {
         "device": "structure",
         "time": 60,
         "stamina": 15,
@@ -34,7 +34,7 @@
             "wood": 20
         },
         "output": {
-            "wood_chopping_block": 1
+            "chopping_block": 1
         }
     },
 

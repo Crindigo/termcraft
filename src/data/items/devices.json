@@ -1,6 +1,6 @@
 {
-    "wood_chopping_block": {
-        "name": "wood chopping block",
+    "chopping_block": {
+        "name": "chopping block",
         "category": "device",
         "land": 1,
         "drops": {

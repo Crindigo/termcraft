@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Vue from 'vue';
 import './assets/style.css';
-import { numberFormatFull, numberFormatAbbr, progressBar } from './utils';
+import { numberFormatFull, numberFormatAbbr, progressBar, textFormat } from './utils';
 
 import { TFConsole } from './console';
 import { Player } from './player';
@@ -9,6 +9,7 @@ import { Items } from './items';
 import { Crafting } from './crafting';
 import { Research } from './research';
 import { Support } from './support';
+import { Devices } from './devices';
 
 window.jQuery = $;
 window.$ = $;
@@ -28,6 +29,7 @@ class TermFactory
         this.crafting = new Crafting(this);
 
         this.support = new Support(this);
+        this.devices = new Devices(this);
 
         // research needs to come after console and crafting as it can unlock commands/recipes
         this.research = new Research(this);
@@ -44,6 +46,7 @@ class TermFactory
     tick() {
         this.player.tick(this);
         this.support.tick();
+        this.devices.tick();
         this.sync();
     }
 
@@ -60,6 +63,12 @@ class TermFactory
         this.vue.combat = this.support.totalCombatBonus;
         this.vue.researchBonus = this.support.totalResearchBonus;
         this.vue.supports = this.support.activeCache;
+        this.vue.incompleteSupports = this.support.partialCache;
+        this.vue.devices = this.devices.activeCache;
+        this.vue.incompleteDevices = this.devices.partialCache;
+
+        this.vue.land = this.land;
+        this.vue.maxLand = this.maxLand;
     }
 
     syncInventory() {
@@ -111,7 +120,11 @@ window.leftVue = tf.vue = new Vue({
         inventory: [],
         combat: 0,
         researchBonus: 0,
+        land: 0,
+        maxLand: 100,
+        incompleteSupports: [],
         supports: [],
+        incompleteDevices: [],
         devices: [],
         stamina: {
             current: 100,
@@ -137,6 +150,10 @@ window.leftVue = tf.vue = new Vue({
             return progressBar(this.stamina.current, this.stamina.maximum, 34);
         },
 
+        landProgress() {
+            return progressBar(this.land, this.maxLand, 34);
+        },
+
         staminaMod() {
             let str = '';
             if ( this.stamina.change > 0 ) {
@@ -155,6 +172,10 @@ window.leftVue = tf.vue = new Vue({
 
         powerProgress() {
             return progressBar(this.power.current, this.power.maximum, 34);
+        },
+
+        textfmt(value) {
+            return textFormat(value);
         }
     },
     computed: {
@@ -163,6 +184,34 @@ window.leftVue = tf.vue = new Vue({
                 return this.inventory;
             }
             return this.inventory.filter(inv => inv.name.includes(this.invFilter));
+        },
+
+        filteredSupports() {
+            if ( this.invFilter.length === 0 ) {
+                return this.supports;
+            }
+            return this.supports.filter(s => s.name.includes(this.invFilter));
+        },
+
+        filteredDevices() {
+            if ( this.invFilter.length === 0 ) {
+                return this.devices;
+            }
+            return this.devices.filter(d => d.name.includes(this.invFilter));
+        },
+
+        filteredIncompleteSupports() {
+            if ( this.invFilter.length === 0 ) {
+                return this.incompleteSupports;
+            }
+            return this.incompleteSupports.filter(s => s.includes(this.invFilter));
+        },
+
+        filteredIncompleteDevices() {
+            if ( this.invFilter.length === 0 ) {
+                return this.incompleteDevices;
+            }
+            return this.incompleteDevices.filter(d => d.includes(this.invFilter));
         }
     }
 });

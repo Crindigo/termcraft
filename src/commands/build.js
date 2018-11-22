@@ -26,7 +26,6 @@ export class BuildCommand extends BaseCommand
         this.recipe = null;
         this.item = null;
         this.staminaDrain = 0;
-        this.inputStacks = [];
     }
 
     help() {
@@ -64,7 +63,7 @@ export class BuildCommand extends BaseCommand
         if ( item.category === 'support' ) {
             makeNew = !tf.support.hasIncomplete(item.id);
         } else if ( item.category === 'device' ) {
-
+            makeNew = !tf.devices.hasIncomplete(item.id);
         }
 
         // check land requirements
@@ -77,7 +76,6 @@ export class BuildCommand extends BaseCommand
         // reset props
         this.receivedStop = false;
         this.progress = 0;
-        this.inputStacks = [];
         tf.console.lock(this);
 
         // create a progress bar, and update the UI for stamina regen
@@ -101,7 +99,11 @@ export class BuildCommand extends BaseCommand
         }
 
         if ( makeNew ) {
-            tf.support.startConstruction(item.id);
+            if ( item.category === 'support' ) {
+                tf.support.startConstruction(item.id);
+            } else if ( item.category === 'device' ) {
+                tf.devices.startConstruction(item.id);
+            }
         }
 
         let fn = () => {
@@ -147,14 +149,14 @@ export class BuildCommand extends BaseCommand
         if ( this.item.category === 'support' ) {
             tf.support.incrementProgress(this.item.id);
         } else if ( this.item.category === 'device' ) {
-
+            tf.devices.incrementProgress(this.item.id);
         }
 
         if ( this.progress >= this.recipe.time ) {
             if ( this.item.category === 'support' ) {
                 tf.support.finishConstruction(this.item.id);
             } else if ( this.item.category === 'device' ) {
-
+                tf.devices.finishConstruction(this.item.id);
             }
             tf.console.appendLine(`You've finished building the ${this.item.name}!`, 'tip');
             return false;

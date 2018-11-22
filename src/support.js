@@ -18,14 +18,16 @@ export class Support
 
         // incomplete support entries. id -> progress.
         this.partialRegistry = {};
+        this.partialCache = [];
 
         this.totalStaminaRegen = 0;
         this.totalResearchBonus = 0;
         this.totalCombatBonus = 0;
     }
 
-    startConstruction(id) {        
+    startConstruction(id) {
         this.partialRegistry[id] = 0;
+        this.rebuildCache();
     }
 
     incrementProgress(id) {
@@ -79,6 +81,10 @@ export class Support
         });
         cache.sort((a, b) => a.name.localeCompare(b.name));
         this.activeCache = cache;
+
+        let inactive = Object.keys(this.partialRegistry).map(id => this.tf.items.get(id).name);
+        inactive.sort((a, b) => a.localeCompare(b));
+        this.partialCache = inactive;
     }
 
     logBase(base, value) {

@@ -28,6 +28,10 @@ export class Item
         this.combat = info.combat || 0;
         this.logBase = info.logBase || Math.E;
         this.researchBonus = info.researchBonus || 0;
+
+        // devices
+        this.land = info.land || 0;
+        this.drops = info.drops || {};
     }
 
     stack(qty) {
@@ -72,13 +76,7 @@ export class Inventory
     }
 
     add(stack) {
-        let foundStack = null;
-        this.items.some(s => {
-            if ( s.itemsEqual(stack) ) {
-                foundStack = s;
-                return true;
-            }
-        });
+        let foundStack = this.indexed[stack.item.id] || null;
 
         if ( foundStack ) {
             foundStack.qty += stack.qty;
