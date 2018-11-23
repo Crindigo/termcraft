@@ -1,6 +1,8 @@
 import { CommandProcessor, CommandRegistry, BaseCommand } from "../commands/base";
 import { RecipeCommand } from "../commands/recipe";
 import { RecipesCommand } from "../commands/recipes";
+import { progressBar } from '../utils';
+import an from 'indefinite';
 
 /**
  * The device "class" which contains information applying to all instances of the device.
@@ -20,9 +22,9 @@ export class BaseDeviceClass
     }
 
     addRecipeSupport(deviceId, interactive) {
-        this.registry.add(new RecipeCommand(deviceId));
-        this.registry.add(new RecipesCommand(deviceId));
-        this.registry.add(new DeviceMakeCommand(deviceId, interactive));
+        this.registry.add(new RecipeCommand(deviceId), true);
+        this.registry.add(new RecipesCommand(deviceId), true);
+        this.registry.add(new DeviceMakeCommand(deviceId, interactive), true);
         this.registry.alias('make', ['build']);
     }
 
@@ -54,14 +56,146 @@ export class BaseDevice
         this.deviceClass = deviceClass;
         this.name = name;
         this.tf = deviceClass.tf;
+
+        this.craftOperation = null;
     }
 
     renderList() {
-        return '{!item}' + this.name.substr(0, 34) + '{/}';
+        let html = '{!item}' + this.name.substr(0, 34) + '{/}';
+        if ( this.craftOperation ) {
+            let co = this.craftOperation;
+            html = '{!item bold}' + this.name.substr(0, 34) + '{/}';
+            html += '{!crafting}&gt; ' + co.item.name + ' (' + co.desiredQty + '){/}';
+            html += '{!progress}' + progressBar(co.progress, co.recipe.time * co.desiredQty, 34) + '{/}';
+        }
+        return html;
     }
 
     tick() {
+        // If the device has a crafting operation active, tick it.
+        if ( this.craftOperation ) {
+            let keepGoing = this.craftOperation.tick(this);
+            if ( !keepGoing ) {
+                this.craftOperation = null;
+            }
+        }
+    }
 
+    stop() {
+        if ( this.craftOperation ) {
+            this.craftOperation.receivedStop = true;
+        }
+    }
+}
+
+class CraftOperation
+{
+    constructor(recipe, item, qty) {
+        this.receivedStop = false;
+        
+        this.itemProgress = 0;
+        this.progress = 0;
+
+        this.recipe = recipe;
+        this.craftedQty = 0;
+        this.desiredQty = qty;
+        this.item = item;
+        
+        this.staminaDrain = recipe.stamina / recipe.time;
+        this.powerDrain = recipe.power / recipe.time;
+
+        this.interactive = false;
+    }
+
+    tick(device) {
+        const tf = device.tf;
+
+        if ( this.receivedStop ) {
+            return false;
+        }
+
+        // check stamina
+        if ( tf.player.stamina < this.staminaDrain ) {
+            return true;
+        }
+
+        // check power
+        if ( tf.power < this.powerDrain ) {
+            return true;
+        }
+
+        // check for this tick's required items.
+        // the desired qty is just 1 over the total ticks required.
+        if ( !this.recipe.canCraft(tf.player.inventory, 1 / this.recipe.time) ) {
+            return true;
+        }
+
+        // take from power and inventory
+        tf.player.stamina -= this.staminaDrain;
+        tf.power -= this.powerDrain;
+        this.recipe.pullFromInventory(tf.player.inventory, 1 / this.recipe.time);
+
+        // increment all progress types and update the UI
+        this.itemProgress++;
+        this.progress++;
+
+        if ( this.item.category === 'support' ) {
+            tf.support.incrementProgress(this.item.id);
+        } else if ( this.item.category === 'device' ) {
+            tf.devices.incrementProgress(this.item.id);
+        }
+
+        // For inventory recipe outputs, increment the output values.
+        Object.keys(this.recipe.output).forEach(itemId => {
+            const item = tf.items.get(itemId);
+            const qty = this.recipe.output[itemId];
+            if ( item.category === 'item' ) {
+                tf.player.addItemStack(item.stack(qty / this.recipe.time));
+            }
+        });
+
+        // Finished a single recipe
+        if ( this.itemProgress >= this.recipe.time ) {
+            // Inventory is updated incrementally, so this is just for finishing construction on supports/devices.
+            Object.keys(this.recipe.output).forEach(itemId => {
+                const item = tf.items.get(itemId);
+                if ( item.category === 'support' ) {
+                    tf.support.finishConstruction(item.id);
+                } else if ( item.category === 'device' ) {
+                    tf.devices.finishConstruction(item.id);
+                }
+            });
+
+            // Increment the # of crafted recipes
+            this.craftedQty++;
+
+            // If we're done, return false.
+            if ( this.craftedQty >= this.desiredQty ) {
+                if ( this.interactive ) {
+                    tf.console.appendLine(`You've finished building the ${this.item.name}!`, 'tip');
+                }
+                return false;
+            } else {
+                // Not done yet.
+                // Start the next recipe. For devices and support, we need to check land and start new construction.
+                this.itemProgress = 0;
+
+                if ( this.item.category === 'support' ) {
+                    tf.support.startConstruction(item.id);
+                } else if ( this.item.category === 'device' ) {
+                    // allocate the land for this. have to do this when each new item is being built since
+                    // only one can be in progress at the same time.
+                    if ( this.item.land > tf.freeLand() ) {
+                        return false;
+                    }
+                    tf.land += this.item.land;
+                    
+                    tf.devices.startConstruction(this.item.id);
+                }
+            }
+        }
+
+        return true;
     }
 }
 
@@ -132,6 +266,8 @@ export class DeviceMakeCommand extends BaseCommand
         
         this.staminaDrain = 0;
         this.powerDrain = 0;
+
+        this.operation = null;
     }
 
     help() {
@@ -152,12 +288,12 @@ export class DeviceMakeCommand extends BaseCommand
         // make sure the item exists
         let item = tf.items.find(itemName);
         if ( !item ) {
-            return [false, "You can't build " + an(itemName) + "."];
+            return [false, "You can't make " + an(itemName) + "."];
         }
 
         let recipe = tf.crafting.findRecipeByOutput(this.deviceId, item.id);
         if ( !recipe ) {
-            return [false, "You can't build " + an(itemName) + "."];
+            return [false, "You can't make " + an(itemName) + "."];
         }
 
         // We need to check the registry of Support and Device to see if there's any partially completed
@@ -188,10 +324,18 @@ export class DeviceMakeCommand extends BaseCommand
         this.item = item;
 
         if ( makeNew ) {
-            tf.console.appendLine(`You started building ${an(item.name)}.`);
+            if ( this.interactive ) {
+                tf.console.appendLine(`You started building ${an(item.name)}.`);
+            } else {
+                tf.console.appendLine(`You set up the ${item.name} recipe in the device.`);
+            }
         } else {
             tf.console.appendLine(`You resumed construction of the ${item.name}.`);
-            this.itemProgress = tf.support.getProgress(item.id);
+            if ( item.category === 'support' ) {
+                this.itemProgress = tf.support.getProgress(item.id);
+            } else if ( item.category === 'device' ) {
+                this.itemProgress = tf.devices.getProgress(item.id);
+            }
             this.progress = this.itemProgress;
         }
 
@@ -212,15 +356,17 @@ export class DeviceMakeCommand extends BaseCommand
         } else {
             this.runBackground(tf, args);
         }
-        this.progressLine = tf.console.appendLine(progressBar(this.progress, recipe.time, 100));
 
-        this.staminaDrain = recipe.stamina / recipe.time;
-        tf.player.staminaChange -= this.staminaDrain;
-        
+        if ( this.interactive ) {
+            this.progressLine = tf.console.appendLine(progressBar(this.progress, recipe.time, 100));
+        }
     }
 
     runInteractive(tf, args) {
         tf.console.lock(this);
+
+        this.staminaDrain = recipe.stamina / recipe.time;
+        tf.player.staminaChange -= this.staminaDrain;
 
         let fn = () => {
             let keepGoing = this.tick(tf);
@@ -237,6 +383,12 @@ export class DeviceMakeCommand extends BaseCommand
     runBackground(tf, args) {
         // The current device instance being used
         let device = tf.devices.current;
+
+        // give the device a crafting operation. we COULD check to see if it's non-null and tell the
+        // user to stop the current one. or even show a message saying it's stopping the old recipe.
+        device.craftOperation = new CraftOperation(this.recipe, this.item, this.desiredQty);
+        device.craftOperation.itemProgress = this.itemProgress;
+        device.craftOperation.progress = this.progress;
     }
 
     stop(tf) {
@@ -275,16 +427,21 @@ export class DeviceMakeCommand extends BaseCommand
             tf.devices.incrementProgress(this.item.id);
         }
 
+        // For inventory recipe outputs, increment the output values.
+        Object.keys(this.recipe.output).forEach(itemId => {
+            const item = tf.items.get(itemId);
+            const qty = this.recipe.output[itemId];
+            if ( item.category === 'item' ) {
+                tf.player.addItemStack(item.stack(qty / this.recipe.time));
+            }
+        });
+
         // Finished a single recipe
         if ( this.itemProgress >= this.recipe.time ) {
-            // Add the output to the inventory, or finish the construction on support/device.
+            // Inventory is updated incrementally, so this is just for finishing construction on supports/devices.
             Object.keys(this.recipe.output).forEach(itemId => {
                 const item = tf.items.get(itemId);
-                const qty = this.recipe.output[itemId];
-
-                if ( item.category === 'item' ) {
-                    tf.player.addItemStack(item.stack(qty));
-                } else if ( item.category === 'support' ) {
+                if ( item.category === 'support' ) {
                     tf.support.finishConstruction(item.id);
                 } else if ( item.category === 'device' ) {
                     tf.devices.finishConstruction(item.id);
@@ -304,9 +461,9 @@ export class DeviceMakeCommand extends BaseCommand
                 // Start the next recipe. For devices and support, we need to check land and start new construction.
                 this.itemProgress = 0;
 
-                if ( item.category === 'support' ) {
+                if ( this.item.category === 'support' ) {
                     tf.support.startConstruction(item.id);
-                } else if ( item.category === 'device' ) {
+                } else if ( this.item.category === 'device' ) {
                     // allocate the land for this. have to do this when each new item is being built since
                     // only one can be in progress at the same time.
                     if ( this.item.land > tf.freeLand() ) {
@@ -314,7 +471,7 @@ export class DeviceMakeCommand extends BaseCommand
                     }
                     tf.land += this.item.land;
                     
-                    tf.devices.startConstruction(item.id);
+                    tf.devices.startConstruction(this.item.id);
                 }
             }
         }

@@ -1,0 +1,24 @@
+{
+    "water": {
+        "name": "water"
+    },
+
+
+    "//": "MOLTEN METALS. Some device will be able to mold these into ingots, rods, gears, swords, etc.",
+
+    "molten_copper": {
+        "name": "molten copper"
+    },
+    "molten_tin": {
+        "name": "molten tin"
+    },
+    "molten_bronze": {
+        "name": "molten bronze"
+    },
+    "molten_iron": {
+        "name": "molten iron"
+    },
+    "molten_steel": {
+        "name": "molten steel"
+    }
+}

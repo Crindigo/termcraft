@@ -33,5 +33,34 @@
 
     "wood_bowl": {
         "name": "wood bowl"
+    },
+
+    "clay_brick": {
+        "name": "clay brick"
+    },
+    "dirt_brick": {
+        "name": "dirt brick"
+    },
+    "adobe_brick": {
+        "name": "adobe brick"
+    },
+    "concrete_brick": {
+        "name": "concrete brick"
+    },
+    "chalk": {
+        "name": "chalk"
+    },
+    "quicklime": {
+        "name": "quicklime"
+    },
+    "slaked_lime": {
+        "name": "slaked lime"
+    },
+
+
+
+
+    "steel_rebar": {
+        "name": "steel rebar"
     }
 }

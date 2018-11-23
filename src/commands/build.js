@@ -86,7 +86,11 @@ export class BuildCommand extends BaseCommand
             tf.console.appendLine(`You started building ${an(item.name)}.`);
         } else {
             tf.console.appendLine(`You resumed construction of the ${item.name}.`);
-            this.progress = tf.support.getProgress(item.id);
+            if ( item.category === 'support' ) {
+                this.progress = tf.support.getProgress(item.id);
+            } else if ( item.category === 'device' ) {
+                this.progress = tf.devices.getProgress(item.id);
+            }
         }
         this.progressLine = tf.console.appendLine(progressBar(this.progress, recipe.time, 100));
 
@@ -94,7 +98,7 @@ export class BuildCommand extends BaseCommand
         tf.player.staminaChange -= this.staminaDrain;
 
         // allocate the land for this.
-        if ( item.category === 'device' ) {
+        if ( item.category === 'device' && makeNew ) {
             tf.land += item.land;
         }
 
@@ -153,12 +157,15 @@ export class BuildCommand extends BaseCommand
         }
 
         if ( this.progress >= this.recipe.time ) {
+            tf.console.appendLine(`You've finished building the ${this.item.name}!`, 'tip');
+
             if ( this.item.category === 'support' ) {
                 tf.support.finishConstruction(this.item.id);
             } else if ( this.item.category === 'device' ) {
-                tf.devices.finishConstruction(this.item.id);
+                let deviceName = tf.devices.finishConstruction(this.item.id);
+                tf.console.appendLine(`Access it with {!b}use ${deviceName}{/}.`)
+                tf.console.appendLine(`Rename it with {!b}name ${deviceName} new_name{/}.`)
             }
-            tf.console.appendLine(`You've finished building the ${this.item.name}!`, 'tip');
             return false;
         }
 

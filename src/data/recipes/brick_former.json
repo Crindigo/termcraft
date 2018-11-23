@@ -1,0 +1,62 @@
+{
+    "clay_brick": {
+        "device": "brick_former",
+        "time": 30,
+        "input": {
+            "clay": 2
+        },
+        "output": {
+            "clay_brick": 1
+        }
+    },
+
+    "dirt_brick": {
+        "device": "brick_former",
+        "time": 30,
+        "input": {
+            "dirt": 2
+        },
+        "output": {
+            "dirt_brick": 1
+        }
+    },
+
+    "adobe_brick": {
+        "device": "brick_former",
+        "time": 60,
+        "input": {
+            "clay": 2,
+            "plant_fiber": 1
+        },
+        "output": {
+            "adobe_brick": 1
+        }
+    },
+
+    "concrete_brick": {
+        "device": "brick_former",
+        "time": 180,
+        "input": {
+            "slaked_lime": 1,
+            "sand": 1,
+            "gravel": 1
+        },
+        "output": {
+            "concrete_brick": 1
+        }
+    },
+
+    "reinforced_concrete": {
+        "device": "brick_former",
+        "time": 180,
+        "input": {
+            "slaked_lime": 1,
+            "sand": 1,
+            "gravel": 1,
+            "steel_rebar": 1
+        },
+        "output": {
+            "reinforced_concrete": 1
+        }
+    }
+}

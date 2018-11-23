@@ -53,7 +53,7 @@
         },
         "requires": ["flint_knapping", "weaving"],
         "unlocks": {
-            "recipes": ["brick_former", "chopping_block", "small_plank"]
+            "recipes": ["brick_former", "chopping_block", "small_plank", "dirt_brick", "clay_brick", "adobe_brick"]
         }
     },
     "mechanics_1": {

@@ -63,6 +63,7 @@ export class Devices
         this.activeRegistry[name] = device;
 
         this.rebuildCache();
+        return name;
     }
 
     makeName(id) {

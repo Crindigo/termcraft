@@ -129,11 +129,12 @@ class Recipe
     constructor(id, recipeData) {
         this.id = id;
 
-        this.device = recipeData.device;
-        this.time = recipeData.time;
-        this.stamina = recipeData.stamina;
-        this.input = recipeData.input;
-        this.output = recipeData.output;
+        this.device = recipeData.device || 'hand';
+        this.time = recipeData.time || 1;
+        this.stamina = recipeData.stamina || 0;
+        this.power = recipeData.power || 0;
+        this.input = recipeData.input || {};
+        this.output = recipeData.output || {};
         this.name = recipeData.name || '';
         
         // we should allow giving recipes a name and just falling back to the first output item name.

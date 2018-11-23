@@ -2,6 +2,12 @@ import { BaseDeviceClass, BaseDevice } from "./base";
 
 export class ChoppingBlockClass extends BaseDeviceClass
 {
+    constructor(tf) {
+        super(tf);
+
+        this.addRecipeSupport('chopping_block', true);
+    }
+
     newDevice(name) {
         return new ChoppingBlock(this, name);
     }
@@ -18,7 +24,7 @@ export class ChoppingBlock extends BaseDevice
         super(deviceClass, name);
     }
 
-    tick(tf) {
-
+    tick() {
+        super.tick();
     }
 }

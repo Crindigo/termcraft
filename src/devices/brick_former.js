@@ -2,8 +2,14 @@ import { BaseDeviceClass, BaseDevice } from "./base";
 
 export class BrickFormerClass extends BaseDeviceClass
 {
+    constructor(tf) {
+        super(tf);
+
+        this.addRecipeSupport('brick_former', false);
+    }
+
     newDevice(name) {
-        return new ChoppingBlock(this, name);
+        return new BrickFormer(this, name);
     }
 
     loadDevice(data) {
@@ -18,7 +24,7 @@ export class BrickFormer extends BaseDevice
         super(deviceClass, name);
     }
 
-    tick(tf) {
-
+    tick() {
+        super.tick();
     }
 }

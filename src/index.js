@@ -22,6 +22,10 @@ class TermFactory
         this.land = 0;
         this.maxLand = 100;
 
+        this.power = 0;
+        this.maxPower = 0;
+        this.powerChange = 0;
+
         //this.crafting = new Crafting();
         this.player = new Player();
         this.console = new TFConsole(this);
@@ -69,6 +73,10 @@ class TermFactory
 
         this.vue.land = this.land;
         this.vue.maxLand = this.maxLand;
+
+        this.vue.power.current = this.power;
+        this.vue.power.maximum = this.maxPower;
+        this.vue.power.change = this.powerChange;
     }
 
     syncInventory() {
