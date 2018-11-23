@@ -91,6 +91,26 @@ export class BaseDevice
             this.craftOperation.receivedStop = true;
         }
     }
+
+    getSaveData() {
+        let data = {};
+        data.id = this.deviceClass.id;
+        data.name = this.name;
+        if ( this.craftOperation && !this.craftOperation.interactive ) {
+            let co = this.craftOperation;
+            data.craftOperation = {
+                itemProgress: co.itemProgress,
+                progress: co.progress,
+                recipeId: co.recipe.id,
+                craftedQty: co.craftedQty,
+                desiredQty: co.desiredQty,
+                itemId: co.item.id
+            };
+        }
+
+        // subclasses can add more
+        return data;
+    }
 }
 
 class CraftOperation

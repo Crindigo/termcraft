@@ -89,6 +89,26 @@ export class TFConsole
         return $line;
     }
 
+    append(text, classes = '', prefix = '') {
+        let line = prefix;
+        const max = 100;
+        let words = text.split(/\s+/);
+
+        const stripfmt = text => text.replace(/\{!([a-z0-9 -]+)}/g, '').replace(/\{\/}/g, '')
+
+        words.forEach(word => {
+            if ( stripfmt(line).length + stripfmt(word).length + 1 > max ) {
+                this.appendLine(line, classes);
+                line = prefix + word + ' ';
+            } else {
+                line += word + ' ';
+            }
+        });
+        if ( line.length ) {
+            this.appendLine(line, classes);
+        }
+    }
+
     el() {
         return this.consoleEl;
     }

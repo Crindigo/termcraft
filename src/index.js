@@ -10,6 +10,7 @@ import { Crafting } from './crafting';
 import { Research } from './research';
 import { Support } from './support';
 import { Devices } from './devices';
+import { SaveManager } from './savemanager';
 
 window.jQuery = $;
 window.$ = $;
@@ -37,6 +38,9 @@ class TermFactory
 
         // research needs to come after console and crafting as it can unlock commands/recipes
         this.research = new Research(this);
+
+        this.saveManager = new SaveManager(this);
+        this.saveManager.load('main');
 
         this.ticker = setInterval(() => this.tick(), 1000);
 

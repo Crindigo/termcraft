@@ -25,8 +25,9 @@
     },
 
     "tag:pick[1,)": {
-        "flint": 30,
-        "stone": 30
+        "flint": 20,
+        "stone": 30,
+        "chalk": 30
     },
 
     "tag:basket[1,)": {
