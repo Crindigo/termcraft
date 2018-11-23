@@ -86,6 +86,11 @@ export class Devices
         this.rebuildCache();
     }
 
+    destroy(device) {
+        delete this.activeRegistry[device.name];
+        this.rebuildCache();
+    }
+
     hasIncomplete(id) {
         return this.partialRegistry.hasOwnProperty(id);
     }

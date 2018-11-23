@@ -14,7 +14,7 @@
             "plant_fiber": 8
         },
         "unlocks": {
-            "commands": ["build"],
+            "commands": ["build", "name"],
             "recipes": ["thatch_bed", "straw_basket"]
         }
     },
@@ -26,7 +26,7 @@
             "flint": 4
         },
         "unlocks": {
-            "commands": ["build"],
+            "commands": ["build", "name"],
             "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spears", "flint_pick"]
         }
     },

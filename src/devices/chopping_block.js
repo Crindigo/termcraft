@@ -5,6 +5,7 @@ export class ChoppingBlockClass extends BaseDeviceClass
     constructor(tf) {
         super(tf);
 
+        this.id = 'chopping_block';
         this.addRecipeSupport('chopping_block', true);
     }
 

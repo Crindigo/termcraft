@@ -12,6 +12,8 @@ export class BaseDeviceClass
     constructor(tf) {
         this.tf = tf;
 
+        this.id = '';
+
         // set up the custom command registry and processor. the use command will set tf.console.processor
         // to this.processor and quit/exit/leave will set it back to tf.console.rootProcessor.
         this.registry = new CommandRegistry();
@@ -19,6 +21,9 @@ export class BaseDeviceClass
 
         this.registry.add(new QuitCommand(), true);
         this.registry.alias('quit', ['exit', 'leave', 'bye', 'q']);
+
+        // destroy this machine and collect any leftover resources.
+        this.registry.add(new DismantleCommand(), true);
     }
 
     addRecipeSupport(deviceId, interactive) {
@@ -212,6 +217,30 @@ class QuitCommand extends BaseCommand
         tf.console.appendLine('You stopped using the device.', 'tip');
         tf.console.processor = tf.console.rootProcessor;
         tf.console.setPs1('home$');
+    }
+}
+
+class DismantleCommand extends BaseCommand
+{
+    constructor() {
+        super();
+        this.name = 'dismantle';
+        this.patterns = [true];
+    }
+
+    run(tf, args) {
+        let device = tf.devices.current;
+        let deviceId = device.deviceClass.id;
+        let drops = tf.items.get(deviceId).drops;
+
+        tf.console.appendLine(`You destroyed this device.`);
+        Object.entries(drops).forEach(kv => {
+            let item = tf.items.get(kv[0]);
+            tf.player.addItemStack(item.stack(kv[1]));
+            tf.console.appendLine(`- Reclaimed ${item.name} (${kv[1]})`);
+        });
+
+        tf.devices.destroy(device);
     }
 }
 

@@ -10,6 +10,7 @@ import { ResearchCommand } from './commands/research';
 import { BuildCommand } from './commands/build';
 import { SudoCommand } from './commands/sudo';
 import { UseCommand } from './commands/use';
+import { NameCommand } from './commands/name';
 
 export class TFConsole
 {
@@ -36,6 +37,7 @@ export class TFConsole
         this.registry.add(new RecipesCommand());
         this.registry.add(new MakeCommand());
         this.registry.add(new BuildCommand());
+        this.registry.add(new NameCommand());
         this.registry.add(new ResearchCommand());
         this.registry.add(new SudoCommand());
         this.registry.add(new UseCommand());

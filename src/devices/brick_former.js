@@ -5,6 +5,7 @@ export class BrickFormerClass extends BaseDeviceClass
     constructor(tf) {
         super(tf);
 
+        this.id = 'brick_former';
         this.addRecipeSupport('brick_former', false);
     }
 

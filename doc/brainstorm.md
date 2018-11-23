@@ -256,6 +256,11 @@ For upgrades, store the save file version in the JSON data. Then an upgrade can 
 version, auto unlocking new research, etc. If this happens, store the un-migrated JSON in a backup key in
 local storage so if something went wrong it could be recovered and attempted again.
 
+Save file needs to contain a list of unlocked research, player stamina & max stamina, player inventory,
+the list of incomplete and complete support and device structures, and the build counts for devices so
+unique names can still function. Persisted device instances need to include an ID so it knows how to 
+recreate the proper instance on load. Land/exploration persistence TBD.
+
 # Space
 
 Level 1 devices - require an item (satellite, etc.) combined with a rocket + fuel built on a launchpad.
