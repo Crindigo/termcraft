@@ -34,14 +34,15 @@ width: 34 total
         <span class="stat">Power: {{ power.current | shortnum }}/{{ power.maximum | shortnum }} ({{ powerMod() }}/s)</span>
         <span class="progress">{{ powerProgress() }}</span>
     </li>
+
+    <li v-if="ether.maximum > 0" style="margin-top:4px;">
+        <span class="stat">Ether: {{ ether.current | shortnum }}/{{ ether.maximum | shortnum }} ({{ etherMod() }}/s)</span>
+        <span class="progress">{{ etherProgress() }}</span>
+    </li>
     
     <li style="margin-top:4px;">
         <span class="stat">Land Used: {{ land | shortnum }}/{{ maxLand }}</span>
         <span class="progress">{{ landProgress() }}</span>
-    </li>
-
-    <li v-if="combat > 0" style="margin-top:4px;">
-        <span class="stat">Combat Strength: {{ combat | shortnum }}</span>
     </li>
 
     <li v-if="researchBonus > 0"><span class="stat">Research Bonus: {{ researchBonus | shortnum }}</span></li>

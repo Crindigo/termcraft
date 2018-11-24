@@ -1,66 +1,33 @@
 {
-    "flint": {
-        "name": "flint"
-    },
-    "stick": {
-        "name": "stick"
-    },
+    "flint": "flint",
+    "stick": "stick",
+
     "plant_fiber": {
         "name": "plant fiber",
         "tags": ["binding"]
     },
-    "dirt": {
-        "name": "dirt"
-    },
-    "sand": {
-        "name": "sand"
-    },
-    "gravel": {
-        "name": "gravel"
-    },
-    "clay": {
-        "name": "clay"
-    },
-    "wood": {
-        "name": "wood"
-    },
-    "stone": {
-        "name": "stone"
-    },
-    "small_plank": {
-        "name": "plank"
-    },
 
-    "wood_bowl": {
-        "name": "wood bowl"
-    },
+    "dirt": "dirt",
+    "sand": "sand",
+    "gravel": "gravel",
+    "clay": "clay",
+    "wood": "wood",
+    "stone": "stone",
+    "small_plank": "plank",
 
-    "clay_brick": {
-        "name": "clay brick"
-    },
-    "dirt_brick": {
-        "name": "dirt brick"
-    },
-    "adobe_brick": {
-        "name": "adobe brick"
-    },
-    "concrete_brick": {
-        "name": "concrete brick"
-    },
-    "chalk": {
-        "name": "chalk"
-    },
-    "quicklime": {
-        "name": "quicklime"
-    },
+    "wood_bowl": "wood bowl",
+
+    "clay_brick": "clay brick",
+    "dirt_brick": "dirt brick",
+    "adobe_brick": "adobe brick",
+    "concrete_brick": "concrete brick",
+    "chalk": "chalk",
+    "quicklime": "quicklime",
     "slaked_lime": {
-        "name": "slaked lime"
+        "name": "slaked lime",
+        "tags": ["glue"]
     },
 
 
-
-
-    "steel_rebar": {
-        "name": "steel rebar"
-    }
+    "steel_rebar": "steel rebar"
 }

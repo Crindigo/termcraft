@@ -1,0 +1,160 @@
+{
+    "//": "Animals collectible in pastures. Size is just going to be average weight according to wikipedia.",
+    "//": "Hay is consumed by the pasture relative to total animal size / number of pastures.",
+    "//": "Hay is dropped when harvesting some types of crops in a farm.",
+
+    "alpaca": {
+        "name": "alpaca",
+        "animal": true,
+        "spawnWeight": 2,
+        "size": 65,
+        "sheds": {
+            "alpaca_saliva": 0.001
+        },
+        "butchers": {
+            "blood": 0.65,
+            "alpaca_wool": 10
+        }
+    },
+
+    "chicken": {
+        "name": "chicken",
+        "animal": true,
+        "spawnWeight": 20,
+        "size": 2.5,
+        "sheds": {
+            "chicken_feather": 0.002,
+            "chicken_egg": 0.001
+        },
+        "butchers": {
+            "blood": 0.025,
+            "chicken_feather": 10,
+            "raw_chicken": 1
+        }
+    },
+
+    "cow": {
+        "name": "cow",
+        "animal": true,
+        "spawnWeight": 5,
+        "size": 700,
+        "sheds": {
+            "manure": 0.005
+        },
+        "butchers": {
+            "blood": 7,
+            "raw_leather": 10,
+            "raw_beef": 20
+        },
+        "milks": {
+            "raw_cow_milk": 1
+        }
+    },
+
+    "duck": {
+        "name": "duck",
+        "animal": true,
+        "spawnWeight": 3,
+        "size": 1.1,
+        "sheds": {
+            "duck_feather": 0.002,
+            "duck_egg": 0.001
+        },
+        "butchers": {
+            "blood": 0.011,
+            "duck_feather": 10,
+            "raw_duck": 1
+        }
+    },
+
+    "goat": {
+        "name": "goat",
+        "animal": true,
+        "spawnWeight": 7,
+        "size": 80,
+        "butchers": {
+            "blood": 0.8,
+            "goat_skin": 3,
+            "goat_fur": 3,
+            "raw_mutton": 5
+        },
+        "milks": {
+            "raw_goat_milk": 1
+        }
+    },
+
+    "horse": {
+        "name": "horse",
+        "animal": true,
+        "spawnWeight": 5,
+        "size": 650,
+        "sheds": {
+            "manure": 0.003
+        },
+        "butchers": {
+            "blood": 6.5,
+            "raw_horse_meat": 15,
+            "raw_leather": 8,
+            "horse_glue": 2
+        }
+    },
+
+    "pig": {
+        "name": "pig",
+        "animal": true,
+        "spawnWeight": 10,
+        "size": 100,
+        "sheds": {
+            "manure": 0.001
+        },
+        "butchers": {
+            "blood": 1,
+            "raw_pork": 5
+        }
+    },
+
+    "sheep": {
+        "name": "sheep",
+        "animal": true,
+        "spawnWeight": 7,
+        "size": 70,
+        "sheds": {
+            "sheep_wool": 0.005
+        },
+        "butchers": {
+            "raw_mutton": 5
+        }
+    },
+
+    "//": "Animal byproducts.",
+    
+    "alpaca_wool": "alpaca wool",
+    "alpaca_saliva": "alpaca saliva",
+
+    "chicken_feather": "chicken feather",
+    "chicken_egg": "chicken egg",
+    "raw_chicken": "raw chicken",
+
+    "manure": "manure",
+    "raw_leather": "raw leather",
+    "raw_beef": "raw beef",
+    "raw_cow_milk": "raw cow milk",
+
+    "duck_feather": "duck feather",
+    "duck_egg": "duck egg",
+    "raw_duck": "raw duck",
+
+    "goat_skin": "goat skin",
+    "goat_fur": "goat fur",
+    "raw_mutton": "raw mutton",
+    "raw_goat_milk": "raw goat milk",
+
+    "raw_horse_meat": "raw horse meat",
+    "horse_glue": {
+        "name": "horse glue",
+        "tags": ["glue"]
+    },
+
+    "raw_pork": "raw pork",
+    "sheep_wool": "sheep wool"
+}

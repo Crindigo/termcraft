@@ -69,5 +69,19 @@
         "unlocks": {
 
         }
+    },
+
+    "//": "ETHEREAL. time can start with bigger numbers since you'll have research bonuses by then",
+
+    "blood_magic": {
+        "name": "Blood Magic",
+        "time": 1800,
+        "stamina": 1800,
+        "items": {
+            "blood": 1000
+        },
+        "unlocks": {
+            
+        }
     }
 }

@@ -269,3 +269,29 @@ Level 3 devices - require an item combined with power built on a mass driver.
 Technically could use the same item but put it in a different device.
 Perhaps land should be renamed Device Cap? Since it doesn't make sense in space, and I really don't
 want to allow infinite devices. Or change "Land" to "Space" once you do rocketry research?
+
+# The Real & the Intangible
+
+Build factories using not only "real space" resources like iron or leather, but also intangible ones
+in the universe's "imaginary space" components. Mastery of both will be required to unlock all the
+secrets of the universe and beat the game. 
+
+With more advanced tools, you will be able to harvest rare plants which appear to grant a 
+comforting, protective aura. Unlocks research on earthen magic. Techs include infusing tools
+to higher levels, magical gardens generating materials and ether, support items to increase
+farm and garden growth speed, food recipes with good stamina boosts.
+
+Gathering with some tools will grant a very rare chance to mine ancient tablets depicting
+human-like figures in the sky. With a certain number of them, it unlocks research on 
+light/heavenly magic/the heavens. Techs include greater stamina regeneration support items,
+greater animal birth rates and shed speed, and the main generator of Ether. Some items/research
+in this tree will be required before going to space.
+
+Dark/blood magic comes after experimenting with copious amounts of blood from animal slaughter.
+Techs include greater drop rates from animals, automatic killing of animals, demon trading post,
+randomly getting souls when killing animals, lava/fire generation. Devil "pasture" for killing
+demons for higher level souls? New recipes for land-increasing weapon support items.
+
+Late/endgame "Tower of Babylon" device that connects the 3 realms. What could go wrong?
+Can use it to forge ragnarok essence? Destroys parts of the universe you don't like, like some
+pesky laws of physics that stop you from moving FTL.

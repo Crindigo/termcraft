@@ -99,7 +99,7 @@ export class EatCommand extends BaseCommand
             for ( let id in this.food.item.leftovers ) {
                 let qty = this.food.item.leftovers[id];
                 let leftover = tf.items.get(id);
-                tf.player.inventory.add(leftover.stack(qty));
+                tf.player.addItemStack(leftover.stack(qty));
                 tf.console.appendLine(`${leftover.name} (${qty}) was left over.`);
             }
             return false;

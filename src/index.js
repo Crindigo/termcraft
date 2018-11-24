@@ -11,6 +11,7 @@ import { Research } from './research';
 import { Support } from './support';
 import { Devices } from './devices';
 import { SaveManager } from './savemanager';
+import { Events } from './events';
 
 window.jQuery = $;
 window.$ = $;
@@ -21,14 +22,19 @@ class TermFactory
         this.vue = null;
 
         this.land = 0;
-        this.maxLand = 100;
+        this.maxLand = 50;
 
         this.power = 0;
         this.maxPower = 0;
         this.powerChange = 0;
 
-        //this.crafting = new Crafting();
-        this.player = new Player();
+        this.ether = 0;
+        this.maxEther = 0;
+        this.etherChange = 0;
+
+        this.events = new Events(this);
+
+        this.player = new Player(this);
         this.console = new TFConsole(this);
         this.items = new Items(this);
         this.crafting = new Crafting(this);
@@ -69,7 +75,6 @@ class TermFactory
         this.vue.stamina.maximum = this.player.maxStamina;
         this.vue.stamina.change = this.player.staminaChange;
 
-        this.vue.combat = this.support.totalCombatBonus;
         this.vue.researchBonus = this.support.totalResearchBonus;
         this.vue.supports = this.support.activeCache;
         this.vue.incompleteSupports = this.support.partialCache;
@@ -82,6 +87,10 @@ class TermFactory
         this.vue.power.current = this.power;
         this.vue.power.maximum = this.maxPower;
         this.vue.power.change = this.powerChange;
+
+        this.vue.ether.current = this.ether;
+        this.vue.ether.maximum = this.maxEther;
+        this.vue.ether.change = this.etherChange;
     }
 
     syncInventory() {
@@ -131,10 +140,9 @@ window.leftVue = tf.vue = new Vue({
         tab: 'status',
         invFilter: '',
         inventory: [],
-        combat: 0,
         researchBonus: 0,
         land: 0,
-        maxLand: 100,
+        maxLand: 50,
         incompleteSupports: [],
         supports: [],
         incompleteDevices: [],
@@ -145,6 +153,11 @@ window.leftVue = tf.vue = new Vue({
             change: 0
         },
         power: {
+            current: 0,
+            maximum: 0,
+            change: 0
+        },
+        ether: {
             current: 0,
             maximum: 0,
             change: 0
@@ -181,6 +194,14 @@ window.leftVue = tf.vue = new Vue({
                 str += '+';
             }
             return str + numberFormatAbbr(this.power.change);
+        },
+
+        etherMod() {
+            let str = '';
+            if ( this.ether.change > 0 ) {
+                str += '+';
+            }
+            return str + numberFormatAbbr(this.ether.change);
         },
 
         powerProgress() {

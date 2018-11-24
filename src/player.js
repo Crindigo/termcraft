@@ -3,7 +3,9 @@ import { clamp } from './utils';
 
 export class Player
 {
-    constructor() {
+    constructor(tf) {
+        this.tf = tf;
+
         this.stamina = 100;
         this.maxStamina = 100;
 
@@ -21,7 +23,7 @@ export class Player
         this.inventory = new Inventory();
     }
 
-    tick(tf) {
+    tick() {
         this.stamina = clamp(this.stamina + this.staminaRegen, 0, this.maxStamina);    
     }
 
@@ -30,7 +32,8 @@ export class Player
     }
 
     addItemStack(stack) {
-        this.inventory.add(stack);
+        let st = this.inventory.add(stack);
+        this.tf.events.onItemAdded(st);
     }
 
     findItemStack(item) {

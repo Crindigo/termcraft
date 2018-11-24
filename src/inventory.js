@@ -2,6 +2,10 @@ import { tagRegexp, itemMatchesTagSpec } from './utils';
 
 /**
  * Structure for an item.
+ * 
+ * Technically with all the shit I'm making into items, a better name would be Object. It's just
+ * easier to have one registry of data, than be forced to lookup IDs in an item list, device list,
+ * animal list, etc.
  */
 export class Item
 {
@@ -23,9 +27,18 @@ export class Item
         this.staminaCap = info.staminaCap || 0;
         this.leftovers = info.leftovers || {}; // items gained after eating.
 
+        // fluid
+        this.fluid = info.fluid || false;
+
+        // animal
+        this.animal = info.animal || false;
+        this.size = info.size || 0;
+        this.sheds = info.sheds || {};
+        this.butchers = info.butchers || {};
+
         // support
         this.staminaRegen = info.staminaRegen || 0;
-        this.combat = info.combat || 0;
+        this.land = info.land || 0;
         this.logBase = info.logBase || Math.E;
         this.researchBonus = info.researchBonus || 0;
 
@@ -80,15 +93,29 @@ export class Inventory
 
         if ( foundStack ) {
             foundStack.qty += stack.qty;
+            return foundStack;
         } else {
             this.items.push(stack);
             this.items.sort((a, b) => a.item.name.localeCompare(b.item.name));
             this.indexed[stack.item.id] = stack;
+            return stack;
         }
+    }
+
+    // tf.player.inventory.search(tf.items.animalList);
+    search(searchRegistry) {
+        return searchRegistry.items
+            .map(item => this.findStack(item))
+            .filter(stack => stack !== null);
     }
 
     findStackById(id) {
         return this.indexed[id] || null;
+    }
+
+    findQtyById(id) {
+        let stack = this.findStackById(id);
+        return stack ? stack.qty : 0;
     }
 
     findStack(item) {

@@ -56,7 +56,7 @@
 - alloying (req: smelting)
   - creation of an alloy mixer that lets you turn 2+ molten fluids into another.
   - initially just bronze, which is better than copper for tool efficiency/durability,
-    and lets you mine limonite to be used for iron.
+    and lets you mine hematite to be used for iron. https://en.wikipedia.org/wiki/Ore
 
 
 ## Unorganized
@@ -65,6 +65,9 @@ Windmill and water wheels.
 Windmills needing lots of fabric from hemp, plus concrete bricks + scaffolding which is in
 construction 2. Scaffolding probably needs treated planks.
 Water mills needing treated planks made from milling hemp seeds into hemp oil and adding to planks.
+Both devices will vary in output power due to fluctuations in wind and currents, wind moreso.
+With wind/water, you have enough power to make drills and automatic quarries. The drill head
+determines the materials that can be mined.
 
 ## Power Levels
 

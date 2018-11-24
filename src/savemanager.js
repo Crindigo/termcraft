@@ -9,6 +9,7 @@ export class SaveManager
         data.version = 1;
 
         data.unlockedResearch = tf.research.completedResearch;
+        data.completedEvents = tf.events.completedEvents;
 
         data.playerStamina = this.tf.player.stamina;
         data.playerMaxStamina = this.tf.player.maxStamina;
@@ -43,6 +44,8 @@ export class SaveManager
         // Later on this should probably work so that you can load mid-game and it replaces all state with the 
         // saved state, instead of relying on a blank state.
 
+        (data.completedEvents || []).forEach(eventId => this.tf.events.complete(eventId, true));
+
         data.unlockedResearch.forEach(rid => {
             if ( rid !== '_default_' ) {
                 this.tf.research.complete(rid);
@@ -68,7 +71,7 @@ export class SaveManager
         this.tf.devices.buildCounts = data.deviceBuildCounts;
 
         this.tf.land = 0;
-        
+
         data.activeDevices.forEach(d => {
             let dinfo = this.tf.items.get(d.id);
             let dclass = this.tf.devices.deviceClasses[d.id];

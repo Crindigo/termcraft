@@ -22,7 +22,7 @@ export class Support
 
         this.totalStaminaRegen = 0;
         this.totalResearchBonus = 0;
-        this.totalCombatBonus = 0;
+        this.totalLandBonus = 0;
     }
 
     startConstruction(id) {
@@ -56,10 +56,11 @@ export class Support
 
     recalcBonuses() {
         this.tf.player.staminaChange -= this.totalStaminaRegen;
+        this.tf.maxLand -= this.totalLandBonus;
 
         this.totalStaminaRegen = 0;
         this.totalResearchBonus = 0;
-        this.totalCombatBonus = 0;
+        this.totalLandBonus = 0;
 
         Object.entries(this.activeRegistry).forEach(kv => {
             let data = this.tf.items.get(kv[0]);
@@ -68,11 +69,14 @@ export class Support
 
                 this.totalStaminaRegen += data.staminaRegen * multiplier;
                 this.totalResearchBonus += data.researchBonus * multiplier;
-                this.totalCombatBonus += data.combat * multiplier;
+                this.totalLandBonus += data.land * multiplier;
             }
         });
 
         this.tf.player.staminaChange += this.totalStaminaRegen;
+        this.tf.maxLand += this.totalLandBonus;
+
+        this.tf.events.checkAll(); // handles support check and land check.
     }
 
     rebuildCache() {

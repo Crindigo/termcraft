@@ -8,6 +8,7 @@ export class Research
 
         this.researchData = ResearchData;
         this.completedResearch = [];
+        this.completedIndex = {};
         this.availableResearch = [];
 
         this.complete("_default_");
@@ -102,8 +103,10 @@ export class Research
         }
 
         // add it to completed research
-        if ( !this.completedResearch.includes(id) ) {
+        if ( !this.completedIndex[id] ) {
             this.completedResearch.push(id);
+            this.completedIndex[id] = true;
+            this.tf.events.checkAll();
         }
 
         // recalculate available research
@@ -121,6 +124,11 @@ export class Research
         for ( let id in this.researchData ) {
             if ( !this.availableResearch.includes(id) && !this.completedResearch.includes(id) ) {
                 let requirements = this.researchData[id].requires || [];
+                if ( requirements.length === 0 ) {
+                    // if the research has no requirements, it is special and is unlocked via other means.
+                    continue;
+                }
+
                 // if the intersection of requirements and completed research is the same length as requirements,
                 // then completed research has all the requirements already.
                 if ( intersection(requirements, this.completedResearch).length === requirements.length ) {
@@ -132,5 +140,11 @@ export class Research
         }
         
         return unlocked;
+    }
+
+    unlock(id) {
+        if ( !this.availableResearch.includes(id) && !this.completedResearch.includes(id) ) {
+            this.availableResearch.push(id);
+        }
     }
 }

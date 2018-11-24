@@ -133,6 +133,7 @@ class Recipe
         this.time = recipeData.time || 1;
         this.stamina = recipeData.stamina || 0;
         this.power = recipeData.power || 0;
+        this.ether = recipeData.ether || 0;
         this.input = recipeData.input || {};
         this.output = recipeData.output || {};
         this.name = recipeData.name || '';

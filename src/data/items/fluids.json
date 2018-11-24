@@ -1,24 +1,34 @@
 {
     "water": {
-        "name": "water"
+        "name": "water",
+        "fluid": true
     },
 
+    "blood": {
+        "name": "blood",
+        "fluid": true
+    },
 
     "//": "MOLTEN METALS. Some device will be able to mold these into ingots, rods, gears, swords, etc.",
 
     "molten_copper": {
-        "name": "molten copper"
+        "name": "molten copper",
+        "fluid": true
     },
     "molten_tin": {
-        "name": "molten tin"
+        "name": "molten tin",
+        "fluid": true
     },
     "molten_bronze": {
-        "name": "molten bronze"
+        "name": "molten bronze",
+        "fluid": true
     },
     "molten_iron": {
-        "name": "molten iron"
+        "name": "molten iron",
+        "fluid": true
     },
     "molten_steel": {
-        "name": "molten steel"
+        "name": "molten steel",
+        "fluid": true
     }
 }

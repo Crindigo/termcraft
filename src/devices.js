@@ -32,6 +32,8 @@ export class Devices
         // needs to be in the save file.
         this.buildCounts = {};
 
+        this.currentCounts = {};
+
         // Reference to the current device being used via use command.
         this.current = null;
     }
@@ -56,6 +58,11 @@ export class Devices
     finishConstruction(id) {
         delete this.partialRegistry[id];
 
+        if ( !this.buildCounts[id] ) {
+            this.buildCounts[id] = 0;
+        }
+        this.buildCounts[id]++;
+
         // we need to make a new device instance and give it a unique name.
         let name = this.makeName(id);
         
@@ -67,10 +74,6 @@ export class Devices
     }
 
     makeName(id) {
-        if ( !this.buildCounts[id] ) {
-            this.buildCounts[id] = 0;
-        }
-        this.buildCounts[id]++;
         return id + '_' + this.buildCounts[id];
     }
 
@@ -81,6 +84,11 @@ export class Devices
         }
 
         let device = this.activeRegistry[oldName];
+        // don't let it be named device_id_1234 to avoid collision. probably better ways to do this.
+        if ( newName.startsWith(device.id + '_') && newName.match(/\d+$/) ) {
+            return false;
+        }
+
         delete this.activeRegistry[oldName];
         this.activeRegistry[newName] = device;
         this.rebuildCache();
@@ -104,6 +112,16 @@ export class Devices
         let inactive = Object.keys(this.partialRegistry).map(id => this.tf.items.get(id).name);
         inactive.sort((a, b) => a.localeCompare(b));
         this.partialCache = inactive;
+
+        this.currentCounts = {};
+        cache.forEach(d => {
+            if ( !this.currentCounts[d.id] ) {
+                this.currentCounts[d.id] = 0;
+            }
+            this.currentCounts[d.id]++;
+        });
+
+        this.tf.events.checkAll(); // handle device events
     }
 
     tick() {

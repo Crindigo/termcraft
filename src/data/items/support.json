@@ -27,7 +27,7 @@
     "flint_spears": {
         "name": "flint spears",
         "category": "support",
-        "combat": 1
+        "land": 1
     },
 
     "christmas_tree": {
