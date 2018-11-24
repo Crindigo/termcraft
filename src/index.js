@@ -40,7 +40,8 @@ class TermFactory
         this.research = new Research(this);
 
         this.saveManager = new SaveManager(this);
-        this.saveManager.load('main');
+        this.saveManager.load('_autosave');
+        this.saveTicker = setInterval(() => this.saveManager.save('_autosave'), 60000);
 
         this.ticker = setInterval(() => this.tick(), 1000);
 

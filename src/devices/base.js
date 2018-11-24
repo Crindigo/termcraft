@@ -48,7 +48,9 @@ export class BaseDeviceClass
      * @param {object} data 
      */
     loadDevice(data) {
-
+        let device = this.newDevice(this, data.name);
+        device.loadFromData(data);
+        return device;
     }
 }
 
@@ -110,6 +112,20 @@ export class BaseDevice
 
         // subclasses can add more
         return data;
+    }
+
+    loadFromData(data) {
+        if ( data.craftOperation ) {
+            let co = data.craftOperation;
+            let recipe = this.tf.crafting.findRecipe(this.deviceClass.id, co.recipeId);
+            let item = this.tf.items.get(co.itemId);
+            if ( recipe && item ) {
+                this.craftOperation = new CraftOperation(recipe, item, co.desiredQty);
+                this.craftOperation.itemProgress = co.itemProgress;
+                this.craftOperation.progress = co.progress;
+                this.craftOperation.craftedQty = co.craftedQty;
+            }
+        }
     }
 }
 

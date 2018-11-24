@@ -44,7 +44,7 @@
         }
     },
     "construction_1": {
-        "name": "Simple Construction",
+        "name": "Construction 1",
         "time": 30,
         "stamina": 20,
         "items": {
@@ -57,7 +57,7 @@
         }
     },
     "mechanics_1": {
-        "name": "Simple Mechanics",
+        "name": "Mechanics 1",
         "time": 60,
         "stamina": 30,
         "items": {

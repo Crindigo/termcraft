@@ -39,6 +39,50 @@ export class SaveManager
         }
 
         let data = JSON.parse(saveData);
+
+        // Later on this should probably work so that you can load mid-game and it replaces all state with the 
+        // saved state, instead of relying on a blank state.
+
+        data.unlockedResearch.forEach(rid => {
+            if ( rid !== '_default_' ) {
+                this.tf.research.complete(rid);
+            }
+        });
+
+        this.tf.player.stamina = data.playerStamina;
+        this.tf.player.maxStamina = data.playerMaxStamina;
+
+        data.inventory.forEach(inv => {
+            let item = this.tf.items.get(inv.itemId);
+            if ( item ) {
+                this.tf.player.addItemStack(item.stack(inv.qty));
+            }
+        });
+
+        this.tf.support.partialRegistry = data.partialSupport;
+        this.tf.support.activeRegistry = data.activeSupport;
+        this.tf.support.recalcBonuses();
+        this.tf.support.rebuildCache();
+
+        this.tf.devices.partialRegistry = data.partialDevices;
+        this.tf.devices.buildCounts = data.deviceBuildCounts;
+
+        this.tf.land = 0;
+        
+        data.activeDevices.forEach(d => {
+            let dinfo = this.tf.items.get(d.id);
+            let dclass = this.tf.devices.deviceClasses[d.id];
+            if ( dclass && dinfo ) {
+                let device = dclass.loadDevice(d);
+                if ( device ) {
+                    this.tf.devices.activeRegistry[device.name] = device;
+                }
+
+                this.tf.land += dinfo.land;
+            }
+        });
+
+        this.tf.devices.rebuildCache();
     }
 }
 /*
