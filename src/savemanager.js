@@ -13,11 +13,13 @@ export class SaveManager
 
         data.playerStamina = this.tf.player.stamina;
         data.playerMaxStamina = this.tf.player.maxStamina;
+        data.playerNutrition = this.tf.player.nutrition;
 
         // just store item id and quantity
         data.inventory = this.tf.player.inventory.items.map(stack => {
+            stack.round(); // round values very close to whole numbers
             return {"itemId": stack.item.id, "qty": stack.qty};
-        }).filter(entry => entry.qty > 0.000001);
+        });
 
         data.partialSupport = this.tf.support.partialRegistry;
         data.activeSupport  = this.tf.support.activeRegistry;
@@ -54,10 +56,13 @@ export class SaveManager
 
         this.tf.player.stamina = data.playerStamina;
         this.tf.player.maxStamina = data.playerMaxStamina;
+        if ( data.playerNutrition ) {
+            this.tf.player.nutrition = data.playerNutrition;
+        }
 
         data.inventory.forEach(inv => {
             let item = this.tf.items.get(inv.itemId);
-            if ( item && inv.qty > 0.000001 ) {
+            if ( item ) {
                 this.tf.player.addItemStack(item.stack(inv.qty));
             }
         });

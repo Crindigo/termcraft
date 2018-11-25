@@ -30,9 +30,34 @@
         "calcite": 30
     },
 
+    "tag:bow[1,)": {
+        "raw_duck": 20,
+        "raw_rabbit": 20,
+        "raw_venison": 15,
+        "raw_pork": 10
+    },
+
     "tag:basket[1,)": {
         "wild_berry": 20,
         "juice_berry": 20,
-        "sweet_berry": 20
+        "sweet_berry": 20,
+        "apple": 10,
+        "orange": 10,
+        "pear": 10
+    },
+
+    "//": "DRILLS - tier 1 is wrought iron, collects shovel and pick materials. steel, stainless steel, tungstensteel later.",
+
+    "tag:drill[1,)": {
+        "dirt": 40,
+        "sand": 25,
+        "gravel": 20,
+        "clay": 15,
+        "stone": 50,
+        "flint": 20,
+        "calcite": 20,
+        "tetrahedrite": 30,
+        "cassiterite": 20,
+        "hematite": 15
     }
 }

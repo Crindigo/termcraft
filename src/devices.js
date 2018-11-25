@@ -1,6 +1,6 @@
-import { BaseDevice } from './devices/base';
-import { ChoppingBlockClass } from './devices/chopping_block';
-import { BrickFormerClass } from './devices/brick_former';
+import { BaseDevice, createSimpleDeviceClass } from './devices/base';
+import {FarmClass} from "./devices/farm";
+
 
 export class Devices
 {
@@ -13,8 +13,10 @@ export class Devices
         // support entries can stack, but devices are all unique.
 
         this.deviceClasses = {
-            'chopping_block': new ChoppingBlockClass(this.tf),
-            'brick_former': new BrickFormerClass(this.tf)
+            'chopping_block': createSimpleDeviceClass(tf, 'chopping_block', true),
+            'brick_former': createSimpleDeviceClass(tf, 'brick_former', false),
+            'campfire': createSimpleDeviceClass(tf, 'campfire', true),
+            'farm': new FarmClass(this.tf)
         };
 
         // completed device entries, unique name -> BaseDevice

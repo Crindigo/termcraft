@@ -14,17 +14,16 @@ export class Crafting
         this.unlockedRecipes = {};
         const context = require.context('./data/recipes', true, /\.json$/);
         context.keys().forEach(key => this.addRecipes(key, context(key)));
+
+        console.log(`[Recipes] ${Object.keys(this.allRecipes).length} total recipes`);
     }
 
     addRecipes(key, recipeMap) {
-        for ( let id in recipeMap ) {
-            if ( id === '//' ) {
-                continue;
-            }
-            
+        let ids = Object.keys(recipeMap).filter(id => id !== '//');
+        ids.forEach(id => {
             this.addRecipe(id, recipeMap[id]);
-            console.log('[Recipes] Loaded ' + key + '|' + id);
-        }
+        });
+        console.log(`[Recipes] Loaded ${ids.length} recipes from ${key.substr(2)}: ${ids.join(', ')}`);
     }
 
     addRecipe(id, recipeData) {

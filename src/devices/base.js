@@ -9,10 +9,10 @@ import an from 'indefinite';
  */
 export class BaseDeviceClass
 {
-    constructor(tf) {
+    constructor(tf, id) {
         this.tf = tf;
-
-        this.id = '';
+        this.id = id;
+        this.name = tf.items.get(id).name;
 
         // set up the custom command registry and processor. the use command will set tf.console.processor
         // to this.processor and quit/exit/leave will set it back to tf.console.rootProcessor.
@@ -48,10 +48,30 @@ export class BaseDeviceClass
      * @param {object} data 
      */
     loadDevice(data) {
-        let device = this.newDevice(this, data.name);
+        let device = this.newDevice(data.name);
         device.loadFromData(data);
         return device;
     }
+}
+
+/**
+ * Creates a simple device class which only supports crafting operations. This is enough for a lot
+ * of devices, so they don't all need dedicated classes. The device will automatically get
+ * recipe, recipes, and make/build commands.
+ *
+ * @param tf
+ * @param id Device ID
+ * @param interactive If recipes require the player to be present
+ * @returns BaseDeviceClass
+ */
+export function createSimpleDeviceClass(tf, id, interactive) {
+    let klass = class extends BaseDeviceClass {
+        constructor(tf) {
+            super(tf, id);
+            this.addRecipeSupport(id, interactive);
+        }
+    };
+    return new klass(tf);
 }
 
 /**

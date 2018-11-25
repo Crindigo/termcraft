@@ -20,19 +20,16 @@ export class Items
         this.supportList = this.makeSearchRegistry(item => item.category === "support");
 
         context.keys().forEach(key => this.addItems(key, context(key)));
+        console.log(`[Items] ${Object.keys(this.registry).length} total items`);
     }
 
     addItems(key, itemMap) {
-        let count = 0;
-        for ( let id in itemMap ) {
-            if ( id === '//' ) {
-                continue;
-            }
-            
+        let ids = Object.keys(itemMap).filter(id => id !== '//');
+        ids.forEach(id => {
             this.register(id, itemMap[id]);
-            console.log('[Items] Loaded ' + key + '|' + id);
-            count++;
-        }
+        });
+
+        console.log(`[Items] Loaded ${ids.length} items from ${key.substr(2)}: ${ids.join(', ')}`);
     }
 
     register(id, itemData) {

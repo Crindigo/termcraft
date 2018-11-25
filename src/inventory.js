@@ -38,7 +38,7 @@ export class Item
 
         // support
         this.staminaRegen = info.staminaRegen || 0;
-        this.land = info.land || 0;
+        this.landBonus = info.landBonus || 0;
         this.logBase = info.logBase || Math.E;
         this.researchBonus = info.researchBonus || 0;
 
@@ -75,6 +75,15 @@ class Stack
 
     uncheckedMerge(other) {
         return new Stack(this.item, this.qty + other.qty);
+    }
+
+    round() {
+        // round it off if it's very close to an integer value
+        const round = Math.round(this.qty);
+        const frac = Math.abs(this.qty - round);
+        if ( frac < 0.000001 ) {
+            this.qty = round;
+        }
     }
 }
 
@@ -149,7 +158,7 @@ export class Inventory
         if ( !simulate ) {
             stack.qty -= amount;
             if ( stack.qty <= 0.000001 ) {
-                this.remove(stack);
+                stack.qty = 0;
             }
         }
         return true;

@@ -26,6 +26,18 @@
         }
     },
 
+    "campfire": {
+        "device": "structure",
+        "time": 30,
+        "stamina": 10,
+        "input": {
+            "stick": 8
+        },
+        "output": {
+            "campfire": 1
+        }
+    },
+
     "chopping_block": {
         "device": "structure",
         "time": 60,

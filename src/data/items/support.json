@@ -27,7 +27,8 @@
     "flint_spears": {
         "name": "flint spears",
         "category": "support",
-        "land": 1
+        "landBonus": 1,
+        "logBase": 2
     },
 
     "christmas_tree": {

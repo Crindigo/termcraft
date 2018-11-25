@@ -91,5 +91,19 @@
         "output": {
             "berry_delight": 1
         }
+    },
+
+    "hunting_bow": {
+        "device": "hand",
+        "time": 30,
+        "stamina": 10,
+        "input": {
+            "stick": 12,
+            "flint": 10,
+            "plant_fiber": 12
+        },
+        "output": {
+            "hunting_bow": 20
+        }
     }
 }

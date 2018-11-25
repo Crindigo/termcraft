@@ -23,6 +23,12 @@
         "tags": ["pick"],
         "level": 1
     },
+    "hunting_bow": {
+        "name": "hunting bow",
+        "tool": true,
+        "tags": ["bow"],
+        "level": 1
+    },
 
     "straw_basket": {
         "name": "straw basket",

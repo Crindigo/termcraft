@@ -25,6 +25,7 @@
     },
     "berry_delight": {
         "name": "berry delight",
+        "tags": ["fruit"],
         "flavor": "A pleasure for the taste buds. Juicy and packed with a sweet and tangy flavor.",
         "edible": true,
         "time": 10,
@@ -35,20 +36,109 @@
         }
     },
 
+    "apple": {
+        "name": "apple",
+        "tags": ["fruit"],
+        "edible": true,
+        "time": 2,
+        "stamina": 8,
+        "staminaCap": 0.07
+    },
+    "orange": {
+        "name": "orange",
+        "tags": ["fruit"],
+        "edible": true,
+        "time": 4,
+        "stamina": 12,
+        "staminaCap": 0.1
+    },
+    "pear": {
+        "name": "pear",
+        "tags": ["fruit"],
+        "edible": true,
+        "time": 2,
+        "stamina": 8,
+        "staminaCap": 0.08
+    },
+
+    "cooked_beef": {
+        "name": "cooked beef",
+        "tags": ["meat"],
+        "edible": true,
+        "time": 10,
+        "stamina": 30,
+        "staminaCap": 0.5
+    },
+
+    "cooked_chicken": {
+        "name": "cooked chicken",
+        "tags": ["meat"],
+        "edible": true,
+        "time": 8,
+        "stamina": 25,
+        "staminaCap": 0.4
+    },
+
+    "cooked_venison": {
+        "name": "cooked venison",
+        "tags": ["meat"],
+        "edible": true,
+        "time": 10,
+        "stamina": 28,
+        "staminaCap": 0.45
+    },
+
+    "cooked_duck": {
+        "name": "cooked duck",
+        "tags": ["meat"],
+        "edible": true,
+        "time": 6,
+        "stamina": 20,
+        "staminaCap": 0.3
+    },
+
+    "cooked_mutton": {
+        "name": "cooked mutton",
+        "tags": ["meat"],
+        "edible": true,
+        "time": 9,
+        "stamina": 25,
+        "staminaCap": 0.42
+    },
+
+    "cooked_horse": {
+        "name": "cooked horse",
+        "tags": ["meat"],
+        "edible": true,
+        "time": 10,
+        "stamina": 30,
+        "staminaCap": 0.6
+    },
+
+    "cooked_pork": {
+        "name": "cooked pork",
+        "tags": ["meat"],
+        "edible": true,
+        "time": 9,
+        "stamina": 30,
+        "staminaCap": 0.52
+    },
+
+    "cooked_rabbit": {
+        "name": "cooked rabbit",
+        "tags": ["meat"],
+        "edible": true,
+        "time": 5,
+        "stamina": 18,
+        "staminaCap": 0.32
+    },
+
     "flatbread": {
         "name": "flatbread",
-        "tags": ["pastry"],
+        "tags": ["grain"],
         "edible": true,
         "time": 4,
         "stamina": 10,
         "staminaCap": 0.1
-    },
-
-    "steak_dinner": {
-        "name": "steak dinner",
-        "edible": true,
-        "time": 120,
-        "stamina": 500,
-        "staminaCap": 10
     }
 }

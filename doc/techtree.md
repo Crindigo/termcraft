@@ -29,6 +29,9 @@
   - creation of charcoal kilns, unfired pots, fired pots (used for fluid collection),
     fired clay bricks (fireclay=clay + kaolinite). can make quicklime from chalk.
 
+- cooking ovens (req: charcoal production)
+  - creation of brick ovens, used for heated drying and cooking/baking of food
+
 - agriculture (req: pottery)
   - creation of farms, flint scythe for gathering basic seeds. farms can be watered via
     command for temporary speed boost, and also fertilized with manure.
@@ -43,6 +46,9 @@
   - butcher/milk can just work for any animal in the inventory, we do not track a
     separate inventory for each pasture.
   - recipes for nicer clothes, beds with down blankets and alpaca wool.
+
+- animal power (req: animal husbandry)
+  - creation of horse-powered generator. recipe takes a horse, generates power in exchange for hay.
 
 - smelting (req: pottery)
   - creation of charcoal-powered smelteries built with firebrick. processing stone
@@ -71,7 +77,10 @@
 - mechanics 2 (req: iron making, construction 2)
   - creation of wind mills and water wheels for more advanced power generation
   - creation of drill molds, drills
+  - creation of automatic quarries using drills, gets pick and shovel mats
   - creation of powered screw pumps for automated water
+  - creation of sawmills for automatic planks, saw molds and saws
+  - creation of lumber mills, also using saws to automate wood
 
 - steel making (req: iron making)
   - creation of blast furnaces, requiring power for bellows + charcoal + hematite,
@@ -99,6 +108,9 @@ Wolframite (tungsten) requires stainless steel picks/drills to mine. You know wh
 spending hours on wikipedia researching stuff. You know how you get tungsten? Hellfire Forge
 from the blood magic tree, heats shit up REAL hot and can make molten tungsten.
 
+TBH, most shouldn't require a ton of complex processing. I'd say titanium, aluminum, and uranium
+should have more complex processes but the rest should be simple.
+
 Titanium requires ilmenite, found with tungsten steel picks/drills.
 
 Titanium:
@@ -108,6 +120,9 @@ Titanium:
 Magnesium:
     - silicon + dolomite + shit tons of power = magnesium + sand
     - silicon = electric arc furnace + coke + sand
+
+Chlorine:
+    - electrolysis of salt water = chlorine + hydrogen + sodium hydroxide
 
 Sodium carbonate:
     - solvay tower: heats chalk, salt, and a bit of ammonia to make sodium carbonate
@@ -124,6 +139,20 @@ Sulfuric acid:
 
 Sodium hydroxide:
     - chemical reactor: slaked lime + sodium carbonate = sodium hydroxide
+
+Platinum:
+    - arc smelter: sperrylite
+
+Nickel:
+    - smelt pentlandite
+
+Zinc:
+    - smelt sphalerite, with sulfur and a small amount of cadmium byproducts
+
+Lithium:
+    - more advanced pump can collect lithium brine, solar evaporator converts to lithium
+
+TODO: bauxite/aluminum, chromite/chromium, uranium
 
 ## Power Levels
 

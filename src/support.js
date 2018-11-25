@@ -69,7 +69,7 @@ export class Support
 
                 this.totalStaminaRegen += data.staminaRegen * multiplier;
                 this.totalResearchBonus += data.researchBonus * multiplier;
-                this.totalLandBonus += data.land * multiplier;
+                this.totalLandBonus += data.landBonus * multiplier;
             }
         });
 

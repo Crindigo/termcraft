@@ -7,7 +7,10 @@ export class RecipesCommand extends BaseCommand
         super();
 
         this.name = 'recipes';
-        this.patterns = [true];
+        this.patterns = [
+            /^(?<itemfilter>.+)$/,
+            true
+        ];
         
         this.device = device;
     }
@@ -19,17 +22,20 @@ export class RecipesCommand extends BaseCommand
             return;
         }
 
+        let filter = args.itemfilter || '';
+
         let line = '';
         let count = 0;
         recipes.forEach(r => {
             let name = r.name || tf.items.get(Object.keys(r.output)[0]).name;
-    
-            line += '{!itemtt}' + padEnd(name, 32) + '{/}';
-            count++;
-            if ( count === 3 ) {
-                tf.console.appendLine(line);
-                line = '';
-                count = 0;
+            if ( filter.length === 0 || name.includes(filter) ) {
+                line += '{!itemtt}' + padEnd(name, 32) + '{/}';
+                count++;
+                if (count === 3) {
+                    tf.console.appendLine(line);
+                    line = '';
+                    count = 0;
+                }
             }
         });
 

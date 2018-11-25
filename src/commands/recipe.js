@@ -23,8 +23,17 @@ export class RecipeCommand extends BaseCommand
         // Probably need to rethink this at some point. Like going through all devices which have a recipe
         // that includes this item in the output list. And filtering devices to hide ones that do not have
         // unlocked recipes (device isn't researched yet).
+
+        let madeWith = recipe.device;
+        if ( madeWith === 'structure' ) {
+            madeWith = 'build command';
+        } else if ( madeWith === 'hand' ) {
+            madeWith = 'make command';
+        } else {
+            madeWith = tf.devices.deviceClasses[madeWith].name;
+        }
         
-        tf.console.appendLine(`[Made with: ${recipe.device}] [Time: ${recipe.time}s] [Stamina: ${recipe.stamina}]`);
+        tf.console.appendLine(`[Made with: ${madeWith}] [Time: ${recipe.time}s] [Stamina: ${recipe.stamina}]`);
         tf.console.appendLine('Input:');
         Object.entries(recipe.input).forEach(kv => {
             // need to get names from id

@@ -1,4 +1,13 @@
 {
+    "campfire": {
+        "name": "campfire",
+        "category": "device",
+        "land": 1,
+        "drops": {
+            "stick": 4
+        }
+    },
+
     "chopping_block": {
         "name": "chopping block",
         "category": "device",
@@ -7,13 +16,23 @@
             "wood": 10
         }
     },
+
     "brick_former": {
         "name": "brick former",
         "category": "device",
-        "land": 1,
+        "land": 2,
         "drops": {
             "stone": 10,
             "small_plank": 5
+        }
+    },
+
+    "farm": {
+        "name": "farm",
+        "category": "device",
+        "land": 10,
+        "drops": {
+            
         }
     }
 }

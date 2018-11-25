@@ -32,6 +32,21 @@
             "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spears", "flint_pick"]
         }
     },
+    "fire": {
+        "name": "Fire",
+        "time": 10,
+        "stamina": 10,
+        "items": {
+            "flint": 2,
+            "stick": 4
+        },
+        "requires": ["_default_"],
+        "unlocks": {
+            "commands": ["build", "name"],
+            "recipes": ["campfire", "cooked_beef", "cooked_chicken", "cooked_venison", "cooked_duck", "cooked_mutton",
+                "cooked_horse", "cooked_pork", "cooked_rabbit"]
+        }
+    },
     "carving": {
         "name": "Carving",
         "time": 10,
@@ -45,6 +60,20 @@
             "recipes": ["wood_bowl", "berry_delight"]
         }
     },
+    "archery": {
+        "name": "Archery",
+        "time": 30,
+        "stamina": 15,
+        "items": {
+            "stick": 6,
+            "flint": 4,
+            "plant_fiber": 4
+        },
+        "requires": ["flint_knapping", "weaving"],
+        "unlocks": {
+            "recipes": ["hunting_bow"]
+        }
+    },
     "construction_1": {
         "name": "Construction 1",
         "time": 30,
@@ -55,7 +84,8 @@
         },
         "requires": ["flint_knapping", "weaving"],
         "unlocks": {
-            "recipes": ["brick_former", "chopping_block", "small_plank", "dirt_brick", "clay_brick", "adobe_brick"]
+            "recipes": ["brick_former", "chopping_block", "small_plank", "dirt_brick", "clay_brick", "adobe_brick", 
+                "dirt_hut", "adobe_hut"]
         }
     },
     "mechanics_1": {

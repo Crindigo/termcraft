@@ -140,6 +140,8 @@
     "raw_beef": "raw beef",
     "raw_cow_milk": "raw cow milk",
 
+    "raw_venison": "raw venison",
+
     "duck_feather": "duck feather",
     "duck_egg": "duck egg",
     "raw_duck": "raw duck",
@@ -156,5 +158,9 @@
     },
 
     "raw_pork": "raw pork",
+    
+    "raw_rabbit": "raw rabbit",
+    "rabbit_fur": "rabbit fur",
+
     "sheep_wool": "sheep wool"
 }

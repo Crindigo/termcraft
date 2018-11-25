@@ -1,0 +1,105 @@
+{
+    "cooked_beef": {
+        "device": "campfire",
+        "time": 30,
+        "stamina": 5,
+        "input": {
+            "stick": 3,
+            "raw_beef": 1
+        },
+        "output": {
+            "cooked_beef": 1
+        }
+    },
+
+    "cooked_chicken": {
+        "device": "campfire",
+        "time": 20,
+        "stamina": 4,
+        "input": {
+            "stick": 2,
+            "raw_chicken": 1
+        },
+        "output": {
+            "cooked_chicken": 1
+        }
+    },
+
+    "cooked_venison": {
+        "device": "campfire",
+        "time": 30,
+        "stamina": 5,
+        "input": {
+            "stick": 3,
+            "raw_venison": 1
+        },
+        "output": {
+            "cooked_venison": 1
+        }
+    },
+
+    "cooked_duck": {
+        "device": "campfire",
+        "time": 20,
+        "stamina": 4,
+        "input": {
+            "stick": 2,
+            "raw_duck": 1
+        },
+        "output": {
+            "cooked_duck": 1
+        }
+    },
+
+    "cooked_mutton": {
+        "device": "campfire",
+        "time": 30,
+        "stamina": 4,
+        "input": {
+            "stick": 3,
+            "raw_mutton": 1
+        },
+        "output": {
+            "cooked_mutton": 1
+        }
+    },
+
+    "cooked_horse": {
+        "device": "campfire",
+        "time": 30,
+        "stamina": 5,
+        "input": {
+            "stick": 3,
+            "raw_horse_meat": 1
+        },
+        "output": {
+            "cooked_horse": 1
+        }
+    },
+
+    "cooked_pork": {
+        "device": "campfire",
+        "time": 30,
+        "stamina": 5,
+        "input": {
+            "stick": 3,
+            "raw_pork": 1
+        },
+        "output": {
+            "cooked_pork": 1
+        }
+    },
+
+    "cooked_rabbit": {
+        "device": "campfire",
+        "time": 20,
+        "stamina": 4,
+        "input": {
+            "stick": 2,
+            "raw_rabbit": 1
+        },
+        "output": {
+            "cooked_rabbit": 1
+        }
+    }
+}
