@@ -49,5 +49,33 @@
         "output": {
             "brick_former": 1
         }
+    },
+
+    "dirt_hut": {
+        "device": "structure",
+        "time": 600,
+        "stamina": 300,
+        "input": {
+            "dirt_brick": 50,
+            "plant_fiber": 50,
+            "stick": 100
+        },
+        "output": {
+            "dirt_hut": 1
+        }
+    },
+
+    "adobe_hut": {
+        "device": "structure",
+        "time": 1200,
+        "stamina": 1200,
+        "input": {
+            "adobe_brick": 100,
+            "plant_fiber": 100,
+            "stick": 200
+        },
+        "output": {
+            "adobe_hut": 1
+        }
     }
 }

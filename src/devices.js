@@ -42,6 +42,10 @@ export class Devices
         return this.activeRegistry[name] || null;
     }
 
+    countType(deviceId) {
+        return this.currentCounts[deviceId] || 0;
+    }
+
     startConstruction(id) {        
         this.partialRegistry[id] = 0;
         this.rebuildCache();
@@ -89,6 +93,7 @@ export class Devices
             return false;
         }
 
+        device.name = newName;
         delete this.activeRegistry[oldName];
         this.activeRegistry[newName] = device;
         this.rebuildCache();

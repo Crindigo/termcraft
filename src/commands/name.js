@@ -26,7 +26,7 @@ export class NameCommand extends BaseCommand
             return [false, 'A device with the new name already exists.'];
         }
 
-        if ( !this.activeRegistry[oldName] ) {
+        if ( !tf.devices.activeRegistry[oldName] ) {
             return [false, 'No device with that name exists.'];
         }
 

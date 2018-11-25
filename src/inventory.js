@@ -148,7 +148,7 @@ export class Inventory
 
         if ( !simulate ) {
             stack.qty -= amount;
-            if ( stack.qty <= 0 ) {
+            if ( stack.qty <= 0.000001 ) {
                 this.remove(stack);
             }
         }

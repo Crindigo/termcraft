@@ -161,7 +161,7 @@ export class GatherCommand extends BaseCommand
 
         // there exists the potential for the tool to run out due to usage in a device, so check the qty here.
         // we need to have this up here as well because we can't find an item with a missing tool!
-        if ( this.tool && this.tool.qty <= 0 ) {
+        if ( this.tool && this.tool.qty < 1 ) {
             tf.console.appendLine('Your tool broke, stopped gathering items.', 'tip');
             return false;
         }

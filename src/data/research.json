@@ -13,6 +13,7 @@
             "stick": 8,
             "plant_fiber": 8
         },
+        "requires": ["_default_"],
         "unlocks": {
             "commands": ["build", "name"],
             "recipes": ["thatch_bed", "straw_basket"]
@@ -25,6 +26,7 @@
         "items": {
             "flint": 4
         },
+        "requires": ["_default_"],
         "unlocks": {
             "commands": ["build", "name"],
             "recipes": ["flint_handaxe", "flint_hatchet", "flint_spade", "flint_spears", "flint_pick"]
@@ -81,7 +83,7 @@
             "blood": 1000
         },
         "unlocks": {
-            
+
         }
     }
 }

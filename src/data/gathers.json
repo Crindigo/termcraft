@@ -27,12 +27,12 @@
     "tag:pick[1,)": {
         "flint": 20,
         "stone": 30,
-        "chalk": 30
+        "calcite": 30
     },
 
     "tag:basket[1,)": {
-        "wild_berry": 15,
-        "juice_berry": 15,
-        "sweet_berry": 15
+        "wild_berry": 20,
+        "juice_berry": 20,
+        "sweet_berry": 20
     }
 }

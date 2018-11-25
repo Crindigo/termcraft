@@ -13,8 +13,8 @@
         "category": "support",
         "staminaRegen": 0.1
     },
-    "mud_hut": {
-        "name": "mud hut",
+    "dirt_hut": {
+        "name": "dirt hut",
         "category": "support",
         "staminaRegen": 0.5
     },

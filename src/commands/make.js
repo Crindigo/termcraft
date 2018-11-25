@@ -52,6 +52,10 @@ export class MakeCommand extends BaseCommand
 
         let recipe = tf.crafting.findRecipeByOutput(this.device, item.id);
         if ( !recipe ) {
+            let s = tf.crafting.findRecipeByOutput('structure', item.id);
+            if ( s ) {
+                return [false, "Try using the build command for that."];
+            }
             return [false, "You can't make " + an(itemName) + "."];
         }
 

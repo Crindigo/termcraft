@@ -17,7 +17,7 @@ export class SaveManager
         // just store item id and quantity
         data.inventory = this.tf.player.inventory.items.map(stack => {
             return {"itemId": stack.item.id, "qty": stack.qty};
-        });
+        }).filter(entry => entry.qty > 0.000001);
 
         data.partialSupport = this.tf.support.partialRegistry;
         data.activeSupport  = this.tf.support.activeRegistry;
@@ -57,7 +57,7 @@ export class SaveManager
 
         data.inventory.forEach(inv => {
             let item = this.tf.items.get(inv.itemId);
-            if ( item ) {
+            if ( item && inv.qty > 0.000001 ) {
                 this.tf.player.addItemStack(item.stack(inv.qty));
             }
         });

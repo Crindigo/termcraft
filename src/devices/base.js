@@ -430,7 +430,7 @@ export class DeviceMakeCommand extends BaseCommand
     runInteractive(tf, args) {
         tf.console.lock(this);
 
-        this.staminaDrain = recipe.stamina / recipe.time;
+        this.staminaDrain = this.recipe.stamina / this.recipe.time;
         tf.player.staminaChange -= this.staminaDrain;
 
         let fn = () => {
