@@ -1,4 +1,5 @@
 import { tagRegexp, itemMatchesTagSpec } from './utils';
+import sortedIndexBy from 'lodash/sortedIndexBy';
 
 /**
  * Structure for an item.
@@ -13,6 +14,7 @@ export class Item
         // base
         this.id = id;
         this.name = info.name;
+        this.alphaIndex = 0;
         this.tags = info.tags || [];
         this.category = info.category || 'item';
 
@@ -63,7 +65,7 @@ class Stack
     }
 
     itemsEqual(other) {
-        return other && this.item.id == other.item.id;
+        return other && this.item.id === other.item.id;
     }
 
     merge(other) {
@@ -78,11 +80,15 @@ class Stack
     }
 
     round() {
-        // round it off if it's very close to an integer value
-        const round = Math.round(this.qty);
-        const frac = Math.abs(this.qty - round);
-        if ( frac < 0.000001 ) {
-            this.qty = round;
+        // round it off to 6 digits past the decimal.
+        // we get 15 significant digits of precision with doubles, and we have a hard-coded
+        // maximum quantity of 999,999,999.
+        this.qty = Math.round(this.qty * 1000000) / 1000000;
+
+        // if the qty is within 0.0005 of a whole number, round to it.
+        const whole = Math.round(this.qty);
+        if ( Math.abs(this.qty - whole) < 0.0005 ) {
+            this.qty = whole;
         }
     }
 }
@@ -95,18 +101,40 @@ export class Inventory
     constructor() {
         this.items = [];
         this.indexed = {};
+
+        // Enables change tracking for optimized UI updates instead of full list renders
+        this.enableTracking = false;
+        this.changes = [];
     }
 
     add(stack) {
         let foundStack = this.indexed[stack.item.id] || null;
 
         if ( foundStack ) {
+            if ( this.enableTracking ) {
+                let pos = sortedIndexBy(this.items, foundStack, s => s.item.alphaIndex);
+                this.changes.push(['update', pos, foundStack]);
+            }
+
             foundStack.qty += stack.qty;
+            if ( foundStack.qty > 999999999 ) {
+                foundStack.qty = 999999999;
+            }
+            foundStack.round();
             return foundStack;
         } else {
-            this.items.push(stack);
-            this.items.sort((a, b) => a.item.name.localeCompare(b.item.name));
+            // instead of pushing to the end and sorting, find the insert position and splice it in.
+            let pos = sortedIndexBy(this.items, stack, s => s.item.alphaIndex);
+            this.items.splice(pos, 0, stack);
+
+            if ( this.enableTracking ) {
+                this.changes.push(['insert', pos, stack]);
+            }
+
+            //this.items.push(stack);
+            //this.items.sort((a, b) => a.item.alphaIndex - b.item.alphaIndex);
             this.indexed[stack.item.id] = stack;
+            stack.round();
             return stack;
         }
     }
@@ -143,22 +171,36 @@ export class Inventory
     }
 
     remove(stack) {
-        let index = this.items.indexOf(stack);
-        if ( index !== -1 ) {
-            this.items.splice(index, 1);
+        //let index = this.items.indexOf(stack);
+        let pos = sortedIndexBy(this.items, stack, s => s.item.alphaIndex);
+
+        // if that position exists in the list and it matches the given item
+        if ( this.items[pos] && this.items[pos].item.alphaIndex === stack.item.alphaIndex ) {
+            this.items.splice(pos, 1);
             delete this.indexed[stack.item.id];
+            if ( this.enableTracking ) {
+                this.changes.push(['delete', pos]);
+            }
         }
     }
 
     reduce(stack, amount = 1, simulate = false) {
-        if ( stack.qty < amount ) {
+        let foundStack = this.indexed[stack.item.id];
+        if ( !foundStack || foundStack.qty < amount ) {
             return false;
         }
 
         if ( !simulate ) {
-            stack.qty -= amount;
-            if ( stack.qty <= 0.000001 ) {
-                stack.qty = 0;
+            foundStack.qty -= amount;
+            if ( foundStack.qty <= 0.000001 ) {
+                foundStack.qty = 0;
+            } else {
+                foundStack.round();
+            }
+
+            if ( this.enableTracking ) {
+                let pos = sortedIndexBy(this.items, foundStack, s => s.item.alphaIndex);
+                this.changes.push(['update', pos, foundStack]);
             }
         }
         return true;
@@ -182,5 +224,13 @@ export class Inventory
         return this.items.filter(st => {
             return itemMatchesTagSpec(st.item, m.groups, tagSpec);
         });
+    }
+
+    // Optimized syncing test
+
+    getChanges() {
+        let changes = this.changes;
+        this.changes = [];
+        return changes;
     }
 }

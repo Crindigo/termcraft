@@ -10,7 +10,7 @@ export class Items
         const context = require.context('./data/items', true, /\.json$/);
         this.registry = {};
         this.nameRegistry = {};
-        
+
         this.searchRegistries = [];
         this.animalList = this.makeSearchRegistry(item => item.animal === true);
         this.fluidList = this.makeSearchRegistry(item => item.fluid === true);
@@ -20,6 +20,16 @@ export class Items
         this.supportList = this.makeSearchRegistry(item => item.category === "support");
 
         context.keys().forEach(key => this.addItems(key, context(key)));
+
+        // build alphabetical index
+        let itemNames = Object.keys(this.nameRegistry);
+        itemNames.sort((a, b) => a.localeCompare(b));
+        let index = 1;
+        itemNames.forEach(name => {
+            this.nameRegistry[name].alphaIndex = index;
+            index++;
+        });
+
         console.log(`[Items] ${Object.keys(this.registry).length} total items`);
     }
 

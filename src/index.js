@@ -94,8 +94,27 @@ class TermFactory
     }
 
     syncInventory() {
-        this.vue.inventory = this.player.inventory.items.map(stack => {
-            return {"name": stack.item.name, "qty": stack.qty};
+        // this.vue.inventory = this.player.inventory.items.map(stack => {
+        //     return {"name": stack.item.name, "qty": stack.qty};
+        // });
+        // this.inventorySyncedOnce = true;
+
+        this.player.inventory.getChanges().forEach(change => {
+            console.log('[CHANGE] ', change[0], change[1], change[2].item.name, change[2].qty);
+            switch ( change[0] ) {
+                case 'insert':
+                    this.vue.inventory.splice(change[1], 0, {"name": change[2].item.name, "qty": change[2].qty});
+                    break;
+
+                case 'update':
+                    this.vue.inventory[change[1]].name = change[2].item.name;
+                    this.vue.inventory[change[1]].qty = change[2].qty;
+                    break;
+
+                case 'delete':
+                    this.vue.inventory.splice(change[1], 1);
+                    break;
+            }
         });
     }
 }
@@ -170,6 +189,19 @@ window.leftVue = tf.vue = new Vue({
 
         itemClick(item) {
             $('#command').val($('#command').val() + item.name);
+        },
+
+        useDevice(name) {
+            if ( tf.console.lockHolder ) {
+                tf.console.appendLine('> You are busy.', 'error');
+                return;
+            }
+
+            // if we're in a device, quit first, then use the given name.
+            if ( tf.devices.current ) {
+                tf.console.processor.run('quit');
+            }
+            tf.console.processor.run('use ' + name);
         },
 
         staminaProgress() {

@@ -16,11 +16,6 @@ export class Player
         // the base regen, probably constant.
         this.baseStaminaRegen = 0.1;
 
-        // the regen that gets modified by support structures.
-        // this will be added to stamina every second.
-        this.staminaRegen = this.baseStaminaRegen;
-        this.staminaChange = this.staminaRegen;
-
         this.nutrition = {
             meat: 0,
             fruit: 0,
@@ -29,10 +24,24 @@ export class Player
             grain: 0
         };
 
+        // Map of tool item ID to the # of times it was crafted
+        this.toolMakingSkill = {};
+
+        // the regen that gets modified by support structures.
+        // this will be added to stamina every second.
+        // technically this is never modified by support structures, it has a separate function that
+        // adds stamina and modifies staminaChange.
+        this.staminaRegen = this.baseStaminaRegen;
+        this.staminaChange = this.staminaRegen * this.staminaMultiplier();
+
         this.inventory = new Inventory();
+        this.inventory.enableTracking = true;
     }
 
     updateNutrition(item) {
+        // subtract stamina change with old multiplier
+        this.staminaChange -= this.staminaRegen * this.staminaMultiplier();
+
         Object.keys(this.nutrition).forEach(key => {
             if ( item.tags.includes(key) ) {
                 this.nutrition[key] += item.staminaCap;
@@ -42,10 +51,23 @@ export class Player
             // allow up to 10x
             this.nutrition[key] = clamp(this.nutrition[key], 0, 900);
         });
+
+        // add stamina change with new multiplier
+        this.staminaChange += this.staminaRegen * this.staminaMultiplier();
     }
 
     staminaMultiplier() {
         return 1 + this.nutritionBonus() / 100;
+    }
+
+    toolMakingMultiplier(itemId) {
+        let bonus = this.toolMakingSkill[itemId] || 0;
+        return clamp(1 + bonus / 100, 1, 2);
+    }
+
+    toolCrafted(itemId) {
+        let skill = this.toolMakingSkill[itemId] || 0;
+        this.toolMakingSkill[itemId] = skill + 1;
     }
 
     nutritionBonus() {

@@ -137,7 +137,12 @@ export class MakeCommand extends BaseCommand
         if ( this.itemProgress >= this.recipe.time ) {
             Object.keys(this.recipe.output).forEach(itemId => {
                 const item = tf.items.get(itemId);
-                const qty = this.recipe.output[itemId];
+                let qty = this.recipe.output[itemId];
+                if ( item.tool ) {
+                    qty = Math.round(qty * tf.player.toolMakingMultiplier(itemId));
+                    tf.player.toolCrafted(itemId);
+                }
+
                 if ( item.category === 'item' ) {
                     // add to the player inventory
                     tf.player.addItemStack(item.stack(qty));

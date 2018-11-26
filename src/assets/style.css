@@ -69,7 +69,7 @@ body, input {
 .leftcontent ul li span.meta {
     float: right;
 }
-.leftcontent ul.inventory-contents li:nth-child(2n) {
+.leftcontent ul.inventory-contents li:nth-child(2n), .leftcontent ul.devices-contents li:nth-child(2n) {
     background: #f4f4f4;
 }
 

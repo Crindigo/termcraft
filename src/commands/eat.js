@@ -42,7 +42,7 @@ export class EatCommand extends BaseCommand
 
         // ordering this way because the messages make more sense.
         let stack = tf.player.findItemStack(item);
-        if ( !stack || stack.qty <= 1 ) {
+        if ( !stack || stack.qty < 1 ) {
             return [false, "You don't have " + an(food) + "."];
         }
         if ( !item.edible ) {
@@ -93,10 +93,11 @@ export class EatCommand extends BaseCommand
         this.progressLine.text(progressBar(this.eatProgress, this.food.item.time, 100));
 
         if ( this.eatProgress >= this.food.item.time ) {
-            tf.player.maxStamina += this.food.item.staminaCap * tf.player.staminaMultiplier();
+            let increase = this.food.item.staminaCap * tf.player.staminaMultiplier();
+            tf.player.maxStamina += increase;
             tf.player.updateNutrition(this.food.item);
             tf.console.append(
-                `Delicious. Your stamina cap increased by ${numberFormatAbbr(this.food.item.staminaCap)}. ` +
+                `Delicious. Your stamina cap increased by ${numberFormatAbbr(increase)}. ` +
                 `Your nutrition bonus is ${numberFormatAbbr(tf.player.nutritionBonus())}%.`);
 
             for ( let id in this.food.item.leftovers ) {

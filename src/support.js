@@ -67,7 +67,7 @@ export class Support
             if ( kv[1] >= 1 ) {
                 let multiplier = 1 + this.logBase(data.logBase, kv[1]);
 
-                this.totalStaminaRegen += data.staminaRegen * multiplier;
+                this.totalStaminaRegen += data.staminaRegen * multiplier * this.tf.player.staminaMultiplier();
                 this.totalResearchBonus += data.researchBonus * multiplier;
                 this.totalLandBonus += data.landBonus * multiplier;
             }

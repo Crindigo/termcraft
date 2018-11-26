@@ -14,10 +14,10 @@ export class SaveManager
         data.playerStamina = this.tf.player.stamina;
         data.playerMaxStamina = this.tf.player.maxStamina;
         data.playerNutrition = this.tf.player.nutrition;
+        data.playerToolSkill = this.tf.player.toolMakingSkill;
 
         // just store item id and quantity
         data.inventory = this.tf.player.inventory.items.map(stack => {
-            stack.round(); // round values very close to whole numbers
             return {"itemId": stack.item.id, "qty": stack.qty};
         });
 
@@ -58,6 +58,11 @@ export class SaveManager
         this.tf.player.maxStamina = data.playerMaxStamina;
         if ( data.playerNutrition ) {
             this.tf.player.nutrition = data.playerNutrition;
+            // need to refresh this after setting nutrition.
+            this.tf.player.staminaChange = this.tf.player.staminaRegen * this.tf.player.staminaMultiplier();
+        }
+        if ( data.playerToolSkill ) {
+            this.tf.player.toolMakingSkill = data.playerToolSkill;
         }
 
         data.inventory.forEach(inv => {

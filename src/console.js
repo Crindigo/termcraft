@@ -122,9 +122,9 @@ export class TFConsole
     }
 
     commandKeyDown(e) {
-        var value = this.commandEl.val().trim();
+        let value = this.commandEl.val().trim();
 
-        if (e.keyCode == 13) {
+        if (e.keyCode === 13) {
             if ( this.lockHolder ) {
                 if ( value === 'stop' ) {
                     this.lockHolder.stop(this.tf);
@@ -170,13 +170,13 @@ export class TFConsole
                     ret[1].forEach((l) => (typeof l == 'string') ? this.appendLine(l) : this.appendLine(l.line, l.classes));
                 }
             }
-        } else if (e.keyCode == 38 || e.keyCode == 40) {
+        } else if (e.keyCode === 38 || e.keyCode === 40) {
             this.commandEl.val(this.history.navigate(value, e.keyCode == 38));
             setTimeout(() => this.setCursorPosToEnd(), 50);
-        } else if (e.keyCode == 9) {
+        } else if (e.keyCode === 9) {
             // tab completion
             e.preventDefault();
-            if (value == 'eat spa') {
+            if (value === 'eat spa') {
                 this.commandEl.val('eat spaghetti');
             }
             return false;

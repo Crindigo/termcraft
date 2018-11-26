@@ -110,6 +110,7 @@ export class BaseDevice
 
     stop() {
         if ( this.craftOperation ) {
+            this.tf.console.appendLine('You stopped the crafting operation.', 'tip');
             this.craftOperation.receivedStop = true;
         }
     }
@@ -515,7 +516,10 @@ export class DeviceMakeCommand extends BaseCommand
         // For inventory recipe outputs, increment the output values.
         Object.keys(this.recipe.output).forEach(itemId => {
             const item = tf.items.get(itemId);
-            const qty = this.recipe.output[itemId];
+            let qty = this.recipe.output[itemId];
+            if ( item.tool ) {
+                qty = Math.round(qty * tf.player.toolMakingMultiplier(itemId));
+            }
             if ( item.category === 'item' ) {
                 tf.player.addItemStack(item.stack(qty / this.recipe.time));
             }
@@ -530,6 +534,10 @@ export class DeviceMakeCommand extends BaseCommand
                     tf.support.finishConstruction(item.id);
                 } else if ( item.category === 'device' ) {
                     tf.devices.finishConstruction(item.id);
+                } else {
+                    if ( item.tool ) {
+                        tf.player.toolCrafted(itemId);
+                    }
                 }
             });
 

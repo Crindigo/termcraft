@@ -41,7 +41,7 @@ width: 34 total
     </li>
     
     <li style="margin-top:4px;">
-        <span class="stat">Land Used: {{ land | shortnum }}/{{ maxLand }}</span>
+        <span class="stat">Land Used: {{ land | shortnum }}/{{ maxLand | shortnum }}</span>
         <span class="progress">{{ landProgress() }}</span>
     </li>
 
@@ -69,7 +69,11 @@ width: 34 total
     <li v-for="deviceName in filteredIncompleteDevices">
         <span class="item gray">{{ deviceName }}</span>
     </li>
-    <li v-for="device in filteredDevices" v-html="textfmt(device.renderList())"></li>
+    <!-- <li v-for="device in filteredDevices" v-html="textfmt(device.renderList())"></li> -->
+    <li v-for="device in filteredDevices">
+        <span class="item">{{ device.name }}</span>
+        <span class="meta"><a href="#" @click.prevent="useDevice(device.name)">use</a></span>
+    </li>
     <!--
     <li><span class="item bold">propane grill</span><span class="meta">fuel: 90</span>
         <span class="crafting">&gt; hamburger patty</span>
