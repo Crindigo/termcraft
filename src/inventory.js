@@ -14,6 +14,7 @@ export class Item
         // base
         this.id = id;
         this.name = info.name;
+        this.flavor = info.flavor || 'Who needs flavor text anyway?';
         this.alphaIndex = 0;
         this.tags = info.tags || [];
         this.category = info.category || 'item';
@@ -41,8 +42,8 @@ export class Item
         // support
         this.staminaRegen = info.staminaRegen || 0;
         this.landBonus = info.landBonus || 0;
-        this.logBase = info.logBase || Math.E;
         this.researchBonus = info.researchBonus || 0;
+        this.logBase = info.logBase || Math.E;
 
         // devices
         this.land = info.land || 0;

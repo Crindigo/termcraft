@@ -14,7 +14,7 @@
 <a href="#" @click.prevent="changeTab('inventory')" :class="{active: tab === 'inventory'}">Inventory</a> | 
 <a href="#" @click.prevent="changeTab('devices')" :class="{active: tab === 'devices'}">Devices</a>
 
-<input type="text" id="filter" placeholder="Filter" v-model="invFilter" :disabled="tab === 'status'">
+<input type="text" id="filter" placeholder="Filter" v-model="invFilter" :disabled="tab === 'status' && supports.length === 0">
 </nav>
 
 <!--
@@ -27,25 +27,53 @@ width: 34 total
 <ul class="status-contents" v-if="tab === 'status'">
     <li>
         <span class="stat">Stamina: {{ stamina.current | shortnum }}/{{ stamina.maximum | shortnum }} ({{ staminaMod() }}/s)</span>
+        <span class="progress">{{ staminaProgress() }}</span>
     </li>
-    <li><span class="progress">{{ staminaProgress() }}</span></li>
-    <li v-if="power.maximum > 0">&nbsp;</li>
-    <li v-if="power.maximum > 0">
+
+    <li v-if="power.maximum > 0" style="margin-top:4px;">
         <span class="stat">Power: {{ power.current | shortnum }}/{{ power.maximum | shortnum }} ({{ powerMod() }}/s)</span>
+        <span class="progress">{{ powerProgress() }}</span>
     </li>
-    <li v-if="power.maximum > 0"><span class="progress">{{ powerProgress() }}</span></li>
-    <li>&nbsp;</li>
-    <li><span class="stat">Combat Strength: {{ combat | shortnum }}</span></li>
+
+    <li v-if="ether.maximum > 0" style="margin-top:4px;">
+        <span class="stat">Ether: {{ ether.current | shortnum }}/{{ ether.maximum | shortnum }} ({{ etherMod() }}/s)</span>
+        <span class="progress">{{ etherProgress() }}</span>
+    </li>
+    
+    <li style="margin-top:4px;">
+        <span class="stat">Land Used: {{ land | shortnum }}/{{ maxLand | shortnum }}</span>
+        <span class="progress">{{ landProgress() }}</span>
+    </li>
+
+    <li v-if="researchBonus > 0"><span class="stat">Research Bonus: {{ researchBonus | shortnum }}</span></li>
+    
+    <li v-if="supports.length > 0 || incompleteSupports.length > 0">&nbsp;</li>
+    <li v-if="supports.length > 0"><strong>Support</strong></li>
+    <li v-for="supportName in filteredIncompleteSupports">
+        <span class="item gray">{{ supportName }}</span>
+    </li>
+    <li v-for="support in filteredSupports">
+        <span class="item itemtt clickable">{{ support.name }}</span>
+        <span class="meta">{{ support.qty | shortnum }}</span>
+    </li>
 </ul>
 
 <ul class="inventory-contents" v-if="tab === 'inventory'">
     <li v-for="item in filteredInventory">
-        <span class="item clickable" @click="itemClick(item)">{{ item.name }}</span>
+        <span class="item itemtt clickable" @click="itemClick(item)">{{ item.name }}</span>
         <span class="meta" :title="item.qty | fmtqty">{{item.qty | shortnum}}</span>
     </li>
 </ul>
 
 <ul class="devices-contents" v-if="tab === 'devices'">
+    <li v-for="deviceName in filteredIncompleteDevices">
+        <span class="item gray">{{ deviceName }}</span>
+    </li>
+    <!-- <li v-for="device in filteredDevices" v-html="textfmt(device.renderList())"></li> -->
+    <li v-for="device in filteredDevices">
+        <span class="item itemtt clickable">{{ device.name }}</span>
+        <span class="meta"><a href="#" @click.prevent="useDevice(device.name)">use</a></span>
+    </li>
     <!--
     <li><span class="item bold">propane grill</span><span class="meta">fuel: 90</span>
         <span class="crafting">&gt; hamburger patty</span>
@@ -87,6 +115,8 @@ width: 34 total
 </div>
 
 </div>
+
+<div class="tooltip" style="display:none"></div>
 
 <script src="main.min.js"></script>
 

@@ -48,19 +48,19 @@ width: 34 total
     <li v-if="researchBonus > 0"><span class="stat">Research Bonus: {{ researchBonus | shortnum }}</span></li>
     
     <li v-if="supports.length > 0 || incompleteSupports.length > 0">&nbsp;</li>
-    <li v-if="supports.length > 0"><strong>Support Structures</strong></li>
+    <li v-if="supports.length > 0"><strong>Support</strong></li>
     <li v-for="supportName in filteredIncompleteSupports">
         <span class="item gray">{{ supportName }}</span>
     </li>
     <li v-for="support in filteredSupports">
-        <span class="item">{{ support.name }}</span>
+        <span class="item itemtt clickable">{{ support.name }}</span>
         <span class="meta">{{ support.qty | shortnum }}</span>
     </li>
 </ul>
 
 <ul class="inventory-contents" v-if="tab === 'inventory'">
     <li v-for="item in filteredInventory">
-        <span class="item clickable" @click="itemClick(item)">{{ item.name }}</span>
+        <span class="item itemtt clickable" @click="itemClick(item)">{{ item.name }}</span>
         <span class="meta" :title="item.qty | fmtqty">{{item.qty | shortnum}}</span>
     </li>
 </ul>
@@ -71,7 +71,7 @@ width: 34 total
     </li>
     <!-- <li v-for="device in filteredDevices" v-html="textfmt(device.renderList())"></li> -->
     <li v-for="device in filteredDevices">
-        <span class="item">{{ device.name }}</span>
+        <span class="item itemtt clickable">{{ device.name }}</span>
         <span class="meta"><a href="#" @click.prevent="useDevice(device.name)">use</a></span>
     </li>
     <!--

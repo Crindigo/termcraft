@@ -1,6 +1,7 @@
 {
     "wild_berry": {
         "name": "wildberry",
+        "flavor": "Wild, tangy flavor that picks you up.",
         "tags": ["berry", "fruit"],
         "edible": true,
         "time": 1,
@@ -9,6 +10,7 @@
     },
     "juice_berry": {
         "name": "juiceberry",
+        "flavor": "Lightly sweet, but heavily juicy.",
         "tags": ["berry", "fruit"],
         "edible": true,
         "time": 1,
@@ -17,6 +19,7 @@
     },
     "sweet_berry": {
         "name": "sweetberry",
+        "flavor": "Good, but almost too sweet.",
         "tags": ["berry", "fruit"],
         "edible": true,
         "time": 1,

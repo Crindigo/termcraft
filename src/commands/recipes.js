@@ -1,5 +1,6 @@
 import { BaseCommand } from './base';
 import padEnd from 'lodash/padEnd';
+import repeat from 'lodash/repeat';
 
 export class RecipesCommand extends BaseCommand
 {
@@ -29,7 +30,8 @@ export class RecipesCommand extends BaseCommand
         recipes.forEach(r => {
             let name = r.name || tf.items.get(Object.keys(r.output)[0]).name;
             if ( filter.length === 0 || name.includes(filter) ) {
-                line += '{!itemtt}' + padEnd(name, 32) + '{/}';
+                let pad = repeat( ' ', 32 - name.length);
+                line += '{!itemtt clickable}' + name + '{/}' + pad;
                 count++;
                 if (count === 3) {
                     tf.console.appendLine(line);

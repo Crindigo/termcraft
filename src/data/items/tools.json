@@ -1,30 +1,35 @@
 {
     "flint_handaxe": {
         "name": "flint handaxe",
+        "flavor": "Simple hand tool used for carving and chiseling.",
         "tool": true,
         "tags": ["chisel"],
         "level": 1
     },
     "flint_spade": {
         "name": "flint spade",
+        "flavor": "A toy shovel from before plastic was invented.",
         "tool": true,
         "tags": ["shovel"],
         "level": 1
     },
     "flint_hatchet": {
         "name": "flint hatchet",
+        "flavor": "Sometimes collects wood faster than it breaks.",
         "tool": true,
         "tags": ["axe"],
         "level": 1
     },
     "flint_pick": {
         "name": "flint pick",
+        "flavor": "Can help improve your rock collection.",
         "tool": true,
         "tags": ["pick"],
         "level": 1
     },
     "hunting_bow": {
         "name": "hunting bow",
+        "flavor": "Every season is hunting season!",
         "tool": true,
         "tags": ["bow"],
         "level": 1
@@ -32,6 +37,7 @@
 
     "straw_basket": {
         "name": "straw basket",
+        "flavor": "Level 1 fruit-collection apparatus.",
         "tool": true,
         "tags": ["basket"],
         "level": 1

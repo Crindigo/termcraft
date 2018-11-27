@@ -7,7 +7,7 @@ export class Items
     constructor(tf) {
         this.tf = tf;
 
-        const context = require.context('./data/items', true, /\.json$/);
+        const context = require.context('./data/items', true, /(?:\.json|\.js)$/);
         this.registry = {};
         this.nameRegistry = {};
 

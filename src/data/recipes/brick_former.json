@@ -33,6 +33,18 @@
         }
     },
 
+    "stone_brick": {
+        "device": "brick_former",
+        "time": 60,
+        "input": {
+            "clay": 1,
+            "stone": 2
+        },
+        "output": {
+            "stone_brick": 1
+        }
+    },
+
     "concrete_brick": {
         "device": "brick_former",
         "time": 180,

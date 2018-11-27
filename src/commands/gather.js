@@ -20,6 +20,7 @@ export class GatherCommand extends BaseCommand
         this.logLines = {};
         this.foundQty = {};
         this.tool = null;
+        this.tryCount = 0;
         this.receivedStop = false;
 
         // map of toolspec -> { itemid -> chance }
@@ -72,6 +73,7 @@ export class GatherCommand extends BaseCommand
         this.logLines = {};
         this.foundSomething = false;
         this.receivedStop = false;
+        this.tryCount = 0;
 
         tf.console.lock(this);
 
@@ -163,6 +165,13 @@ export class GatherCommand extends BaseCommand
         // we need to have this up here as well because we can't find an item with a missing tool!
         if ( this.tool && this.tool.qty < 1 ) {
             tf.console.appendLine('Your tool broke, stopped gathering items.', 'tip');
+            return false;
+        }
+
+        // for bare hands, add a 30 minute limit before the user needs to come back
+        this.tryCount++;
+        if ( !this.tool && this.tryCount >= 1800 ) {
+            tf.console.appendLine('Your hands are getting dirty and chapped, so you stopped.', 'tip');
             return false;
         }
 

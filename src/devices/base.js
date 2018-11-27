@@ -369,6 +369,7 @@ export class DeviceMakeCommand extends BaseCommand
         this.recipe = null;
 
         let qty = args.qty || 1;
+        qty = parseInt(qty);
         let itemName = args.name;
 
         // make sure the item exists

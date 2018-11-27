@@ -172,7 +172,16 @@ div.input {
     background:#fff;
     z-index:100;
     padding:4px;
-    border: 1px solid #bbb;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+    border: 1px solid #ddd;
+    box-shadow: 3px 5px 8px rgba(0, 0, 0, .3);
     font-size:12px;
+    width:300px;
+}
+
+.tooltip i {
+    display: inline-block;
+    padding-bottom: 6px;
+}
+.tooltip i:last-child {
+    padding-bottom: 0;
 }

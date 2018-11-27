@@ -4,8 +4,8 @@
         "time": 180,
         "stamina": 36,
         "input": {
-            "plant_fiber": 50,
-            "stick": 25
+            "plant_fiber": 40,
+            "stick": 20
         },
         "output": {
             "thatch_bed": 1
@@ -23,6 +23,35 @@
         },
         "output": {
             "flint_spears": 1
+        }
+    },
+
+    "earth_rampart": {
+        "device": "structure",
+        "time": 300,
+        "stamina": 150,
+        "input": {
+            "dirt": 50,
+            "sand": 50,
+            "clay": 30
+        },
+        "output": {
+            "earth_rampart": 1
+        }
+    },
+
+    "palisade": {
+        "device": "structure",
+        "time": 1200,
+        "stamina": 900,
+        "input": {
+            "wood": 75,
+            "small_plank": 150,
+            "dirt": 150,
+            "stone": 50
+        },
+        "output": {
+            "palisade": 1
         }
     },
 
