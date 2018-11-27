@@ -185,3 +185,8 @@ div.input {
 .tooltip i:last-child {
     padding-bottom: 0;
 }
+
+.tooltip span.ttpage {
+    float: right;
+    color: #888;
+}

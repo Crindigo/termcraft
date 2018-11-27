@@ -2,6 +2,7 @@ import $ from 'jquery';
 import Vue from 'vue';
 import './assets/style.css';
 import { numberFormatFull, numberFormatAbbr, progressBar, textFormat } from './utils';
+import { setupTooltip } from './tooltip';
 
 import { TFConsole } from './console';
 import { Player } from './player';
@@ -133,95 +134,7 @@ setTimeout(() => tf.console.scrollToEnd(true), 200);
 
 tf.console.focus();
 
-let ttTimeout = null;
-// possible todo - make clicking itemtt change pages in the tooltip? first page is flavor + stats,
-// further pages are recipes and usages of the item?
-$('body').on('mouseenter', 'span.itemtt', function(e) {
-    let itemname = $(this).text().trim();
-    let isDevice = $(this).closest('ul.devices-contents').length > 0;
-
-    if ( isDevice ) {
-        itemname = tf.devices.activeRegistry[itemname].deviceClass.id;
-    }
-    let item = tf.items.find(itemname);
-    itemname = item.name;
-
-    let body = '';
-    if ( item.flavor.length ) {
-        body += `<br><i>${item.flavor}</i>`
-    }
-
-    if ( item.category === 'support' ) {
-        if ( item.staminaRegen > 0 ) {
-            body += `<br><b>Stamina Regen:</b> +${item.staminaRegen}/s`;
-        }
-        if ( item.landBonus > 0 ) {
-            body += `<br><b>Land Bonus:</b> ${item.landBonus}`;
-        }
-        if ( item.researchBonus > 0 ) {
-            body += `<br><b>Research Bonus:</b> ${item.researchBonus}`;
-        }
-    } else if ( item.category === 'device' ) {
-        if ( item.land > 0 ) {
-            body += `<br><b>Land Used:</b> ${item.land}`;
-        }
-    } else {
-        if ( item.edible ) {
-            itemname += ' [edible]';
-            let stamina = numberFormatAbbr(item.stamina * tf.player.staminaMultiplier());
-            let staminaCap = numberFormatAbbr(item.staminaCap *  tf.player.staminaMultiplier());
-
-            body += `<br><b>Stamina Regen:</b> +${stamina} / ${item.time}s`;
-            body += `<br><b>Stamina Cap:</b> +${staminaCap}`;
-
-            let allGroups = Object.keys(tf.player.nutrition);
-            let groups = item.tags.filter(t => allGroups.includes(t));
-            if ( groups.length === 5 ) {
-                groups = ['a truly balanced meal!'];
-            }
-            body += `<br><b>Food Groups:</b> ${groups.join(', ')}`;
-        }
-        if ( item.tool ) {
-            let skill = tf.player.toolMakingSkill[item.id] || 0;
-            body += `<br><b>Tool:</b> Lv${item.level} ${item.tags[0]}`;
-            body += `<br><b>Toolmaking Skill:</b> ${skill}/100`;
-        }
-        if ( item.animal ) {
-            itemname += ' [animal]';
-            body += `<br><b>Size:</b> ${item.size}kg`;
-            // sheds/drops on other pages probably
-        }
-    }
-
-    if ( ttTimeout ) {
-        clearTimeout(ttTimeout);
-    }
-
-    ttTimeout = setTimeout(() => {
-        let off = $(this).offset();
-        let winHeight = $(window).height();
-        let winWidth = $(window).width();
-        let tt = $('.tooltip')
-            .html(`<b>${itemname}</b>${body}`)
-            .show();
-
-        let position = {left: off.left, top: off.top + 18};
-        let ttHeight = tt.height();
-        if ( off.top > winHeight - ttHeight - 30 ) {
-            position.top = off.top - ttHeight - 14;
-        }
-        position.left = Math.min(position.left, winWidth - 320);
-
-        tt.css(position);
-    }, 350);
-});
-
-$('body').on('mouseleave', 'span.itemtt', function(e) {
-    if ( ttTimeout ) {
-        clearTimeout(ttTimeout);
-    }
-    $('.tooltip').hide();
-});
+setupTooltip(tf);
 
 // Number formatters
 Vue.filter('fmtqty', (value) => 'Quantity: ' + numberFormatFull(value));
@@ -262,7 +175,7 @@ window.leftVue = tf.vue = new Vue({
         },
 
         itemClick(item) {
-            $('#command').val($('#command').val() + item.name);
+            //$('#command').val($('#command').val() + item.name);
         },
 
         useDevice(name) {

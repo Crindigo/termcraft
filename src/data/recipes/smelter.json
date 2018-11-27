@@ -1,0 +1,25 @@
+{
+    "smelt_stone": {
+        "name": "stone",
+        "device": "smelter",
+        "time": 300,
+        "input": {
+            "stone": 50
+        },
+        "output": {
+            "slag": 10,
+            "molten_copper": 1
+        }
+    },
+    "smelt_tetrahedrite": {
+        "name": "tetrahedrite",
+        "device": "smelter",
+        "time": 60,
+        "input": {
+            "tetrahedrite": 1
+        },
+        "output": {
+            "molten_copper": 1
+        }
+    }
+}

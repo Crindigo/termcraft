@@ -12,6 +12,12 @@ export class Crafting
         this.sets = {};
         this.allRecipes = {};
         this.unlockedRecipes = {};
+
+        // Maps of item ID to a list of recipes that take the item as input or give it as output.
+        // Used for cycling recipes in the tooltips. Tooltip will check if the recipe ID is unlocked.
+        this.indexByInput = {};
+        this.indexByOutput = {};
+
         const context = require.context('./data/recipes', true, /\.json$/);
         context.keys().forEach(key => this.addRecipes(key, context(key)));
 
@@ -35,6 +41,33 @@ export class Crafting
         }
         this.sets[device].addRecipe(recipe);
         this.allRecipes[id] = recipe;
+
+        Object.keys(recipe.input).forEach(itemId => {
+            // if the input item is a tag, we have to flatten it to include all items matching the tag.
+            let itemIds = [];
+            let m = itemId.startsWith("tag:") && itemId.match(tagRegexp);
+            if ( m ) {
+                itemIds = Object.values(this.tf.items.registry)
+                    .filter(item => itemMatchesTagSpec(item, m.groups, itemId))
+                    .map(item => item.id)
+            } else {
+                itemIds = [itemId];
+            }
+
+            itemIds.forEach(iid => {
+                if ( !this.indexByInput[iid] ) {
+                    this.indexByInput[iid] = [];
+                }
+                this.indexByInput[iid].push(recipe);
+            });
+        });
+
+        Object.keys(recipe.output).forEach(itemId => {
+            if ( !this.indexByOutput[itemId] ) {
+                this.indexByOutput[itemId] = [];
+            }
+            this.indexByOutput[itemId].push(recipe);
+        });
     }
 
     findRecipe(device, id) {
@@ -48,6 +81,10 @@ export class Crafting
         let device = this.allRecipes[id].device;
         this.unlockedRecipes[id] = this.allRecipes[id];
         this.sets[device].unlock(id);
+    }
+
+    isUnlocked(id) {
+        return !!this.unlockedRecipes[id];
     }
 
     findRecipeByName(device, name) {
