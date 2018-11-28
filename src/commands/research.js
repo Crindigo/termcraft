@@ -8,7 +8,7 @@ export class ResearchCommand extends BaseCommand
 
         this.name = 'research';
         this.patterns = [
-            /^(the\s+)?(?<name>.+)/,
+            /^(?:the\s+)?(.+)/,
             true
         ];
 
@@ -42,13 +42,13 @@ export class ResearchCommand extends BaseCommand
     }
 
     run(tf, args) {
-        if ( !args.name ) {
+        if ( !args[1] ) {
             this.researchList(tf);
             return;
         }
 
         this.tech = null;
-        let name = args.name;
+        let name = args[1];
 
         // make sure the item exists
         let tech = tf.research.findByName(name);

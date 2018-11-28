@@ -9,7 +9,7 @@ export class EatCommand extends BaseCommand
 
         this.name = 'eat';
         this.patterns = [
-            /^(an?\s+)?(?<food>.+)$/
+            /^(?:an?\s+)?(.+)$/
         ];
 
         this.receivedStop = false;
@@ -32,7 +32,7 @@ export class EatCommand extends BaseCommand
 
     run(tf, args) {
         this.food = null;
-        let food = args.food;
+        let food = args[1];
 
         // make sure the item exists
         let item = tf.items.find(food);

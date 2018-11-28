@@ -17,7 +17,7 @@ export class BuildCommand extends BaseCommand
 
         this.name = 'build';
         this.patterns = [
-            /^(an?\s+)?(?<name>.+)$/
+            /^(?:an?\s+)?(.+)$/
         ];
 
         this.receivedStop = false;
@@ -40,7 +40,7 @@ export class BuildCommand extends BaseCommand
     run(tf, args) {
         this.recipe = null;
 
-        let itemName = args.name;
+        let itemName = args[1];
 
         // make sure the item exists
         let item = tf.items.find(itemName);

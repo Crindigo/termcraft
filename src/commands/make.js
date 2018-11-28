@@ -14,8 +14,8 @@ export class MakeCommand extends BaseCommand
         // make a/an item
         // make item
         this.patterns = [
-            /^(?<qty>\d+)\s+(?<item>.+)$/,
-            /^(an?\s+)?(?<item>.+)$/,
+            /^(\d+)\s+(.+)$/,
+            /^(?:an?\s+)?(.+)$/,
         ];
 
         this.receivedStop = false;
@@ -40,9 +40,14 @@ export class MakeCommand extends BaseCommand
 
     run(tf, args) {
         this.recipe = null;
-        this.desiredQty = args.qty || 1;
-
-        let itemName = args.item;
+        let itemName;
+        if ( args[2] ) {
+            this.desiredQty = args[1];
+            itemName = args[2];
+        } else {
+            this.desiredQty = 1;
+            itemName = args[1];
+        }
 
         // make sure the item exists
         let item = tf.items.find(itemName);

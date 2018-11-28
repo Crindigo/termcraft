@@ -1,5 +1,5 @@
 import $ from "jquery";
-import {numberFormatAbbr} from "./utils";
+import {formatTagSpec, numberFormatAbbr} from "./utils";
 
 let ttTimeout = null;
 let ttPage = 1;
@@ -9,17 +9,28 @@ let ttElement = $('.tooltip');
 let ttOffset = null;
 let ttPageCount = 1;
 
+let inputRecipes = null;
+let outputRecipes = null;
+
 function countPages() {
     // needs to have an index of recipes where item is in the output, and where it's in the input, then
     // the total count is 1 + sum of those 2
-    return 2;
+    return 1 + outputRecipes.length + inputRecipes.length;
 }
 
 function getTooltipPage() {
     if ( ttPage === 1 ) {
         return getOverview(ttItem);
     } else {
-        return '<br>Hello there, this is page 2 of the tooltip which does not contain anything useful right now.';
+        let outputRecipeIndex = ttPage - 2;
+        let body;
+        if ( outputRecipeIndex < outputRecipes.length ) {
+            body = getRecipeBody(outputRecipes[outputRecipeIndex], false);
+        } else {
+            let inputRecipeIndex = ttPage - 2 - outputRecipes.length;
+            body = getRecipeBody(inputRecipes[inputRecipeIndex], true);
+        }
+        return body;
     }
 }
 
@@ -85,6 +96,66 @@ function getOverview() {
     return '<br>' + body.join('<br>');
 }
 
+function getRecipeBody(recipe, isInput) {
+    let madeWith = recipe.device;
+    if ( madeWith === 'structure' ) {
+        madeWith = 'build command';
+    } else if ( madeWith === 'hand' ) {
+        madeWith = 'make command';
+    } else {
+        madeWith = tf.devices.deviceClasses[madeWith].name;
+    }
+
+    let body = [];
+    let usage = isInput ? 'Used with' : 'Made with';
+
+    body.push(`${usage}: ${madeWith}`);
+
+    let reqs = [];
+    if ( recipe.time ) {
+        reqs.push(`Time: ${recipe.time}s`);
+    }
+    if ( recipe.stamina ) {
+        reqs.push(`Stamina: ${recipe.stamina}`);
+    }
+    if ( recipe.power ) {
+        reqs.push(`Power: ${recipe.power}`);
+    }
+    if ( recipe.ether ) {
+        reqs.push(`Ether: ${recipe.ether}`);
+    }
+
+    if ( reqs.length > 0 ) {
+        body.push(reqs.join(' | '));
+    }
+
+    body.push('<b>Input:</b>');
+    Object.entries(recipe.input).forEach(kv => {
+        // need to get names from id
+        let itemName = '';
+        if ( kv[0].startsWith('tag:') ) {
+            let stacks = tf.player.inventory.findMatchingTag(kv[0]);
+            if ( stacks.length === 0 ) {
+                itemName = formatTagSpec(kv[0]);
+            } else {
+                itemName = stacks.map(s => s.item.name).join('/');
+            }
+        } else {
+            itemName = tf.items.get(kv[0]).name;
+        }
+        console.log(kv[0], itemName);
+        body.push(' - ' + itemName + (kv[1] > 1 ? ` (${kv[1]})` : ''));
+    });
+    body.push('<b>Output:</b>');
+    Object.entries(recipe.output).forEach(kv => {
+        // need to get names from id
+        let itemName = tf.items.get(kv[0]).name;
+        body.push(' - ' + itemName + (kv[1] > 1 ? ` (${kv[1]})` : ''));
+    });
+
+    return '<br>' + body.join('<br>');
+}
+
 function findItemInfo(text, isDevice) {
     if (isDevice) {
         text = tf.devices.activeRegistry[text].deviceClass.id;
@@ -100,8 +171,17 @@ export function setupTooltip(tfParam) {
     // further pages are recipes and usages of the item?
     documentBody.on('mouseenter', 'span.itemtt', function () {
         let text = $(this).text().trim();
+        if ( $(this).data('ttname') ) {
+            // allow override with data attr
+            text = $(this).data('ttname').trim();
+        }
+
         let isDevice = $(this).closest('ul.devices-contents').length > 0;
         ttItem = findItemInfo(text, isDevice);
+
+        inputRecipes = tf.crafting.allByInput(ttItem.id, true);
+        outputRecipes = tf.crafting.allByOutput(ttItem.id, true);
+
         ttPageCount = countPages();
 
         let title = getTooltipTitle();

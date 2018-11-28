@@ -6,8 +6,8 @@ export class TestCommand extends BaseCommand
         super();
         this.name = 'test';
         this.patterns = [
-            /^(?<qty>\d+)\s+(?<item>.+)$/,
-            /^(?<item>.+)/
+            /^(\d+)\s+(.+)$/,
+            /^(.+)/
         ];
     }
 
@@ -16,6 +16,6 @@ export class TestCommand extends BaseCommand
     }
 
     run(tf, args) {
-        return [true, "Qty: " + (args.qty || 1) + " Item: " + args.item];
+        return [true, "Qty: " + (args[1] || 1) + " Item: " + args[2]];
     }
 }

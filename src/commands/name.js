@@ -7,7 +7,7 @@ export class NameCommand extends BaseCommand
 
         this.name = 'name';
         this.patterns = [
-            /^(?<old>[A-Za-z0-9_-]+)\s+(?<new>[A-Za-z0-9_-]+)$/
+            /^([A-Za-z0-9_-]+)\s+([A-Za-z0-9_-]+)$/
         ];
     }
 
@@ -19,8 +19,8 @@ export class NameCommand extends BaseCommand
     }
 
     run(tf, args) {
-        let oldName = args.old;
-        let newName = args['new'];
+        let oldName = args[1];
+        let newName = args[2];
 
         if ( tf.devices.activeRegistry[newName] ) {
             return [false, 'A device with the new name already exists.'];

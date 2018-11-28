@@ -85,7 +85,7 @@
         "requires": ["flint_knapping", "weaving"],
         "unlocks": {
             "recipes": ["brick_former", "chopping_block", "small_plank", "dirt_brick", "clay_brick", "adobe_brick", 
-                "dirt_hut", "adobe_hut", "earth_rampart", "palisade"]
+                "stone_brick", "dirt_hut", "adobe_hut", "earth_rampart", "palisade"]
         }
     },
     "mechanics_1": {

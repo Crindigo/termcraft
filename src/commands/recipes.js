@@ -1,5 +1,4 @@
 import { BaseCommand } from './base';
-import padEnd from 'lodash/padEnd';
 import repeat from 'lodash/repeat';
 
 export class RecipesCommand extends BaseCommand
@@ -9,11 +8,15 @@ export class RecipesCommand extends BaseCommand
 
         this.name = 'recipes';
         this.patterns = [
-            /^(?<itemfilter>.+)$/,
+            /^(.+)$/,
             true
         ];
         
         this.device = device;
+    }
+
+    help() {
+        return 'recipes [name filter]';
     }
 
     run(tf, args) {
@@ -23,7 +26,7 @@ export class RecipesCommand extends BaseCommand
             return;
         }
 
-        let filter = args.itemfilter || '';
+        let filter = args[1] || '';
 
         let line = '';
         let count = 0;

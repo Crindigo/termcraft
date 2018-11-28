@@ -6,7 +6,7 @@ export class HelpCommand extends BaseCommand
         super();
         this.name = 'help';
         this.patterns = [
-            /^(?<cmd>[A-Za-z0-9?]+)$/,
+            /^([A-Za-z0-9?]+)$/,
             true
         ];
 
@@ -18,11 +18,10 @@ export class HelpCommand extends BaseCommand
     }
 
     run(tf, args) {
-        console.log(args);
-        if ( args.cmd ) {
-            let cmd = this.registry.find(args.cmd);
+        if ( args[1] ) {
+            let cmd = this.registry.find(args[1]);
             if ( !cmd ) {
-                return [false, 'Command ' + args.cmd + ' not found.'];
+                return [false, 'Command ' + args[1] + ' not found.'];
             }
             return [true, cmd.help()];
         } else {

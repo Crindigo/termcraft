@@ -7,14 +7,14 @@ export class UseCommand extends BaseCommand
 
         this.name = 'use';
         this.patterns = [
-            /^(the\s+)?(?<name>.+)$/
+            /^(?:the\s+)?(.+)$/
         ];
     }
 
     run(tf, args) {
         // Look up a device by its name (either auto generated or named)
         // Needs to change the command processor to the device's command processor and update PS1.
-        let name = args.name;
+        let name = args[1];
         
         let device = tf.devices.find(name);
         if ( !device ) {

@@ -54,14 +54,14 @@
 
     "straw_basket": {
         "device": "hand",
-        "time": 30,
+        "time": 20,
         "stamina": 10,
         "input": {
             "stick": 8,
             "plant_fiber": 4
         },
         "output": {
-            "straw_basket": 100
+            "straw_basket": 30
         }
     },
 

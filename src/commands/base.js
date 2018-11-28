@@ -58,8 +58,8 @@ export class CommandProcessor
 
             const result = args.match(reg);
             if ( result ) {
-                if ( result.groups ) {
-                    parseResult = result.groups;
+                if ( result ) {
+                    parseResult = result;
                 } else {
                     parseResult = Array.from(result);
                 }

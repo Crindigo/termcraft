@@ -332,8 +332,8 @@ export class DeviceMakeCommand extends BaseCommand
 
         this.name = 'make';
         this.patterns = [
-            /^(?<qty>\d+)\s+(?<name>.+)$/,
-            /^(an?\s+)?(?<name>.+)$/
+            /^(\d+)\s+(.+)$/,
+            /^(?:an?\s+)?(.+)$/
         ];
         
         this.deviceId = deviceId;
@@ -368,9 +368,13 @@ export class DeviceMakeCommand extends BaseCommand
     run(tf, args) {
         this.recipe = null;
 
-        let qty = args.qty || 1;
+        let qty = 1;
+        let itemName = args[1];
+        if ( args[2] ) {
+            qty = args[1];
+            itemName = args[2];
+        }
         qty = parseInt(qty);
-        let itemName = args.name;
 
         // make sure the item exists
         let item = tf.items.find(itemName);

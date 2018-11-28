@@ -10,9 +10,9 @@ export class GatherCommand extends BaseCommand
 
         this.name = 'gather';
         this.patterns = [
-            /^with\s+(a|an)\s+(?<tool>.+)$/,
-            /^with\s+(?<tool>.+)$/,
-            /^(?<tool>.+)$/,
+            /^with\s+(?:a|an)\s+(.+)$/,
+            /^with\s+(.+)$/,
+            /^(.+)$/,
             true
         ];
 
@@ -42,11 +42,14 @@ export class GatherCommand extends BaseCommand
     run(tf, args) {
         this.tool = null;
 
-        if ( args.tool ) {
-            let tool = args.tool;
+        console.log(args);
+        if ( args[1] ) {
+            let tool = args[1];
+            console.log(tool);
 
             // make sure the item exists
             let item = tf.items.find(tool);
+            console.log(item);
             if ( !item ) {
                 return [false, "You don't have " + an(tool) + "."];
             }
@@ -106,6 +109,7 @@ export class GatherCommand extends BaseCommand
 
     cacheGatherItems() {
         this.gatherItems = {};
+        console.log('this tool', this.tool);
         if ( !this.tool ) {
             this.gatherItems = this.gatherData["hand"];
         } else {
@@ -118,7 +122,7 @@ export class GatherCommand extends BaseCommand
                 // try a full match with tag + level bounds
                 let m = toolSpec.match(tagRegexp);
                 if ( m ) {
-                    if ( !itemMatchesTagSpec(this.tool.item, m.groups, toolSpec) ) {
+                    if ( !itemMatchesTagSpec(this.tool.item, m, toolSpec) ) {
                         continue;
                     }
                 } else if ( toolSpec !== this.tool.item.id ) {

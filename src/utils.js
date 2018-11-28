@@ -5,7 +5,7 @@ const shortNumFormatter = d3Format('.3~s');
 const smallNumFormatter = d3Format('.3~f');
 const fullNumFormatter = d3Format(',');
 
-export const tagRegexp = /^tag:(?<tag>[a-z0-9_]+)(\s*(\[(?<low>\d+),(?<high>\d+)?(?<close>\]|\))))?$/;
+export const tagRegexp = /^tag:([a-z0-9_]+)(\s*(\[(\d+),(\d+)?([\])])))?$/;
 
 export function numberFormatAbbr(value) {
     return Math.abs(value) < 1 ? smallNumFormatter(value) : shortNumFormatter(value);
@@ -31,21 +31,22 @@ export function itemMatchesTagSpec(item, matchGroups, originalSpec) {
 
     const tags = item.tags || [];
     const level = item.level || 0;
+    console.log(matchGroups);
 
-    let tagMatches = tags.includes(matchGroups.tag);
+    let tagMatches = tags.includes(matchGroups[1]);
     if ( !tagMatches ) {
         //tagSpecMatchCache[cacheKey] = false;
         return false;
     }
 
     let levelMatches = true;
-    if ( matchGroups.low ) {
-        levelMatches = levelMatches && level >= parseInt(matchGroups.low);
-        if ( matchGroups.high ) {
-            if ( matchGroups.close === ']' ) {
-                levelMatches = levelMatches && level <= parseInt(matchGroups.high);
-            } else if ( matchGroups.close === ')' ) {
-                levelMatches = levelMatches && level < parseInt(matchGroups.high);
+    if ( matchGroups[4] ) {
+        levelMatches = levelMatches && level >= parseInt(matchGroups[4]);
+        if ( matchGroups[5] ) {
+            if ( matchGroups[6] === ']' ) {
+                levelMatches = levelMatches && level <= parseInt(matchGroups[5]);
+            } else if ( matchGroups[6] === ')' ) {
+                levelMatches = levelMatches && level < parseInt(matchGroups[5]);
             }
         }
     }
@@ -56,24 +57,24 @@ export function itemMatchesTagSpec(item, matchGroups, originalSpec) {
 
 export function formatTagSpec(spec) {
     let m = spec.match(tagRegexp);
-    if ( m.groups.low ) {
-        if ( m.groups.high ) {
-            let low = parseInt(m.groups.low);
-            let high = parseInt(m.groups.high);
-            if ( m.groups.close === ')' ) {
+    if ( m[4] ) {
+        if ( m[5] ) {
+            let low = parseInt(m[4]);
+            let high = parseInt(m[5]);
+            if ( m[6] === ')' ) {
                 high--;
             }
             
             if ( low === high ) {
-                return `[any ${m.groups.tag}, level ${low}]`;
+                return `[any ${m[1]}, level ${low}]`;
             } else {
-                return `[any ${m.groups.tag}, level ${low}-${high}]`;
+                return `[any ${m[1]}, level ${low}-${high}]`;
             }
         } else {
-            return `[any ${m.groups.tag}, level ${m.groups.low}+]`;
+            return `[any ${m[1]}, level ${m[4]}+]`;
         }
     } else {
-        return `[any ${m.groups.tag}]`;
+        return `[any ${m[1]}]`;
     }
 }
 

@@ -214,7 +214,7 @@ export class Inventory
     /**
      * Finds all stacks matching the given tag and level range.
      * 
-     * @param {string} tag 
+     * @param {string} tagSpec
      */
     findMatchingTag(tagSpec) {
         let m = tagSpec.match(tagRegexp);
@@ -223,7 +223,7 @@ export class Inventory
         }
 
         return this.items.filter(st => {
-            return itemMatchesTagSpec(st.item, m.groups, tagSpec);
+            return itemMatchesTagSpec(st.item, m, tagSpec);
         });
     }
 

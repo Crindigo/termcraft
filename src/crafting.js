@@ -48,7 +48,7 @@ export class Crafting
             let m = itemId.startsWith("tag:") && itemId.match(tagRegexp);
             if ( m ) {
                 itemIds = Object.values(this.tf.items.registry)
-                    .filter(item => itemMatchesTagSpec(item, m.groups, itemId))
+                    .filter(item => itemMatchesTagSpec(item, m, itemId))
                     .map(item => item.id)
             } else {
                 itemIds = [itemId];
@@ -105,6 +105,22 @@ export class Crafting
             return found;
         }
         return this.sets[device] ? this.sets[device].findByOutput(id) : null;
+    }
+
+    allByInput(itemId, unlockedOnly = false) {
+        let all = this.indexByInput[itemId] || [];
+        if ( !unlockedOnly ) {
+            return all;
+        }
+        return all.filter(recipe => this.isUnlocked(recipe.id));
+    }
+
+    allByOutput(itemId, unlockedOnly = false) {
+        let all = this.indexByOutput[itemId] || [];
+        if ( !unlockedOnly ) {
+            return all;
+        }
+        return all.filter(recipe => this.isUnlocked(recipe.id));
     }
 
     getAvailableRecipes(device, inventory) {
@@ -232,7 +248,7 @@ class Recipe
                 // need to look for an item matching the spec. items is a map of id => stack.
                 // hopefully this isn't slow. if it is we could theoretically get every tag spec in the
                 // game for gathers, recipes, etc. and generate a list of matching item IDs in its place.
-                return Object.values(items).some(st => itemMatchesTagSpec(st.item, m.groups, key) && st.qty >= qty * desiredQty);
+                return Object.values(items).some(st => itemMatchesTagSpec(st.item, m, key) && st.qty >= qty * desiredQty);
             } else {
                 // key is just a plain item id. return true if it's in items and qty is good.
                 return items[key] && items[key].qty >= qty * desiredQty;

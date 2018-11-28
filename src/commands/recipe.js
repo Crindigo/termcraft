@@ -8,16 +8,16 @@ export class RecipeCommand extends BaseCommand
 
         this.name = 'recipe';
         this.patterns = [
-            /^(for )?(?<name>.+)$/
+            /^(?:for )?(.+)$/
         ];
 
         this.device = device;
     }
 
     run(tf, args) {
-        const recipe = tf.crafting.findRecipeByName(this.device, args.name);
+        const recipe = tf.crafting.findRecipeByName(this.device, args[1]);
         if ( !recipe ) {
-            return [false, 'No recipe found for ' + args.name + '.'];
+            return [false, 'No recipe found for ' + args[1] + '.'];
         }
 
         // Probably need to rethink this at some point. Like going through all devices which have a recipe

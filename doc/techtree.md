@@ -30,7 +30,7 @@
     fired clay bricks (fireclay=clay + kaolinite). can make quicklime from chalk.
 
 - cooking ovens (req: charcoal production)
-  - creation of brick ovens, used for heated drying and cooking/baking of food
+  - creation of stone brick ovens, used for heated drying and cooking/baking of food
 
 - agriculture (req: pottery)
   - creation of farms, flint scythe for gathering basic seeds. farms can be watered via
