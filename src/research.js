@@ -106,7 +106,9 @@ export class Research
         if ( !this.completedIndex[id] ) {
             this.completedResearch.push(id);
             this.completedIndex[id] = true;
-            this.tf.events.checkAll();
+            if ( id !== '_default_' ) {
+                this.tf.events.checkAll();
+            }
         }
 
         // recalculate available research

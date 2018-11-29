@@ -72,7 +72,8 @@ width: 34 total
     <!-- <li v-for="device in filteredDevices" v-html="textfmt(device.renderList())"></li> -->
     <li v-for="device in filteredDevices">
         <span class="item itemtt clickable">{{ device.name }}</span>
-        <span class="meta"><a href="#" @click.prevent="useDevice(device.name)">use</a></span>
+        <span class="meta"><a href="#" @click.prevent="useDevice(device.name)"
+            >{{ device.name === activeDeviceName ? 'quit' : 'use' }}</a></span>
     </li>
     <!--
     <li><span class="item bold">propane grill</span><span class="meta">fuel: 90</span>

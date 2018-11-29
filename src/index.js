@@ -80,6 +80,7 @@ class TermFactory
         this.vue.supports = this.support.activeCache;
         this.vue.incompleteSupports = this.support.partialCache;
         this.vue.devices = this.devices.activeCache;
+        this.vue.activeDeviceName = this.devices.current ? this.devices.current.name : '';
         this.vue.incompleteDevices = this.devices.partialCache;
 
         this.vue.land = this.land;
@@ -101,7 +102,7 @@ class TermFactory
         // this.inventorySyncedOnce = true;
 
         this.player.inventory.getChanges().forEach(change => {
-            console.log('[CHANGE] ', change[0], change[1], change[2].item.name, change[2].qty);
+            //console.log('[CHANGE] ', change[0], change[1], change[2].item.name, change[2].qty);
             switch ( change[0] ) {
                 case 'insert':
                     this.vue.inventory.splice(change[1], 0, {"name": change[2].item.name, "qty": change[2].qty});
@@ -153,6 +154,7 @@ window.leftVue = tf.vue = new Vue({
         supports: [],
         incompleteDevices: [],
         devices: [],
+        activeDeviceName: '',
         stamina: {
             current: 100,
             maximum: 100,
@@ -188,7 +190,15 @@ window.leftVue = tf.vue = new Vue({
             if ( tf.devices.current ) {
                 tf.console.processor.run('quit');
             }
-            tf.console.processor.run('use ' + name);
+
+            if ( name === this.activeDeviceName ) {
+                this.activeDeviceName = '';
+            } else {
+                tf.console.processor.run('use ' + name);
+                this.activeDeviceName = name;
+            }
+
+            tf.console.focus();
         },
 
         staminaProgress() {

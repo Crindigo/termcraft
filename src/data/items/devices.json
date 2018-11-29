@@ -27,6 +27,16 @@
         }
     },
 
+    "charcoal_pit": {
+        "name": "charcoal pit",
+        "category": "device",
+        "land": 4,
+        "drops": {
+            "dirt": 25,
+            "clay": 10
+        }
+    },
+
     "farm": {
         "name": "farm",
         "category": "device",

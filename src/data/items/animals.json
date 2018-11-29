@@ -43,7 +43,7 @@
         },
         "butchers": {
             "blood": 7,
-            "raw_leather": 10,
+            "raw_hide": 10,
             "raw_beef": 20
         },
         "milks": {
@@ -74,8 +74,7 @@
         "size": 80,
         "butchers": {
             "blood": 0.8,
-            "goat_skin": 3,
-            "goat_fur": 3,
+            "raw_hide": 3,
             "raw_mutton": 5
         },
         "milks": {
@@ -94,7 +93,7 @@
         "butchers": {
             "blood": 6.5,
             "raw_horse_meat": 15,
-            "raw_leather": 8,
+            "raw_hide": 8,
             "horse_glue": 2
         }
     },
@@ -136,7 +135,7 @@
     "raw_chicken": "raw chicken",
 
     "manure": "manure",
-    "raw_leather": "raw leather",
+    "raw_hide": "raw hide",
     "raw_beef": "raw beef",
     "raw_cow_milk": "raw cow milk",
 
@@ -146,8 +145,6 @@
     "duck_egg": "duck egg",
     "raw_duck": "raw duck",
 
-    "goat_skin": "goat skin",
-    "goat_fur": "goat fur",
     "raw_mutton": "raw mutton",
     "raw_goat_milk": "raw goat milk",
 

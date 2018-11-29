@@ -50,6 +50,11 @@
 - animal power (req: animal husbandry)
   - creation of horse-powered generator. recipe takes a horse, generates power in exchange for hay.
 
+- leather processing (req: animal husbandry)
+  - creation of drying rack
+  - creation of leather (raw hide + slaked lime + water + salt + drying rack time), leather armor
+  - cut into strips with handaxe and use as binding for higher level tools
+
 - smelting (req: pottery)
   - creation of charcoal-powered smelteries built with firebrick. processing stone
     gives trace amounts of molten copper along with slag.

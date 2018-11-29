@@ -88,6 +88,19 @@
                 "stone_brick", "dirt_hut", "adobe_hut", "earth_rampart", "palisade"]
         }
     },
+    "charcoal_production": {
+        "name": "Charcoal Production",
+        "time": 60,
+        "stamina": 30,
+        "items": {
+            "dirt": 10,
+            "wood": 10
+        },
+        "requires": ["construction_1", "fire"],
+        "unlocks": {
+            "recipes": ["charcoal_pit", "charcoal"]
+        }
+    },
     "mechanics_1": {
         "name": "Mechanics 1",
         "time": 60,

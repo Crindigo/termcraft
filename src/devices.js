@@ -16,6 +16,7 @@ export class Devices
             'chopping_block': createSimpleDeviceClass(tf, 'chopping_block', true),
             'brick_former': createSimpleDeviceClass(tf, 'brick_former', false),
             'campfire': createSimpleDeviceClass(tf, 'campfire', true),
+            'charcoal_pit': createSimpleDeviceClass(tf, 'charcoal_pit', false),
             'farm': new FarmClass(this.tf)
         };
 

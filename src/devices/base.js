@@ -274,6 +274,7 @@ class QuitCommand extends BaseCommand
         tf.console.appendLine('You stopped using the device.', 'tip');
         tf.console.processor = tf.console.rootProcessor;
         tf.console.setPs1('home$');
+        tf.console.setInDevice(false);
     }
 }
 

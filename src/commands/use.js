@@ -25,6 +25,7 @@ export class UseCommand extends BaseCommand
         tf.devices.current = device;
         tf.console.processor = deviceClass.processor;
         tf.console.setPs1(name + '$');
+        tf.console.setInDevice(true);
         tf.console.appendLine('You started using {!b}' + name + '{/}. Leave with {!b}quit{/}.');
     }
 }

@@ -118,5 +118,18 @@
         "output": {
             "adobe_hut": 1
         }
+    },
+
+    "charcoal_pit": {
+        "device": "structure",
+        "time": 120,
+        "stamina": 80,
+        "input": {
+            "dirt": 50,
+            "clay": 20
+        },
+        "output": {
+            "charcoal_pit": 1
+        }
     }
 }

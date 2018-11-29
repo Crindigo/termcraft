@@ -23,12 +23,15 @@
     "stone_brick": "stone brick",
     "concrete_brick": "concrete brick",
     "calcite": "calcite",
+    "rock_salt": "rock salt",
+    "salt": "salt powder",
     "chalk": "chalk",
     "quicklime": "quicklime",
     "slaked_lime": {
         "name": "slaked lime",
         "tags": ["glue"]
     },
+    "charcoal": "charcoal",
 
     "tetrahedrite": "tetrahedrite",
     "cassiterite": "cassiterite",

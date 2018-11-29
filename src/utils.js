@@ -31,7 +31,6 @@ export function itemMatchesTagSpec(item, matchGroups, originalSpec) {
 
     const tags = item.tags || [];
     const level = item.level || 0;
-    console.log(matchGroups);
 
     let tagMatches = tags.includes(matchGroups[1]);
     if ( !tagMatches ) {
@@ -117,11 +116,22 @@ export function pickRandomKeys(items, divisor = 100) {
 
 export function progressBar(current, max, charWidth) {
     const progWidth = charWidth - 2;
-    const bars = max === 0 ? 0 : Math.round((current / max) * progWidth);
+    const barsFloat = max === 0 ? 0 : ((current / max) * progWidth);
+    const barsInt = Math.floor(barsFloat);
+    const barsFrac = barsFloat - barsInt;
+    //const bars = max === 0 ? 0 : Math.round((current / max) * progWidth);
     let progress = '';
     for ( let i = 0; i < progWidth; i++ ) {
-        if ( i < bars ) {
+        if ( i < barsInt ) {
             progress += '#';
+        } else if ( i === barsInt ) {
+            if ( barsFrac > .66 ) {
+                progress += '=';
+            } else if ( barsFrac > .33 ) {
+                progress += '-';
+            } else {
+                progress += ' ';
+            }
         } else {
             progress += ' ';
         }

@@ -224,4 +224,12 @@ export class TFConsole
         const commandOuter = this.commandEl.outerWidth() - this.commandEl.width();
         this.commandEl.width(inputWidth - ps1Width - commandOuter);
     }
+
+    setInDevice(inDevice) {
+        if ( inDevice ) {
+            this.inputWrap.addClass('inDevice');
+        } else {
+            this.inputWrap.removeClass('inDevice');
+        }
+    }
 }

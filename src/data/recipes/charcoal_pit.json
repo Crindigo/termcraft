@@ -1,0 +1,15 @@
+{
+    "charcoal": {
+        "device": "charcoal_pit",
+        "time": 3600,
+        "input": {
+            "wood": 50,
+            "stick": 8,
+            "dirt": 10,
+            "clay": 5
+        },
+        "output": {
+            "charcoal": 100
+        }
+    }
+}

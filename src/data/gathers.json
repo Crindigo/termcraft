@@ -27,7 +27,8 @@
     "tag:pick[1,)": {
         "flint": 20,
         "stone": 30,
-        "calcite": 30
+        "calcite": 30,
+        "rock_salt": 10
     },
 
     "tag:bow[1,)": {

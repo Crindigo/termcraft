@@ -24,7 +24,23 @@ export class Events
         // Not as important for other requirements since they don't happen very often.
         this.itemCache = {};
 
-        // Event definitions.
+        this.make('banging_rocks', event => {
+            event.researchIds = ['flint_knapping'];
+            event.addStory = `Here I am, banging rocks together like a caveman. Guess it's all I can do at the moment.`;
+        });
+
+        this.make('discovered_fire', event => {
+            event.researchIds = ['fire'];
+            event.addStory = `That was harder than all the online videos said it would be. At least I can set up a
+            campfire now.`;
+        });
+
+        this.make('first_weapon', event => {
+            event.minLand = 11;
+            event.addStory = `Looks like I can build things like this to help project my power in this world. With more
+            land I can eventually build bigger projects.`;
+        });
+
         this.make('blood_magic', event => {
             event.items.blood = 1000;
             event.addStory = `The stench of blood relentlessly assaults my nostrils. Yet, it feels heavier than simply the
@@ -107,7 +123,7 @@ class TFEvent
     }
 
     requirementsMet(tf) {
-        if ( tf.land < this.minLand ) {
+        if ( tf.maxLand < this.minLand ) {
             return false;
         }
 
@@ -121,7 +137,7 @@ class TFEvent
             return false;
         }
 
-        met = this.researchIds.every(id => !!this.tf.research.completedIndex[id]);
+        met = this.researchIds.every(id => !!tf.research.completedIndex[id]);
         if ( !met ) {
             return false;
         }
