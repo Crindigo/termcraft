@@ -78,6 +78,32 @@
         }
     },
 
+    "wood_gear": {
+        "device": "hand",
+        "time": 20,
+        "stamina": 20,
+        "input": {
+            "small_plank": 1,
+            "tag:chisel": 1
+        },
+        "output": {
+            "wood_gear": 1
+        }
+    },
+
+    "wood_shaft": {
+        "device": "hand",
+        "time": 20,
+        "stamina": 20,
+        "input": {
+            "small_plank": 1,
+            "tag:chisel": 1
+        },
+        "output": {
+            "wood_shaft": 1
+        }
+    },
+
     "berry_delight": {
         "device": "hand",
         "time": 10,

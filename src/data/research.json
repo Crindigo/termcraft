@@ -112,7 +112,7 @@
         },
         "requires": ["construction_1", "carving"],
         "unlocks": {
-
+            "recipes": ["hand_crank", "millstone", "wood_gear", "wood_shaft", "salt", "chalk", "kaolinite"]
         }
     },
 

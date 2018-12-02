@@ -131,5 +131,34 @@
         "output": {
             "charcoal_pit": 1
         }
+    },
+
+    "hand_crank": {
+        "device": "structure",
+        "time": 120,
+        "stamina": 120,
+        "input": {
+            "stone_brick": 16,
+            "wood_shaft": 4,
+            "wood_gear": 4
+        },
+        "output": {
+            "hand_crank": 1
+        }
+    },
+
+    "millstone": {
+        "device": "structure",
+        "time": 180,
+        "stamina": 180,
+        "input": {
+            "stone_brick": 20,
+            "stone": 20,
+            "wood_shaft": 2,
+            "wood_gear": 2
+        },
+        "output": {
+            "millstone": 1
+        }
     }
 }

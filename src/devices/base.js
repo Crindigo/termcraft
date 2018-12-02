@@ -103,6 +103,7 @@ export class BaseDevice
         if ( this.craftOperation ) {
             let keepGoing = this.craftOperation.tick(this);
             if ( !keepGoing ) {
+                this.tf.powerChange += this.craftOperation.powerDrain;
                 this.craftOperation = null;
             }
         }
@@ -165,6 +166,7 @@ class CraftOperation
         
         this.staminaDrain = recipe.stamina / recipe.time;
         this.powerDrain = recipe.power / recipe.time;
+        this.etherDrain = recipe.ether / recipe.time;
 
         this.interactive = false;
     }
@@ -186,6 +188,11 @@ class CraftOperation
             return true;
         }
 
+        // check ether
+        if ( tf.ether < this.etherDrain ) {
+            return true;
+        }
+
         // check for this tick's required items.
         // the desired qty is just 1 over the total ticks required.
         if ( !this.recipe.canCraft(tf.player.inventory, 1 / this.recipe.time) ) {
@@ -195,6 +202,7 @@ class CraftOperation
         // take from power and inventory
         tf.player.stamina -= this.staminaDrain;
         tf.power -= this.powerDrain;
+        tf.ether -= this.etherDrain;
         this.recipe.pullFromInventory(tf.player.inventory, 1 / this.recipe.time);
 
         // increment all progress types and update the UI

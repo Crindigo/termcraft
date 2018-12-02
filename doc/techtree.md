@@ -24,13 +24,18 @@
 - mechanics 1 (req: simple construction + carving)
   - first power production. hand crank generator, millstone, gears, axles. millstone
     can extract kaolinite from sand + clay. also chalk from calcite.
+  - sifter, can rarely get materials from sand and gravel. should allow multiple types
+    of mesh with durability. plant fiber mesh to start with.
+  - sand: quartz shard, multiple seashell types.
+  - gravel: flawed gemstones. used in magic probably.
 
 - pottery (req: charcoal production)
   - creation of charcoal kilns, unfired pots, fired pots (used for fluid collection),
-    fired clay bricks (fireclay=clay + kaolinite). can make quicklime from chalk.
+    fired clay bricks (fireclay=clay + kaolinite).
 
 - cooking ovens (req: charcoal production)
-  - creation of stone brick ovens, used for heated drying and cooking/baking of food
+  - creation of stone brick ovens, used for heated drying and cooking/baking of food.
+  - can make quicklime from chalk.
 
 - agriculture (req: pottery)
   - creation of farms, flint scythe for gathering basic seeds. farms can be watered via

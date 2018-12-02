@@ -37,6 +37,28 @@
         }
     },
 
+    "hand_crank": {
+        "name": "hand crank",
+        "category": "device",
+        "land": 2,
+        "powerStorage": 100,
+        "drops": {
+            "small_plank": 4,
+            "stone_brick": 8
+        }
+    },
+
+    "millstone": {
+        "name": "millstone",
+        "category": "device",
+        "land": 2,
+        "drops": {
+            "stone_brick": 10,
+            "stone": 10,
+            "small_plank": 2
+        }
+    },
+
     "farm": {
         "name": "farm",
         "category": "device",

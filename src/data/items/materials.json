@@ -16,6 +16,8 @@
     "small_plank": "plank",
 
     "wood_bowl": "wood bowl",
+    "wood_gear": "wood gear",
+    "wood_shaft": "wood shaft",
 
     "clay_brick": "clay brick",
     "dirt_brick": "dirt brick",
@@ -24,8 +26,9 @@
     "concrete_brick": "concrete brick",
     "calcite": "calcite",
     "rock_salt": "rock salt",
-    "salt": "salt powder",
+    "salt": "salt",
     "chalk": "chalk",
+    "kaolinite": "kaolinite",
     "quicklime": "quicklime",
     "slaked_lime": {
         "name": "slaked lime",

@@ -48,6 +48,7 @@ export class Item
         // devices
         this.land = info.land || 0;
         this.drops = info.drops || {};
+        this.powerStorage = info.powerStorage || 0;
     }
 
     stack(qty) {

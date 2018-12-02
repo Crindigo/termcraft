@@ -1,0 +1,38 @@
+{
+    "salt": {
+        "device": "millstone",
+        "time": 5,
+        "power": 5,
+        "input": {
+            "rock_salt": 1
+        },
+        "output": {
+            "salt": 1
+        }
+    },
+
+    "chalk": {
+        "device": "millstone",
+        "time": 5,
+        "power": 5,
+        "input": {
+            "calcite": 1
+        },
+        "output": {
+            "chalk": 1
+        }
+    },
+
+    "kaolinite": {
+        "device": "millstone",
+        "time": 5,
+        "power": 5,
+        "input": {
+            "sand": 2,
+            "clay": 1
+        },
+        "output": {
+            "kaolinite": 2
+        }
+    }
+}

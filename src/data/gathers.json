@@ -9,10 +9,10 @@
     },
 
     "tag:shovel[1,)": {
-        "dirt": 30,
+        "dirt": 25,
         "sand": 20,
         "gravel": 20,
-        "clay": 15
+        "clay": 17
     },
 
     "tag:shovel[2,)": {

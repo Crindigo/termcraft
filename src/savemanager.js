@@ -16,6 +16,8 @@ export class SaveManager
         data.playerNutrition = this.tf.player.nutrition;
         data.playerToolSkill = this.tf.player.toolMakingSkill;
 
+        data.currentPower = this.tf.power;
+
         // just store item id and quantity
         data.inventory = this.tf.player.inventory.items.map(stack => {
             return {"itemId": stack.item.id, "qty": stack.qty};
@@ -56,6 +58,8 @@ export class SaveManager
 
         this.tf.player.stamina = data.playerStamina;
         this.tf.player.maxStamina = data.playerMaxStamina;
+        this.tf.power = data.currentPower || 0;
+
         if ( data.playerNutrition ) {
             this.tf.player.nutrition = data.playerNutrition;
             // need to refresh this after setting nutrition.

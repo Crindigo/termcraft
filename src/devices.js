@@ -1,5 +1,6 @@
 import { BaseDevice, createSimpleDeviceClass } from './devices/base';
 import {FarmClass} from "./devices/farm";
+import {HandCrankClass} from "./devices/hand_crank";
 
 
 export class Devices
@@ -17,6 +18,8 @@ export class Devices
             'brick_former': createSimpleDeviceClass(tf, 'brick_former', false),
             'campfire': createSimpleDeviceClass(tf, 'campfire', true),
             'charcoal_pit': createSimpleDeviceClass(tf, 'charcoal_pit', false),
+            'hand_crank': new HandCrankClass(this.tf), // should have less power storage, build flywheel instead
+            'millstone': createSimpleDeviceClass(tf, 'millstone', false),
             'farm': new FarmClass(this.tf)
         };
 
@@ -122,11 +125,13 @@ export class Devices
         this.partialCache = inactive;
 
         this.currentCounts = {};
+        this.tf.maxPower = 0;
         cache.forEach(d => {
             if ( !this.currentCounts[d.id] ) {
                 this.currentCounts[d.id] = 0;
             }
             this.currentCounts[d.id]++;
+            this.tf.maxPower += this.tf.items.get(d.deviceClass.id).powerStorage;
         });
 
         this.tf.events.checkAll(); // handle device events

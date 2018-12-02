@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Vue from 'vue';
 import './assets/style.css';
-import { numberFormatFull, numberFormatAbbr, progressBar, textFormat } from './utils';
+import {numberFormatFull, numberFormatAbbr, progressBar, textFormat, clamp} from './utils';
 import { setupTooltip } from './tooltip';
 
 import { TFConsole } from './console';
@@ -57,6 +57,10 @@ class TermFactory
 
     freeLand() {
         return this.maxLand - this.land;
+    }
+
+    modifyPower(power) {
+        this.power = clamp(this.power + power, 0, this.maxPower);
     }
 
     tick() {

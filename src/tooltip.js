@@ -18,6 +18,9 @@ function countPages() {
     return 1 + outputRecipes.length + inputRecipes.length;
 }
 
+// Show the overview
+// TODO: for devices, show some basic stats on current crafting operation if it has a background process
+// TODO: also in that case make the device name bold in the device list.
 function getTooltipPage() {
     if ( ttPage === 1 ) {
         return getOverview(ttItem);

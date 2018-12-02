@@ -72,6 +72,6 @@ module.exports = {
     "quantum_science_lab": {
         "name": "quantum science lab",
         "category": "support",
-        "researchBonus": 10.0
+        "researchBonus": 100.0
     }
 };
